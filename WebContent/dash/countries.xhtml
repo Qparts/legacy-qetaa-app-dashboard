@@ -102,18 +102,18 @@
 								Internal Status
 							</f:facet>
 							<h:outputText value="active" styleClass="w3-tag w3-green"
-								rendered="#{var.internalStatus == 'A'}" />
+								rendered="#{Character.toString(var.internalStatus) eq 'A'}" />
 							<h:outputText value="inactive" styleClass="w3-tag w3-red"
-								rendered="#{var.internalStatus == 'I'}" />
+								rendered="#{Character.toString(var.internalStatus)== 'I'}" />
 						</h:column>
 						<h:column>
 							<f:facet name="header">
 								Customer Status
 							</f:facet>
 							<h:outputText value="active" styleClass="w3-tag w3-green"
-								rendered="#{var.customerStatus == 'A'}" />
+								rendered="#{Character.toString(var.customerStatus) == 'A'}" />
 							<h:outputText value="inactive" styleClass="w3-tag w3-red"
-								rendered="#{var.customerStatus == 'I'}" />
+								rendered="#{Character.toString(var.customerStatus) == 'I'}" />
 						</h:column>
 						<h:column>
 							<f:facet name="header">
