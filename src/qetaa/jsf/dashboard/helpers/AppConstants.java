@@ -10,7 +10,7 @@ public class AppConstants {
 
 	public final static String SERVICE_HOST = "http://localhost:8080";
 	public final static String APP_HOST_LOCAL = "http://localhost:8080";
-	public final static String APP_SECRET = "093X3b*y&iWu4U&F181X#3ZE0)%9374";
+	public final static String APP_SECRET = "secret";
 
 	private final static String USER_SERVICE = SERVICE_HOST + "/service-qetaa-user/rest/";
 	private final static String PAYMENT_SERVICE_BANKS = SERVICE_HOST + "/service-qetaa-payment/rest/banks/";
