@@ -6,7 +6,7 @@
 
 	<h:form id="form-approved" >
 		<p:dialog id="dlgapproved" widgetVar="dlgapprovedwv"
-			styleClass="q-dialog" header="Finalized Quotation" rendered="#{quotationViewBean.cart.status eq 'R'}">
+			styleClass="q-dialog" header="Finalized Quotation" rendered="#{Character.toString(quotationViewBean.cart.status) eq 'R'}">
 			<div align="center">
 				<h:panelGroup>
 					<h:outputText
@@ -62,15 +62,15 @@
 					<p:column>
 						<div style="vertical-align: center;" align="center">
 							<h:outputText value="Ready" styleClass="w3-tag w3-green"
-								rendered="#{fitem.status eq 'F'}" />
-							<h:outputText value="Missing" rendered="#{fitem.status eq 'M'}"
+								rendered="#{Character.toString(fitem.status) eq 'F'}" />
+							<h:outputText value="Missing" rendered="#{Character.toString(fitem.status) eq 'M'}"
 								styleClass="w3-tag w3-red" />
 							<h:outputText value="No Price!" styleClass="w3-tag w3-red"
-								rendered="#{fitem.status eq 'N'}" />
+								rendered="#{Character.toString(fitem.status) eq 'N'}" />
 							<br />
 							<p:commandLink oncomplete="PF('dlg4wv').show();" update=":form4"
 								actionListener="#{qBean.initManualQuotation(qitem)}"
-								rendered="#{qitem.integrityStatus eq 'I' or qitem.integrityStatus eq 'P'}">
+								rendered="#{Character.toString(qitem.integrityStatus) eq 'I' or Character.toString(qitem.integrityStatus) eq 'P'}">
 								<i class="fa fa-plus"></i>
 							</p:commandLink>
 						</div>

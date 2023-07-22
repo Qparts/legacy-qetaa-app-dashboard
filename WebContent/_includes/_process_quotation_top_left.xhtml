@@ -166,14 +166,14 @@
 		<div align="center" class="w3-padding-24">
 			<h:form>
 				<p:commandButton styleClass="q-btn"
-					rendered="#{quotationBean.cart.status eq 'R'}"
+					rendered="#{Character.toString(quotationBean.cart.status) eq 'R'}"
 					value="All Responses" update=":form-approved-full"
 					oncomplete="PF('dlgapprovedfullwv').show()" />
 			</h:form>
 			<br />
 			<h:form>
 				<p:commandButton styleClass="q-btn"
-					rendered="#{quotationBean.cart.status eq 'R'}"
+					rendered="#{Character.toString(quotationBean.cart.status) eq 'R'}"
 					value="Approve Quotation" update=":form-approved"
 					oncomplete="PF('dlgapprovedwv').show()" />
 			</h:form>

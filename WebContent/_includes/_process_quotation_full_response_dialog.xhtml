@@ -6,7 +6,7 @@
 
 	<h:form id="form-approved-full" >
 		<p:dialog id="dlgapprovedfull" widgetVar="dlgapprovedfullwv"
-			styleClass="q-dialog" header="Finalized Quotation" rendered="#{quotationBean.cart.status eq 'R'}">
+			styleClass="q-dialog" header="Finalized Quotation" rendered="#{Character.toString(quotationBean.cart.status) eq 'R'}">
 			<br />
 			<div class="scroll-div-300">
 				<p:dataTable styleClass="dialog-table" id="outer-table"
