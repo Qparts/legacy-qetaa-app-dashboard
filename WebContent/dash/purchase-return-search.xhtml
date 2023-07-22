@@ -235,7 +235,7 @@
 							<div class="w3-half">
 								<div align="center">
 									<h:panelGroup
-										rendered="#{(partOrdersBean.selectedCart.status eq 'E') and (loginBean.hasAccess(act.actionPartsShip))}">
+										rendered="#{(Character.toString(partOrdersBean.selectedCart.status) eq 'E') and (loginBean.hasAccess(act.actionPartsShip))}">
 										<div class="w3-padding-8" align="center">
 											<h:panelGroup styleClass="padding-8" layout="block">
 												<h:outputText value="Shipment Cost" />

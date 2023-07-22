@@ -111,9 +111,9 @@
 								Customer Status
 							</f:facet>
 							<h:outputText value="active" styleClass="w3-tag w3-green"
-								rendered="#{Character.toString(var.customerStatus) == 'A'}" />
+								rendered="#{Character.toString(var.customerStatus) eq 'A'}" />
 							<h:outputText value="inactive" styleClass="w3-tag w3-red"
-								rendered="#{Character.toString(var.customerStatus) == 'I'}" />
+								rendered="#{Character.toString(var.customerStatus) eq 'I'}" />
 						</h:column>
 						<h:column>
 							<f:facet name="header">

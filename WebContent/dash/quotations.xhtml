@@ -72,13 +72,13 @@
 							</f:facet>
 							<div>
 								<h:outputText value="Ready for Submition"
-									rendered="#{cart.status eq 'R'}" styleClass="w3-tag w3-green" />
-								<h:outputText value="New Order" rendered="#{cart.status eq 'N'}"
+									rendered="#{Character.toString(cart.status) eq 'R'}" styleClass="w3-tag w3-green" />
+								<h:outputText value="New Order" rendered="#{Character.toString(cart.status) eq 'N'}"
 									styleClass="w3-tag w3-orange w3-text-white" />
 								<h:outputText value="Waiting For Quotation"
-									rendered="#{cart.status eq 'W'}" styleClass="w3-tag w3-indigo" />
+									rendered="#{Character.toString(cart.status) eq 'W'}" styleClass="w3-tag w3-indigo" />
 								<h:outputText value="Request Edit"
-									rendered="#{cart.status eq 'A'}" styleClass="w3-tag w3-teal" />
+									rendered="#{Character.toString(cart.status) eq 'A'}" styleClass="w3-tag w3-teal" />
 							</div>
 						</h:column>
 						<h:column>

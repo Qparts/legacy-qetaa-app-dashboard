@@ -65,35 +65,35 @@
 											readonly="true" />
 										<h:outputText value="Status" />
 										<h:outputText value="new order" styleClass="w3-tag w3-yellow"
-											rendered="#{cartDetailsBean.cart.status eq 'N'}" />
+											rendered="#{Character.toString(cartDetailsBean.cart.status) eq 'N'}" />
 										<h:outputText value="new order" styleClass="w3-tag w3-indigo"
-											rendered="#{cartDetailsBean.cart.status eq 'W'}" />
+											rendered="#{Character.toString(cartDetailsBean.cart.status) eq 'W'}" />
 										<h:outputText value="ready for submission"
 											styleClass="w3-tag w3-light-green"
-											rendered="#{cartDetailsBean.cart.status eq 'R'}" />
+											rendered="#{Character.toString(cartDetailsBean.cart.status) eq 'R'}" />
 										<h:outputText value="closed"
 											styleClass="w3-tag w3-orange w3-text-white"
-											rendered="#{cartDetailsBean.cart.status eq 'O'}" />
+											rendered="#{Character.toString(cartDetailsBean.cart.status) eq 'O'}" />
 										<h:outputText value="closed" styleClass="w3-tag w3-teal"
-											rendered="#{cartDetailsBean.cart.status eq 'A'}" />
+											rendered="#{Character.toString(cartDetailsBean.cart.status) eq 'A'}" />
 										<h:outputText value="follow Up" styleClass="w3-tag w3-brown"
-											rendered="#{cartDetailsBean.cart.status == 'S'}" />
+											rendered="#{Character.toString(cartDetailsBean.cart.status) eq 'S'}" />
 										<h:outputText value="Wire Transfer"
 											styleClass="w3-tag w3-light-blue"
-											rendered="#{cartDetailsBean.cart.status == 'T'}" />
+											rendered="#{Character.toString(cartDetailsBean.cart.status) eq 'T'}" />
 										<h:outputText value="Under Collection"
 											styleClass="w3-tag w3-blue-grey"
-											rendered="#{cartDetailsBean.cart.status == 'P'}" />
+											rendered="#{Character.toString(cartDetailsBean.cart.status) eq 'P'}" />
 										<h:outputText value="Under Collection"
 											styleClass="w3-tag w3-blue-grey"
-											rendered="#{cartDetailsBean.cart.status eq 'E'}" />
+											rendered="#{Character.toString(cartDetailsBean.cart.status) eq 'E'}" />
 										<h:outputText value="Ready for Shipment"
 											styleClass="w3-tag w3-pale-green"
-											rendered="#{cart.status == 'V'}" />
+											rendered="#{Character.toString(cart.status) eq 'V'}" />
 										<h:outputText value="shipped" styleClass="w3-tag w3-green"
-											rendered="#{cartDetailsBean.cart.status eq 'H'}" />
+											rendered="#{Character.toString(cartDetailsBean.cart.status) eq 'H'}" />
 										<h:outputText value="archived" styleClass="w3-tag w3-red"
-											rendered="#{cartDetailsBean.cart.status == 'X'}" />
+											rendered="#{Character.toString(cartDetailsBean.cart.status) eq 'X'}" />
 									</h:panelGrid>
 									<h:panelGrid columns="2">
 										<h:outputText value="Name" />
@@ -217,28 +217,28 @@
 											<h:inputText readonly="true" styleClass="w3-text-grey"
 												value="#{quotation.createdByObject.firstName} #{quotation.createdByObject.lastName}" />
 											<h:outputText value="Created On "
-												rendered="#{quotation.status != 'N'}" />
+												rendered="#{Character.toString(quotation.status) ne 'N'}" />
 											<h:inputText readonly="true" styleClass="w3-text-grey"
 												value="#{quotation.created}"
-												rendered="#{quotation.status != 'N'}">
+												rendered="#{Character.toString(quotation.status) ne 'N'}">
 												<f:convertDateTime pattern="dd-MMM-yyyy HH:mm" />
 											</h:inputText>
 											<h:outputText value="Deadline"
-												rendered="#{quotation.status != 'N'}" />
+												rendered="#{Character.toString(quotation.status) ne 'N'}" />
 											<h:inputText readonly="true" styleClass="w3-text-grey"
 												value="#{quotation.deadline}"
-												rendered="#{quotation.status != 'N'}">
+												rendered="#{Character.toString(quotation.status) ne 'N'}">
 												<f:convertDateTime pattern="dd-MMM-yyyy HH:mm" />
 											</h:inputText>
 											<h:outputText value="Status " />
 											<h:outputText value="Under Review"
 												styleClass="w3-tag w3-orange w3-text-white"
-												rendered="#{quotation.status == 'N'}" />
+												rendered="#{Character.toString(quotation.status) eq 'N'}" />
 											<h:outputText value="Waiting for Vendors"
 												styleClass="w3-tag w3-indigo"
-												rendered="#{quotation.status == 'W'}" />
+												rendered="#{Character.toString(quotation.status) eq 'W'}" />
 											<h:outputText value="Completed" styleClass="w3-tag w3-green"
-												rendered="#{quotation.status == 'C'}" />
+												rendered="#{Character.toString(quotation.status) eq 'C'}" />
 										</h:panelGrid>
 										<br />
 										<h:dataTable id="table"
@@ -278,7 +278,7 @@
 														value="#{item.vendorItems.get(0).itemCostPrice}"
 														oncomplete="PF('qvdlgwv').show()" process="@this"
 														update=":form-qv"
-														rendered="#{item.vendorItems.get(0).status eq 'C'}"
+														rendered="#{Character.toString(item.vendorItems.get(0).status) eq 'C'}"
 														actionListener="#{cartDetailsBean.selectVendorItem(item.vendorItems.get(0))}">
 														<p:ajax update=":form-qv" />
 													</p:commandLink>
@@ -286,7 +286,7 @@
 														styleClass="w3-tag w3-indigo q-tag-padding"
 														oncomplete="PF('qvdlgwv').show()" process="@this"
 														update=":form-qv"
-														rendered="#{item.vendorItems.get(0).status eq 'W'}"
+														rendered="#{Character.toString(item.vendorItems.get(0).status) eq 'W'}"
 														actionListener="#{cartDetailsBean.selectVendorItem(item.vendorItems.get(0))}">
 														<p:ajax update=":form-qv" />
 													</p:commandLink>
@@ -295,7 +295,7 @@
 														styleClass="w3-tag w3-red q-tag-padding"
 														oncomplete="PF('qvdlgwv').show()" process="@this"
 														update=":form-qv"
-														rendered="#{item.vendorItems.get(0).status eq 'N'}"
+														rendered="#{Character.toString(item.vendorItems.get(0).status) eq 'N'}"
 														actionListener="#{cartDetailsBean.selectVendorItem(item.vendorItems.get(0))}">
 														<p:ajax update=":form-qv" />
 													</p:commandLink>
@@ -312,7 +312,7 @@
 													<p:commandLink
 														value="#{item.vendorItems.get(1).itemCostPrice}"
 														styleClass="w3-tag w3-green q-tag-padding"
-														rendered="#{(item.vendorItems.size() gt 1) and item.vendorItems.get(1).status eq 'C'}"
+														rendered="#{(item.vendorItems.size() gt 1) and Character.toString(item.vendorItems.get(1).status) eq 'C'}"
 														oncomplete="PF('qvdlgwv').show()" process="@this"
 														update=":form-qv"
 														actionListener="#{cartDetailsBean.selectVendorItem(item.vendorItems.get(1))}">
@@ -320,7 +320,7 @@
 													</p:commandLink>
 													<p:commandLink value="waiting"
 														styleClass="w3-tag w3-indigo q-tag-padding"
-														rendered="#{(item.vendorItems.size() gt 1) and item.vendorItems.get(1).status eq 'W'}"
+														rendered="#{(item.vendorItems.size() gt 1) and Character.toString(item.vendorItems.get(1).status) eq 'W'}"
 														oncomplete="PF('qvdlgwv').show()" process="@this"
 														update=":form-qv"
 														actionListener="#{cartDetailsBean.selectVendorItem(item.vendorItems.get(1))}">
@@ -328,7 +328,7 @@
 													</p:commandLink>
 													<p:commandLink value="N/A"
 														styleClass="w3-tag w3-red q-tag-padding"
-														rendered="#{(item.vendorItems.size() gt 1) and item.vendorItems.get(1).status eq 'N'}"
+														rendered="#{(item.vendorItems.size() gt 1) and Character.toString(item.vendorItems.get(1).status) eq 'N'}"
 														oncomplete="PF('qvdlgwv').show()" process="@this"
 														update=":form-qv"
 														action="#{cartDetailsBean.selectVendorItem(item.vendorItems.get(1))}">
@@ -347,7 +347,7 @@
 													<p:commandLink
 														value="#{item.vendorItems.get(2).itemCostPrice}"
 														styleClass="w3-tag w3-green q-tag-padding"
-														rendered="#{(item.vendorItems.size() gt 2) and item.vendorItems.get(2).status eq 'C'}"
+														rendered="#{(item.vendorItems.size() gt 2) and Character.toString(item.vendorItems.get(2).status) eq 'C'}"
 														oncomplete="PF('qvdlgwv').show()" process="@this"
 														update=":form-qv"
 														actionListener="#{cartDetailsBean.selectVendorItem(item.vendorItems.get(2))}">
@@ -357,13 +357,13 @@
 														styleClass="w3-tag w3-indigo q-tag-padding"
 														oncomplete="PF('qvdlgwv').show()" process="@this"
 														update=":form-qv"
-														rendered="#{(item.vendorItems.size() gt 2) and item.vendorItems.get(2).status eq 'W'}"
+														rendered="#{(item.vendorItems.size() gt 2) and Character.toString(item.vendorItems.get(2).status) eq 'W'}"
 														actionListener="#{cartDetailsBean.selectVendorItem(item.vendorItems.get(2))}">
 														<p:ajax update=":form-qv" />
 													</p:commandLink>
 													<p:commandLink value="N/A"
 														styleClass="w3-tag w3-red q-tag-padding"
-														rendered="#{(item.vendorItems.size() gt 2) and item.vendorItems.get(2).status eq 'N'}"
+														rendered="#{(item.vendorItems.size() gt 2) and Character.toString(item.vendorItems.get(2).status) eq 'N'}"
 														oncomplete="PF('qvdlgwv').show()" process="@this"
 														update=":form-qv"
 														actionListener="#{cartDetailsBean.selectVendorItem(item.vendorItems.get(2))}">
@@ -382,7 +382,7 @@
 													<p:commandLink
 														value="#{item.vendorItems.get(3).itemCostPrice}"
 														styleClass="w3-tag w3-green q-tag-padding"
-														rendered="#{(item.vendorItems.size() gt 3) and item.vendorItems.get(3).status eq 'C'}"
+														rendered="#{(item.vendorItems.size() gt 3) and Character.toString(item.vendorItems.get(3).status) eq 'C'}"
 														oncomplete="PF('qvdlgwv').show()" process="@this"
 														update=":form-qv"
 														actionListener="#{cartDetailsBean.selectVendorItem(item.vendorItems.get(3))}">
@@ -392,13 +392,13 @@
 														styleClass="w3-tag w3-indigo q-tag-padding"
 														oncomplete="PF('qvdlgwv').show()" process="@this"
 														update=":form-qv"
-														rendered="#{(item.vendorItems.size() gt 3) and item.vendorItems.get(3).status eq 'W'}"
+														rendered="#{(item.vendorItems.size() gt 3) and Character.toString(item.vendorItems.get(3).status) eq 'W'}"
 														actionListener="#{cartDetailsBean.selectVendorItem(item.vendorItems.get(3))}">
 														<p:ajax update=":form-qv" />
 													</p:commandLink>
 													<p:commandLink value="N/A"
 														styleClass="w3-tag w3-red q-tag-padding"
-														rendered="#{(item.vendorItems.size() gt 3) and item.vendorItems.get(3).status eq 'N'}"
+														rendered="#{(item.vendorItems.size() gt 3) and Character.toString(item.vendorItems.get(3).status) eq 'N'}"
 														oncomplete="PF('qvdlgwv').show()" process="@this"
 														update=":form-qv"
 														actionListener="#{cartDetailsBean.selectVendorItem(item.vendorItems.get(3))}">
@@ -416,7 +416,7 @@
 
 							<p:panel toggleable="true" header="Approved Quotation"
 								collapsed="false" toggleSpeed="100"
-								rendered="#{cartDetailsBean.cart.status eq 'S' or cartDetailsBean.cart.status eq 'R' or cartDetailsBean.cart.status eq 'O' or cartDetailsBean.cart.status eq 'P' or cartDetailsBean.cart.status eq 'T' or cartDetailsBean.cart.status eq 'V' or cartDetailsBean.cart.status eq 'E' or cartDetailsBean.cart.status eq 'H' or cartDetailsBean.cart.status eq 'F'}">
+								rendered="#{Character.toString(cartDetailsBean.cart.status) eq 'S' or Character.toString(cartDetailsBean.cart.status) eq 'R' or Character.toString(cartDetailsBean.cart.status) eq 'O' or Character.toString(cartDetailsBean.cart.status) eq 'P' or Character.toString(cartDetailsBean.cart.status) eq 'T' or Character.toString(cartDetailsBean.cart.status) eq 'V' or Character.toString(cartDetailsBean.cart.status) eq 'E' or Character.toString(cartDetailsBean.cart.status) eq 'H' or Character.toString(cartDetailsBean.cart.status) eq 'F'}">
 								<h:dataTable styleClass="w3-table w3-striped w3-border"
 									headerClass="w3-border-bottom w3-light-grey"
 									footerClass="w3-border-bottom w3-light-grey"
@@ -485,7 +485,7 @@
 							<br />
 							<p:panel toggleable="true" header="Parts Order" collapsed="false"
 								toggleSpeed="100"
-								rendered="#{cartDetailsBean.cart.status eq 'P' or cartDetailsBean.cart.status eq 'V' or cartDetailsBean.cart.status eq 'E' or cartDetailsBean.cart.status eq 'H' or cartDetailsBean.cart.status eq 'F'}">
+								rendered="#{Character.toString(cartDetailsBean.cart.status) eq 'P' or Character.toString(cartDetailsBean.cart.status) eq 'V' or Character.toString(cartDetailsBean.cart.status) eq 'E' or Character.toString(cartDetailsBean.cart.status) eq 'H' or Character.toString(cartDetailsBean.cart.status) eq 'F'}">
 								<h:panelGrid columns="2">
 									<h:outputText value="Order Date" />
 									<h:inputText value="#{cartDetailsBean.cart.partsOrder.created}"
@@ -604,7 +604,7 @@
 							</p:panel>
 							<br />
 							<p:panel toggleable="true" header="Payment Information"
-								rendered="#{cartDetailsBean.cart.status eq 'P' or cartDetailsBean.cart.status eq 'V' or cartDetailsBean.cart.status eq 'E' or cartDetailsBean.cart.status eq 'H' or cartDetailsBean.cart.status eq 'F'}"
+								rendered="#{Character.toString(cartDetailsBean.cart.status) eq 'P' or Character.toString(cartDetailsBean.cart.status) eq 'V' or Character.toString(cartDetailsBean.cart.status) eq 'E' or Character.toString(cartDetailsBean.cart.status) eq 'H' or Character.toString(cartDetailsBean.cart.status) eq 'F'}"
 								collapsed="false" toggleSpeed="100">
 								<h:panelGrid columns="2"
 									styleClass="w3-table w3-striped w3-border">
@@ -715,13 +715,13 @@
 						</h:outputText>
 						<h:outputText value="Status" />
 						<h:outputText
-							rendered="#{cartDetailsBean.selectedVendorItem.status eq 'W'}"
+							rendered="#{Character.toString(cartDetailsBean.selectedVendorItem.status) eq 'W'}"
 							value="waiting" styleClass="w3-tag w3-indigo" />
 						<h:outputText
-							rendered="#{cartDetailsBean.selectedVendorItem.status eq 'C'}"
+							rendered="#{Character.toString(cartDetailsBean.selectedVendorItem.status) eq 'C'}"
 							value="completed" styleClass="w3-tag w3-green" />
 						<h:outputText
-							rendered="#{cartDetailsBean.selectedVendorItem.status eq 'N'}"
+							rendered="#{Character.toString(cartDetailsBean.selectedVendorItem.status) eq 'N'}"
 							value="N/A" styleClass="w3-tag w3-red" />
 						<h:outputText value="Vendor" />
 						<h:outputText

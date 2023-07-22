@@ -149,7 +149,7 @@
 					</h:panelGrid>
 					<br />
 					<div class="scroll-div-150">
-						<h:dataTable rendered="#{assignBean.selectedCart.status eq 'N'}"
+						<h:dataTable rendered="#{Character.toString(assignBean.selectedCart.status) eq 'N'}"
 							styleClass="w3-table w3-striped w3-border"
 							headerClass="w3-light-grey w3-border"
 							value="#{assignBean.selectedCart.cartItems}" var="item">

@@ -84,9 +84,9 @@
 							</f:facet>
 							<div align="center">
 								<h:outputText value="Active" styleClass="w3-tag w3-green"
-									rendered="#{holder.vendor.status eq 'A'}" />
+									rendered="#{Character.toString(holder.vendor.status) eq 'A'}" />
 								<h:outputText value="Inactive" styleClass="w3-tag w3-red"
-									rendered="#{holder.vendor.status eq 'I'}" />
+									rendered="#{Character.toString(holder.vendor.status) eq 'I'}" />
 							</div>
 						</h:column>
 						<h:column headerText="Users">
@@ -190,9 +190,9 @@
 										Status
 									</f:facet>
 								<h:outputText value="Active" styleClass="w3-tag w3-green"
-									rendered="#{user.status eq 'A'}" />
+									rendered="#{Character.toString(user.status) eq 'A'}" />
 								<h:outputText value="Inactive" styleClass="w3-tag w3-red"
-									rendered="#{user.status eq 'I'}" />
+									rendered="#{Character.toString(user.status) eq 'I'}" />
 							</h:column>
 							<h:column>
 								<f:facet name="header">

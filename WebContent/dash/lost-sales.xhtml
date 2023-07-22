@@ -96,9 +96,9 @@
 							</f:facet>
 							<h:outputText value="closed"
 								styleClass="w3-tag w3-orange w3-text-white"
-								rendered="#{cart.status == 'S'}" />
+								rendered="#{Character.toString(cart.status) eq 'S'}" />
 							<h:outputText value="archived" styleClass="w3-tag w3-red"
-								rendered="#{cart.status == 'X'}" />
+								rendered="#{Character.toString(cart.status) eq 'X'}" />
 						</h:column>
 						<h:column>
 							<f:facet name="header">

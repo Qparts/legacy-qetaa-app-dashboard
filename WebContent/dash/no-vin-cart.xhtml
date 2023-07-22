@@ -207,23 +207,23 @@
 											More Action
 										</f:facet>
 										<h:outputText value="N/A"
-											rendered="#{review.actionValue eq 'A'}" />
+											rendered="#{Character.toString(review.actionValue) eq 'A'}" />
 										<h:outputText value="N/A"
-											rendered="#{review.actionValue eq 'B'}" />
+											rendered="#{Character.toString(review.actionValue) eq 'B'}" />
 										<h:outputText value="#{review.alternativePrice}"
-											rendered="#{review.actionValue eq 'C'}" />
+											rendered="#{Character.toString(review.actionValue) eq 'C'}" />
 										<h:outputText value="N/A"
-											rendered="#{review.actionValue eq 'D'}" />
+											rendered="#{Character.toString(review.actionValue) eq 'D'}" />
 										<h:outputText value="#{review.reminderDate}"
-											rendered="#{review.actionValue eq 'E'}">
+											rendered="#{Character.toString(review.actionValue) eq 'E'}">
 											<f:convertDateTime pattern="dd-MMM-yyyy" />
 										</h:outputText>
 										<h:outputText value="#{review.boughtFrom}"
-											rendered="#{review.actionValue eq 'F'}" />
+											rendered="#{Character.toString(review.actionValue) eq 'F'}" />
 										<h:outputText value="N/A"
-											rendered="#{review.actionValue eq 'G'}" />
+											rendered="#{Character.toString(review.actionValue) eq 'G'}" />
 										<h:outputText value="N/A"
-											rendered="#{review.actionValue eq 'O'}" />
+											rendered="#{Character.toString(review.actionValue) eq 'O'}" />
 									</h:column>
 								</h:dataTable>
 							</div>
