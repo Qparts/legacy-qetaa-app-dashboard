@@ -224,11 +224,11 @@
 											<f:ajax render="@form" execute="@this" />
 										</h:selectOneMenu>
 										<h:outputText value="Payment Method"
-											rendered="#{Character.toString(cartPurchaseBean.purchase.transactionType) eq 'C'}" />
+											rendered="#{cartPurchaseBean.purchase.transactionType eq 'C'.charAt(0)}" />
 										<h:selectOneMenu
 											value="#{cartPurchaseBean.purchasePayment.method}"
 											required="true"
-											rendered="#{Character.toString(cartPurchaseBean.purchase.transactionType) eq 'C'}">
+											rendered="#{cartPurchaseBean.purchase.transactionType eq 'C'.charAt(0)}">
 											<f:selectItem noSelectionOption="true"
 												itemLabel="--Select Method--" />
 											<f:selectItem itemValue="#{'C'}" itemLabel="Cash" />
@@ -237,11 +237,11 @@
 											<f:ajax render="@form" execute="@this" />
 										</h:selectOneMenu>
 										<h:outputText value="Bank"
-											rendered="#{Character.toString(cartPurchaseBean.purchasePayment.method) eq 'T' or Character.toString(cartPurchaseBean.purchasePayment.method) eq 'S'}" />
+											rendered="#{cartPurchaseBean.purchasePayment.method eq 'T'.charAt(0) or cartPurchaseBean.purchasePayment.method eq 'S'.charAt(0)}" />
 										<h:selectOneMenu
 											value="#{cartPurchaseBean.purchasePayment.bankId}"
 											required="true"
-											rendered="#{Character.toString(cartPurchaseBean.purchasePayment.method) eq 'T' or Character.toString(cartPurchaseBean.purchasePayment.method) eq 'S'}">
+											rendered="#{cartPurchaseBean.purchasePayment.method eq 'T'.charAt(0) or cartPurchaseBean.purchasePayment.method eq 'S'.charAt(0)}">
 											<f:selectItem noSelectionOption="true"
 												itemLabel="--Select Bank--" />
 											<f:selectItems value="#{banksBean.banks}" var="bank"
@@ -281,9 +281,9 @@
 										<f:facet name="header">
 											<h:outputText value="Status" />
 										</f:facet>
-										<h:outputText rendered="#{Character.toString(purchase.paymentStatus) eq 'O'}"
+										<h:outputText rendered="#{purchase.paymentStatus eq 'O'.charAt(0)}"
 											value="Outstanding" />
-										<h:outputText rendered="#{Character.toString(purchase.paymentStatus) eq 'P'}"
+										<h:outputText rendered="#{purchase.paymentStatus eq 'P'.charAt(0)}"
 											value="Paid" />
 									</h:column>
 									<h:column>

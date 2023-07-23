@@ -72,13 +72,13 @@
 									<f:facet name="header">
 										<h:outputText value="Status" />
 									</f:facet>
-									<h:outputText rendered="#{Character.toString(cart.status) eq 'A'}"
+									<h:outputText rendered="#{cart.status eq 'A'.charAt(0)}"
 										value="Request Edit" styleClass="w3-teal w3-tag" />
-									<h:outputText rendered="#{Character.toString(cart.status) eq 'R'}"
+									<h:outputText rendered="#{cart.status eq 'R'.charAt(0)}"
 										value="Ready for submission" styleClass="w3-green w3-tag" />
-									<h:outputText rendered="#{Character.toString(cart.status) eq 'W'}"
+									<h:outputText rendered="#{cart.status eq 'W'.charAt(0)}"
 										value="Waiting for Vendors" styleClass="w3-indigo w3-tag" />
-									<h:outputText rendered="#{Character.toString(cart.status) eq 'N'}"
+									<h:outputText rendered="#{cart.status eq 'N'.charAt(0)}"
 										value="New order" styleClass="w3-orange w3-tag w3-text-white" />
 								</h:column>
 								<h:column>
@@ -149,7 +149,7 @@
 					</h:panelGrid>
 					<br />
 					<div class="scroll-div-150">
-						<h:dataTable rendered="#{Character.toString(assignBean.selectedCart.status) eq 'N'}"
+						<h:dataTable rendered="#{assignBean.selectedCart.status eq 'N'.charAt(0)}"
 							styleClass="w3-table w3-striped w3-border"
 							headerClass="w3-light-grey w3-border"
 							value="#{assignBean.selectedCart.cartItems}" var="item">

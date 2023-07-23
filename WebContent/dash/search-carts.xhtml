@@ -250,7 +250,7 @@
 							</div>
 							<br />
 							<h:panelGroup
-								rendered="#{Character.toString(searchCartBean.selectedCart.status) eq 'O' or Character.toString(searchCartBean.selectedCart.status) eq 'X'}">
+								rendered="#{searchCartBean.selectedCart.status eq 'O'.charAt(0) or searchCartBean.selectedCart.status eq 'X'.charAt(0)}">
 								<div align="center">
 									<h:commandButton
 										actionListener="#{searchCartBean.openClosedCart()}"

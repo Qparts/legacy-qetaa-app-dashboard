@@ -74,17 +74,17 @@
 								<p:commandLink styleClass="w3-tag w3-green q-tag-padding"
 									value="#{item.vendorItems.get(0).itemCostPrice}"
 									oncomplete="PF('qvdlgwv').show()" update=":form-qv"
-									rendered="#{item.vendorItems.size() gt 0 and Character.toString(item.vendorItems.get(0).status) eq 'C'}"
+									rendered="#{item.vendorItems.size() gt 0 and item.vendorItems.get(0).status eq 'C'.charAt(0)}"
 									actionListener="#{quotationViewBean.setSelectedVendorItem(item.vendorItems.get(0))}" />
 								<p:commandLink value="waiting"
 									styleClass="w3-tag w3-indigo q-tag-padding"
 									oncomplete="PF('qvdlgwv').show()" update=":form-qv"
-									rendered="#{item.vendorItems.size() gt 0 and Character.toString(item.vendorItems.get(0).status) eq 'W'}"
+									rendered="#{item.vendorItems.size() gt 0 and item.vendorItems.get(0).status eq 'W'.charAt(0)}"
 									actionListener="#{quotationViewBean.setSelectedVendorItem(item.vendorItems.get(0))}" />
 								<p:commandLink value="N/a"
 									styleClass="w3-tag w3-red q-tag-padding"
 									oncomplete="PF('qvdlgwv').show()" update=":form-qv"
-									rendered="#{item.vendorItems.size() gt 0 and Character.toString(item.vendorItems.get(0).status) eq 'N'}"
+									rendered="#{item.vendorItems.size() gt 0 and item.vendorItems.get(0).status eq 'N'.charAt(0)}"
 									actionListener="#{quotationViewBean.setSelectedVendorItem(item.vendorItems.get(0))}" />
 							</div>
 						</h:column>
@@ -98,17 +98,17 @@
 							<div align="center">
 								<p:commandLink value="#{item.vendorItems.get(1).itemCostPrice}"
 									styleClass="w3-tag w3-green q-tag-padding"
-									rendered="#{item.vendorItems.size() gt 1 and Character.toString(item.vendorItems.get(1).status) eq 'C'}"
+									rendered="#{item.vendorItems.size() gt 1 and item.vendorItems.get(1).status eq 'C'.charAt(0)}"
 									oncomplete="PF('qvdlgwv').show()" update=":form-qv"
 									actionListener="#{quotationViewBean.setSelectedVendorItem(item.vendorItems.get(1))}" />
 								<p:commandLink value="waiting"
 									styleClass="w3-tag w3-indigo q-tag-padding"
-									rendered="#{item.vendorItems.size() gt 1 and Character.toString(item.vendorItems.get(1).status) eq 'W'}"
+									rendered="#{item.vendorItems.size() gt 1 and item.vendorItems.get(1).status eq 'W'.charAt(0)}"
 									oncomplete="PF('qvdlgwv').show()" update=":form-qv"
 									actionListener="#{quotationViewBean.setSelectedVendorItem(item.vendorItems.get(1))}" />
 								<p:commandLink value="N/a"
 									styleClass="w3-tag w3-red q-tag-padding"
-									rendered="#{item.vendorItems.size() gt 1 and Character.toString(item.vendorItems.get(1).status) eq 'N'}"
+									rendered="#{item.vendorItems.size() gt 1 and item.vendorItems.get(1).status eq 'N'.charAt(0)}"
 									oncomplete="PF('qvdlgwv').show()" update=":form-qv"
 									actionListener="#{quotationViewBean.setSelectedVendorItem(item.vendorItems.get(1))}" />
 							</div>
@@ -123,17 +123,17 @@
 							<div align="center">
 								<p:commandLink value="#{item.vendorItems.get(2).itemCostPrice}"
 									styleClass="w3-tag w3-green q-tag-padding"
-									rendered="#{item.vendorItems.size() gt 2 and Character.toString(item.vendorItems.get(2).status) eq 'C'}"
+									rendered="#{item.vendorItems.size() gt 2 and item.vendorItems.get(2).status eq 'C'.charAt(0)}"
 									oncomplete="PF('qvdlgwv').show()" update=":form-qv"
 									actionListener="#{quotationViewBean.setSelectedVendorItem(item.vendorItems.get(2))}" />
 								<p:commandLink value="waiting"
 									styleClass="w3-tag w3-indigo q-tag-padding"
 									oncomplete="PF('qvdlgwv').show()" update=":form-qv"
-									rendered="#{item.vendorItems.size() gt 2 and Character.toString(item.vendorItems.get(2).status) eq 'W'}"
+									rendered="#{item.vendorItems.size() gt 2 and item.vendorItems.get(2).status eq 'W'.charAt(0)}"
 									actionListener="#{quotationViewBean.setSelectedVendorItem(item.vendorItems.get(2))}" />
 								<p:commandLink value="N/a"
 									styleClass="w3-tag w3-red q-tag-padding"
-									rendered="#{item.vendorItems.size() gt 2 and Character.toString(item.vendorItems.get(2).status) eq 'N'}"
+									rendered="#{item.vendorItems.size() gt 2 and item.vendorItems.get(2).status eq 'N'.charAt(0)}"
 									oncomplete="PF('qvdlgwv').show()" update=":form-qv"
 									actionListener="#{quotationViewBean.setSelectedVendorItem(item.vendorItems.get(2))}" />
 							</div>
@@ -148,17 +148,17 @@
 							<div align="center">
 								<p:commandLink value="#{item.vendorItems.get(3).itemCostPrice}"
 									styleClass="w3-tag w3-green q-tag-padding"
-									rendered="#{item.vendorItems.size() gt 3 and Character.toString(item.vendorItems.get(3).status) eq 'C'}"
+									rendered="#{item.vendorItems.size() gt 3 and item.vendorItems.get(3).status eq 'C'.charAt(0)}"
 									oncomplete="PF('qvdlgwv').show()" update=":form-qv"
 									actionListener="#{quotationViewBean.setSelectedVendorItem(item.vendorItems.get(3))}" />
 								<p:commandLink value="waiting"
 									styleClass="w3-tag w3-indigo q-tag-padding"
 									oncomplete="PF('qvdlgwv').show()" update=":form-qv"
-									rendered="#{item.vendorItems.size() gt 3 and Character.toString(item.vendorItems.get(3).status) eq 'W'}"
+									rendered="#{item.vendorItems.size() gt 3 and item.vendorItems.get(3).status eq 'W'.charAt(0)}"
 									actionListener="#{quotationViewBean.setSelectedVendorItem(item.vendorItems.get(3))}" />
 								<p:commandLink value="N/a"
 									styleClass="w3-tag w3-red q-tag-padding"
-									rendered="#{item.vendorItems.size() gt 3 and Character.toString(item.vendorItems.get(3).status) eq 'N'}"
+									rendered="#{item.vendorItems.size() gt 3 and item.vendorItems.get(3).status eq 'N'.charAt(0)}"
 									oncomplete="PF('qvdlgwv').show()" update=":form-qv"
 									actionListener="#{quotationViewBean.setSelectedVendorItem(item.vendorItems.get(3))}" />
 							</div>
@@ -191,13 +191,13 @@
 					</h:outputText>
 					<h:outputText value="Status" />
 					<h:outputText
-						rendered="#{Character.toString(quotationViewBean.selectedVendorItem.status) eq 'W'}"
+						rendered="#{quotationViewBean.selectedVendorItem.status eq 'W'.charAt(0)}"
 						value="waiting" styleClass="w3-tag w3-indigo" />
 					<h:outputText
-						rendered="#{Character.toString(quotationViewBean.selectedVendorItem.status) eq 'C'}"
+						rendered="#{quotationViewBean.selectedVendorItem.status eq 'C'.charAt(0)}"
 						value="completed" styleClass="w3-tag w3-green" />
 					<h:outputText
-						rendered="#{Character.toString(quotationViewBean.selectedVendorItem.status) eq 'N'}"
+						rendered="#{quotationViewBean.selectedVendorItem.status eq 'N'.charAt(0)}"
 						value="N/a" styleClass="w3-tag w3-red" />
 					<h:outputText value="Vendor" />
 					<h:outputText

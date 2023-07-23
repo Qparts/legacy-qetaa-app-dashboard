@@ -50,9 +50,9 @@
 								<h:outputText value="Item Name" />
 							</f:facet>
 							<h:inputText value="#{item.itemDesc}"
-								rendered="#{Character.toString(quotation.status) eq 'N'}" />
+								rendered="#{quotation.status eq 'N'.charAt(0)}" />
 							<h:outputText value="#{item.itemDesc}"
-								rendered="#{not(Character.toString(quotation.status) eq 'N')}" />
+								rendered="#{not(quotation.status eq 'N'.charAt(0))}" />
 						</h:column>
 						<h:column>
 							<f:facet name="header">
@@ -62,15 +62,16 @@
 							</f:facet>
 							<div align="center">
 								<h:selectOneMenu value="#{item.quantity}"
-									rendered="#{Character.toString(quotation.status) eq 'N'}">
+									rendered="#{quotation.status eq 'N'.charAt(0)}">
 									<f:selectItems value="#{quotationBean.quantityArray}" var="var"
 										itemValue="#{var}" itemLabel="#{var}" />
 								</h:selectOneMenu>
 								<h:outputText value="#{item.quantity}"
-									rendered="#{not(Character.toString(quotation.status) eq 'N')}" />
+									rendered="#{not(quotation.status eq 'N'.charAt(0))}" />
 							</div>
 						</h:column>
-						<h:column rendered="#{Character.toString(quotation.status) eq 'N'}">
+						<h:column rendered="#{quotation.status eq 'N'.charAt(0)}">
+						<h:column rendered="#{quotation.status eq 'N'.charAt(0)}">
 							<f:facet name="header">
 								<h:outputText value="Remove" />
 							</f:facet>
@@ -91,22 +92,22 @@
 								<p:commandLink styleClass="w3-tag w3-green q-tag-padding"
 									value="#{item.vendorItems.get(0).itemCostPrice}"
 									oncomplete="PF('qvdlgwv').show()" update=":form-qv"
-									rendered="#{Character.toString(item.vendorItems.get(0).status) eq 'C'}"
+									rendered="#{item.vendorItems.get(0).status eq 'C'.charAt(0)}"
 									actionListener="#{quotationBean.setSelectedVendorItem(item.vendorItems.get(0))}" />
 								<p:commandLink value="waiting"
 									styleClass="w3-tag w3-indigo q-tag-padding"
 									oncomplete="PF('qvdlgwv').show()" update=":form-qv"
-									rendered="#{Character.toString(item.vendorItems.get(0).status) eq 'W'}"
+									rendered="#{item.vendorItems.get(0).status eq 'W'.charAt(0)}"
 									actionListener="#{quotationBean.setSelectedVendorItem(item.vendorItems.get(0))}" />
 								<p:commandLink value="N/A"
 									styleClass="w3-tag w3-red q-tag-padding"
 									oncomplete="PF('qvdlgwv').show()" update=":form-qv"
-									rendered="#{Character.toString(item.vendorItems.get(0).status) eq 'N'}"
+									rendered="#{item.vendorItems.get(0).status eq 'N'.charAt(0)}"
 									actionListener="#{quotationBean.setSelectedVendorItem(item.vendorItems.get(0))}" />
 								<p:commandLink value="finder"
 									styleClass="w3-tag w3-red q-tag-padding"
 									oncomplete="PF('qvdlgwv').show()" update=":form-qv"
-									rendered="#{Character.toString(item.vendorItems.get(0).status) eq 'F'}"
+									rendered="#{item.vendorItems.get(0).status eq 'F'.charAt(0)}"
 									actionListener="#{quotationBean.setSelectedVendorItem(item.vendorItems.get(0))}" />
 							</div>
 						</h:column>
@@ -120,17 +121,17 @@
 							<div align="center">
 								<p:commandLink value="#{item.vendorItems.get(1).itemCostPrice}"
 									styleClass="w3-tag w3-green q-tag-padding"
-									rendered="#{(item.vendorItems.size() gt 1) and Character.toString(item.vendorItems.get(1).status) eq 'C'}"
+									rendered="#{(item.vendorItems.size() gt 1) and item.vendorItems.get(1).status eq 'C'.charAt(0)}"
 									oncomplete="PF('qvdlgwv').show()" update=":form-qv"
 									actionListener="#{quotationBean.setSelectedVendorItem(item.vendorItems.get(1))}" />
 								<p:commandLink value="waiting"
 									styleClass="w3-tag w3-indigo q-tag-padding"
-									rendered="#{(item.vendorItems.size() gt 1) and Character.toString(item.vendorItems.get(1).status) eq 'W'}"
+									rendered="#{(item.vendorItems.size() gt 1) and item.vendorItems.get(1).status eq 'W'.charAt(0)}"
 									oncomplete="PF('qvdlgwv').show()" update=":form-qv"
 									actionListener="#{quotationBean.setSelectedVendorItem(item.vendorItems.get(1))}" />
 								<p:commandLink value="N/A"
 									styleClass="w3-tag w3-red q-tag-padding"
-									rendered="#{(item.vendorItems.size() gt 1) and Character.toString(item.vendorItems.get(1).status) eq 'N'}"
+									rendered="#{(item.vendorItems.size() gt 1) and item.vendorItems.get(1).status eq 'N'.charAt(0)}"
 									oncomplete="PF('qvdlgwv').show()" update=":form-qv"
 									actionListener="#{quotationBean.setSelectedVendorItem(item.vendorItems.get(1))}" />
 							</div>
@@ -145,17 +146,17 @@
 							<div align="center">
 								<p:commandLink value="#{item.vendorItems.get(2).itemCostPrice}"
 									styleClass="w3-tag w3-green q-tag-padding"
-									rendered="#{(item.vendorItems.size() gt 2) and Character.toString(item.vendorItems.get(2).status) eq 'C'}"
+									rendered="#{(item.vendorItems.size() gt 2) and item.vendorItems.get(2).status eq 'C'.charAt(0)}"
 									oncomplete="PF('qvdlgwv').show()" update=":form-qv"
 									actionListener="#{quotationBean.setSelectedVendorItem(item.vendorItems.get(2))}" />
 								<p:commandLink value="waiting"
 									styleClass="w3-tag w3-indigo q-tag-padding"
 									oncomplete="PF('qvdlgwv').show()" update=":form-qv"
-									rendered="#{(item.vendorItems.size() gt 2) and Character.toString(item.vendorItems.get(2).status) eq 'W'}"
+									rendered="#{(item.vendorItems.size() gt 2) and item.vendorItems.get(2).status eq 'W'}"
 									actionListener="#{quotationBean.setSelectedVendorItem(item.vendorItems.get(2))}" />
 								<p:commandLink value="N/A"
 									styleClass="w3-tag w3-red q-tag-padding"
-									rendered="#{(item.vendorItems.size() gt 2) and Character.toString(item.vendorItems.get(2).status) eq 'N'}"
+									rendered="#{(item.vendorItems.size() gt 2) and item.vendorItems.get(2).status eq 'N'.charAt(0)}"
 									oncomplete="PF('qvdlgwv').show()" update=":form-qv"
 									actionListener="#{quotationBean.setSelectedVendorItem(item.vendorItems.get(2))}" />
 							</div>
@@ -170,17 +171,17 @@
 							<div align="center">
 								<p:commandLink value="#{item.vendorItems.get(3).itemCostPrice}"
 									styleClass="w3-tag w3-green q-tag-padding"
-									rendered="#{(item.vendorItems.size() gt 3) and Character.toString(item.vendorItems.get(3).status) eq 'C'}"
+									rendered="#{(item.vendorItems.size() gt 3) and item.vendorItems.get(3).status eq 'C'.charAt(0)}"
 									oncomplete="PF('qvdlgwv').show()" update=":form-qv"
 									actionListener="#{quotationBean.setSelectedVendorItem(item.vendorItems.get(3))}" />
 								<p:commandLink value="waiting"
 									styleClass="w3-tag w3-indigo q-tag-padding"
 									oncomplete="PF('qvdlgwv').show()" update=":form-qv"
-									rendered="#{(item.vendorItems.size() gt 3) and Character.toString(item.vendorItems.get(3).status) eq 'W'}"
+									rendered="#{(item.vendorItems.size() gt 3) and item.vendorItems.get(3).status eq 'W'.charAt(0)}"
 									actionListener="#{quotationBean.setSelectedVendorItem(item.vendorItems.get(3))}" />
 								<p:commandLink value="N/A"
 									styleClass="w3-tag w3-red q-tag-padding"
-									rendered="#{(item.vendorItems.size() gt 3) and Character.toString(item.vendorItems.get(3).status) eq 'N'}"
+									rendered="#{(item.vendorItems.size() gt 3) and item.vendorItems.get(3).status eq 'N'.charAt(0)}"
 									oncomplete="PF('qvdlgwv').show()" update=":form-qv"
 									actionListener="#{quotationBean.setSelectedVendorItem(item.vendorItems.get(3))}" />
 							</div>
@@ -206,25 +207,25 @@
 						</h:column>
 					</h:dataTable>
 					<div align="center">
-						<h:commandButton rendered="#{Character.toString(quotation.status) eq 'N'}"
+						<h:commandButton rendered="#{quotation.status eq 'N'.charAt(0)}"
 							actionListener="#{quotationBean.addItem(quotation)}" value="+">
 							<f:ajax render="table" execute="table" />
 						</h:commandButton>
 						<div class="w3-padding-8">
 							<h:commandButton
-								rendered="#{(Character.toString(quotation.status) eq 'N' and Character.toString(quotationBean.cart.status) eq 'N') or (quotation.manuallyAdded)}"
+								rendered="#{(quotation.status eq 'N'.charAt(0) and quotationBean.cart.status eq 'N'.charAt(0)) or (quotation.manuallyAdded)}"
 								styleClass="q-btn" value="Send all to Vendors"
 								actionListener="#{quotationBean.submitQuotationOrder(quotation)}" />
 								<br/>
 								<br/>
 							<h:commandButton
-								rendered="#{(Character.toString(quotation.status) eq 'N' and Character.toString(quotationBean.cart.status) eq 'N') or (quotation.manuallyAdded)}"
+								rendered="#{(quotation.status eq 'N'.charAt(0) and quotationBean.cart.status eq 'N'.charAt(0)) or (quotation.manuallyAdded)}"
 								styleClass="q-btn" value="Send all to Finders"
 								actionListener="#{quotationBean.submitQuotationOrderToFinder(quotation)}" />
 							
 							
 							<h:commandButton
-								rendered="#{Character.toString(quotation.status) eq 'N' and Character.toString(quotationBean.cart.status) eq 'A'}"
+								rendered="#{quotation.status eq 'N'.charAt(0) and quotationBean.cart.status eq 'A'.charAt(0)}"
 								styleClass="q-btn" value="Update Quotation"
 								actionListener="#{quotationBean.updateQuotationOrder(quotation)}" />
 						</div>
@@ -255,13 +256,13 @@
 					</h:outputText>
 					<h:outputText value="Status" />
 					<h:outputText
-						rendered="#{Character.toString(quotationBean.selectedVendorItem.status) eq 'W'}"
+						rendered="#{quotationBean.selectedVendorItem.status eq 'W'.charAt(0)}"
 						value="waiting" styleClass="w3-tag w3-indigo" />
 					<h:outputText
-						rendered="#{Character.toString(quotationBean.selectedVendorItem.status) eq 'C'}"
+						rendered="#{quotationBean.selectedVendorItem.status eq 'C'.charAt(0)}"
 						value="completed" styleClass="w3-tag w3-green" />
 					<h:outputText
-						rendered="#{Character.toString(quotationBean.selectedVendorItem.status) eq 'N'}"
+						rendered="#{quotationBean.selectedVendorItem.status eq 'N'.charAt(0)}"
 						value="N/A" styleClass="w3-tag w3-red" />
 					<h:outputText value="Vendor" />
 					<h:selectOneMenu

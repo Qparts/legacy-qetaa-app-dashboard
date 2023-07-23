@@ -246,9 +246,9 @@
 								<h:outputText value="Type" />
 							</f:facet>
 							<h:outputText
-								rendered="#{Character.toString(sales.salesPayments.get(0).method) eq 'R'}" value="W" />
+								rendered="#{sales.salesPayments.get(0).method eq 'R'.charAt(0)}" value="W" />
 							<h:outputText
-								rendered="#{Character.toString(sales.salesPayments.get(0).method) eq 'C'}" value="C" />
+								rendered="#{sales.salesPayments.get(0).method eq 'C'.charAt(0)}" value="C" />
 						</h:column>
 						<h:column>
 							<f:facet name="header">
@@ -256,7 +256,7 @@
 							</f:facet>
 							<h:outputText
 								value="#{banksBean.getBankFromId(sales.salesPayments.get(0).bankId).name}"
-								rendered="#{Character.toString(sales.salesPayments.get(0).method) eq 'R'}" />
+								rendered="#{sales.salesPayments.get(0).method eq 'R'.charAt(0)}" />
 						</h:column>
 						<f:facet name="footer">
 							<div align="center">
@@ -381,15 +381,15 @@
 							<f:facet name="header">
 								<h:outputText value="Type" />
 							</f:facet>
-							<h:outputText rendered="#{Character.toString(sr.method) eq 'R'}" value="W" />
-							<h:outputText rendered="#{Character.toString(sr.method) eq 'C'}" value="C" />
+							<h:outputText rendered="#{sr.method eq 'R'.charAt(0)}" value="W" />
+							<h:outputText rendered="#{sr.method eq 'C'.charAt(0)}" value="C" />
 						</h:column>
 						<h:column>
 							<f:facet name="header">
 								<h:outputText value="Bank" />
 							</f:facet>
 							<h:outputText value="#{banksBean.getBankFromId(sr.bankId).name}"
-								rendered="#{Character.toString(sr.method) eq 'R'}" />
+								rendered="#{sr.method eq 'R'.charAt(0)}" />
 						</h:column>
 						<f:facet name="footer">
 							<div align="center">

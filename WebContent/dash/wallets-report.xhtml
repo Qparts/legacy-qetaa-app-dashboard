@@ -107,7 +107,7 @@
 							<f:facet name="header">
 								<h:outputText value="Transfer" />
 							</f:facet>
-							<h:outputText value="#{wallet.amount}" styleClass="q-bold w3-text-#{Character.toString(wallet.walletType) eq 'P' ? 'green' : 'red'}">
+							<h:outputText value="#{wallet.amount}" styleClass="q-bold w3-text-#{wallet.walletType eq 'P'.charAt(0) ? 'green' : 'red'}">
 								<f:convertNumber type="currency" currencySymbol="" />
 							</h:outputText>
 						</h:column>
@@ -133,7 +133,7 @@
 						<f:facet name="header">
 								<h:outputText value="Type" />
 							</f:facet>
-							<h:outputText value="#{wallet.walletType}" styleClass="w3-tag w3-#{Character.toString(wallet.walletType) eq 'P' ? 'green' : 'red'}" />
+							<h:outputText value="#{wallet.walletType}" styleClass="w3-tag w3-#{wallet.walletType eq 'P'.charAt(0) ? 'green' : 'red'}" />
 						
 						</h:column>
 						<h:column>

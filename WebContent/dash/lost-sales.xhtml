@@ -99,9 +99,9 @@
 							</f:facet>
 							<h:outputText value="closed"
 								styleClass="w3-tag w3-orange w3-text-white"
-								rendered="#{Character.toString(cart.status) eq 'S'}" />
+								rendered="#{cart.status eq 'S'.charAt(0)}" />
 							<h:outputText value="archived" styleClass="w3-tag w3-red"
-								rendered="#{Character.toString(cart.status) eq 'X'}" />
+								rendered="#{cart.status eq 'X'.charAt(0)}" />
 						</h:column>
 						<h:column>
 							<f:facet name="header">

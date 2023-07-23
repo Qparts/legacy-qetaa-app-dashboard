@@ -125,8 +125,8 @@
 							<f:facet name="header">
 								<h:outputText value="Status" />
 							</f:facet>
-							<h:outputText rendered="#{Character.toString(user.status) eq 'A'}" value="active" styleClass="w3-tag w3-green"/>
-							<h:outputText rendered="#{Character.toString(user.status) eq 'I'}" value="inactive" styleClass="w3-tag w3-red"/>
+							<h:outputText rendered="#{user.status eq 'A'.charAt(0)}" value="active" styleClass="w3-tag w3-green"/>
+							<h:outputText rendered="#{user.status eq 'I'.charAt(0)}" value="inactive" styleClass="w3-tag w3-red"/>
 						</h:column>
 						<h:column>
 							<f:facet name="header">

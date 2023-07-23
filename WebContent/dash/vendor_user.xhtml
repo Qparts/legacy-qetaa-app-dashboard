@@ -85,9 +85,9 @@
 										Status
 									</f:facet>
 							<h:outputText value="Active" styleClass="w3-tag w3-green"
-								rendered="#{Character.toString(user.status) eq 'A'}" />
+								rendered="#{user.status eq 'A'.charAt(0)}" />
 							<h:outputText value="Inactive" styleClass="w3-tag w3-red"
-								rendered="#{Character.toString(user.status) eq 'I'}" />
+								rendered="#{user.status eq 'I'.charAt(0)}" />
 						</h:column>
 						<h:column>
 							<f:facet name="header">

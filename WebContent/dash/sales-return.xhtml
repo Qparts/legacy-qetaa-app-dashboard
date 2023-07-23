@@ -430,8 +430,8 @@
 								<h:outputText value="Payment Method" />
 							</f:facet>
 							<h:outputText value="Wire Transfer"
-								rendered="#{Character.toString(sr.method) eq 'R'}" />
-							<h:outputText value="Credit Card" rendered="#{Character.toString(sr.method) eq 'C'}" />
+								rendered="#{sr.method eq 'R'.charAt(0)}" />
+							<h:outputText value="Credit Card" rendered="#{sr.method eq 'C'.charAt(0)}" />
 						</h:column>
 						<h:column>
 							<f:facet name="header">

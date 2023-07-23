@@ -67,13 +67,13 @@
 							</f:facet>
 							<div>
 								<h:outputText value="Ready for Submition"
-									rendered="#{Character.toString(cart.status) eq 'R'}" styleClass="w3-tag w3-green" />
-								<h:outputText value="New Order" rendered="#{Character.toString(cart.status) eq 'N'}"
+									rendered="#{cart.status eq 'R'.charAt(0)}" styleClass="w3-tag w3-green" />
+								<h:outputText value="New Order" rendered="#{cart.status eq 'N'.charAt(0)}"
 									styleClass="w3-tag w3-orange w3-text-white" />
 								<h:outputText value="Waiting For Vendors"
-									rendered="#{Character.toString(cart.status) eq 'W'}" styleClass="w3-tag w3-indigo" />
+									rendered="#{cart.status eq 'W'.charAt(0)}" styleClass="w3-tag w3-indigo" />
 								<h:outputText value="Request Edit"
-									rendered="#{Character.toString(cart.status) eq 'A'}" styleClass="w3-tag w3-teal" />
+									rendered="#{cart.status eq 'A'.charAt(0)}" styleClass="w3-tag w3-teal" />
 							</div>
 						</h:column>
 
@@ -174,14 +174,14 @@
 								</h:button>
 							</h:panelGroup>
 							<h:panelGroup
-								rendered="#{Character.toString(advisorCartBean.selectedCart.status) eq 'A' and advisorCartBean.selectedCart.qo.reviewer.equals(dashLoginBean.userHolder.user)}">
+								rendered="#{advisorCartBean.selectedCart.status eq 'A'.charAt(0) and advisorCartBean.selectedCart.qo.reviewer.equals(dashLoginBean.userHolder.user)}">
 								<h:button value="Process" outcome="process_quotation2">
 									<f:param name="cart-id"
 										value="#{advisorCartBean.selectedCart.cartId}"></f:param>
 								</h:button>
 							</h:panelGroup>
 							<h:panelGroup
-								rendered="#{Character.toString(advisorCartBean.selectedCart.status) eq 'W'}">
+								rendered="#{advisorCartBean.selectedCart.status eq 'W'.charAt(0)}">
 								<div class="scroll-div-150">
 									<h:dataTable var="qovendor"
 										styleClass="w3-table w3-striped w3-border"
@@ -202,23 +202,23 @@
 												<h:outputText value="Submitted" />
 											</f:facet>
 											<h:outputText value="#{qovendor.submitted}"
-												rendered="#{Character.toString(qovendor.status) eq 'S'}"
+												rendered="#{qovendor.status eq 'S'.charAt(0)}"
 												styleClass="w3-tag w3-green">
 												<f:convertDateTime pattern="dd-MMM-yyyy HH:mm" />
 											</h:outputText>
 											<h:outputText value="Waiting"
-												rendered="#{Character.toString(qovendor.status) eq 'W'}"
+												rendered="#{qovendor.status eq 'W'.charAt(0)}"
 												styleClass="w3-tag w3-indigo" />
 										</h:column>
 										<h:column headerClass="w3-border-bottom w3-light-grey"
-											rendered="#{Character.toString(qovendor.status) eq 'S'}">
+											rendered="#{qovendor.status eq 'S'.charAt(0)}">
 											<f:facet name="header">
 												<h:outputText value="Total Cost" />
 											</f:facet>
 											<h:outputText value="#{qovendor.itemsTotalPriceCost}" />
 										</h:column>
 										<h:column headerClass="w3-border-bottom w3-light-grey"
-											rendered="#{Character.toString(qovendor.status) eq 'S'}">
+											rendered="#{qovendor.status eq 'S'.charAt(0)}">
 											<f:facet name="header">
 												<h:outputText value="Total Sales" />
 											</f:facet>
@@ -235,7 +235,7 @@
 								</div>
 							</h:panelGroup>
 							<h:panelGroup
-								rendered="#{Character.toString(advisorCartBean.selectedCart.status) eq 'R'}">
+								rendered="#{advisorCartBean.selectedCart.status eq 'R'.charAt(0)}">
 								<div class="scroll-div-150">
 									<h:dataTable var="qv"
 										styleClass="w3-table w3-striped w3-border"
@@ -255,19 +255,19 @@
 												Status
 											</f:facet>
 											<h:outputText value="Submitted" styleClass="w3-tag w3-green"
-												rendered="#{Character.toString(qv.status) eq 'S'}" />
+												rendered="#{qv.status eq 'S'.charAt(0)}" />
 											<h:outputText value="Waiting" styleClass="w3-tag w3-indigo"
-												rendered="#{Character.toString(qv.status) eq 'W'}" />
+												rendered="#{qv.status eq 'W'.charAt(0)}" />
 										</h:column>
 										<h:column headerClass="w3-border-bottom w3-light-grey">
 											<f:facet name="header">
 												Submitted On
 											</f:facet>
 											<h:outputText value="#{qv.submitted}"
-												rendered="#{Character.toString(qv.status) eq 'S'}">
+												rendered="#{qv.status eq 'S'.charAt(0)}">
 												<f:convertDateTime pattern="dd-MMM-yyyy HH:mm" />
 											</h:outputText>
-											<h:outputText value="Waiting" rendered="#{Character.toString(qv.status) eq 'W'}" />
+											<h:outputText value="Waiting" rendered="#{qv.status eq 'W'.charAt(0)}" />
 										</h:column>
 									</h:dataTable>
 								</div>

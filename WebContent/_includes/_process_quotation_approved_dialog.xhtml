@@ -7,7 +7,7 @@
 	<h:form id="form-approved">
 		<p:dialog id="dlgapproved" widgetVar="dlgapprovedwv"
 			styleClass="q-dialog" header="Finalized Quotation"
-			rendered="#{Character.toString(quotationBean.cart.status) eq 'R'}">
+			rendered="#{quotationBean.cart.status eq 'R'.charAt(0)}">
 			<div align="center">
 				<h:panelGroup>
 					<h:outputText
@@ -63,11 +63,11 @@
 					<p:column>
 						<div style="vertical-align: center;" align="center">
 							<h:outputText value="Ready" styleClass="w3-tag w3-green"
-								rendered="#{Character.toString(fitem.status) eq 'F'}" />
-							<h:outputText value="Missing" rendered="#{Character.toString(fitem.status) eq 'M'}"
+								rendered="#{fitem.status eq 'F'.charAt(0)}" />
+							<h:outputText value="Missing" rendered="#{fitem.status eq 'M'.charAt(0)}"
 								styleClass="w3-tag w3-red" />
 							<h:outputText value="No Price!" styleClass="w3-tag w3-red"
-								rendered="#{Character.toString(fitem.status) eq 'N'}" />
+								rendered="#{fitem.status eq 'N'.charAt(0)}" />
 							<br />
 						</div>
 					</p:column>

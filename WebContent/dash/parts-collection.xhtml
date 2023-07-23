@@ -86,13 +86,13 @@
 								<f:facet name="header">
 									<h:outputText value="Status" />
 								</f:facet>
-								<h:outputText rendered="#{Character.toString(collection.status) eq 'W'}"
+								<h:outputText rendered="#{collection.status eq 'W'.charAt(0)}"
 									styleClass="w3-tag w3-indigo" value="waiting" />
-								<h:outputText rendered="#{Character.toString(collection.status) eq 'C'}"
+								<h:outputText rendered="#{collection.status eq 'C'.charAt(0)}"
 									styleClass="w3-tag w3-orange w3-text-white" value="collected" />
-								<h:outputText rendered="#{Character.toString(collection.status) eq 'V'}"
+								<h:outputText rendered="#{collection.status eq 'V'.charAt(0)}"
 									styleClass="w3-tag w3-teal" value="ready at vendor" />
-								<h:outputText rendered="#{Character.toString(collection.status) eq 'R'}"
+								<h:outputText rendered="#{collection.status eq 'R'.charAt(0)}"
 									styleClass="w3-tag w3-green" value="received" />
 							</h:column>
 							<h:column>
@@ -104,13 +104,13 @@
 										update=":form-2"
 										actionListener="#{partsCollectionBean.setSelectedCollection(collection)}"
 										value="receive"
-										rendered="#{(loginBean.hasAccess(act.actionPartsReceive) and (Character.toString(collection.status) eq 'C' ))}"
+										rendered="#{(loginBean.hasAccess(act.actionPartsReceive) and (collection.status eq 'C'.charAt(0) ))}"
 										styleClass="q-btn" />
 									<p:commandButton oncomplete="PF('dlgwv').show()"
 										update=":form-2"
 										actionListener="#{partsCollectionBean.setSelectedCollection(collection)}"
 										value="collect"
-										rendered="#{(loginBean.hasAccess(act.actionPartsCollect) and (Character.toString(collection.status) eq 'W' or Character.toString(collection.status) eq 'V'))}"
+										rendered="#{(loginBean.hasAccess(act.actionPartsCollect) and (collection.status eq 'W'.charAt(0) or collection.status eq 'V'.charAt(0)))}"
 										styleClass="q-btn" />
 								</div>
 							</h:column>
@@ -126,9 +126,9 @@
 									value="#{partsCollectionBean.selectedCollection.quotedByObject.vendor.name}" />
 								<h:outputText value="Item Number" />
 								<h:outputText
-									value="#{partsCollectionBean.selectedCollection.itemNumber}" rendered="#{not (Character.toString(partsCollectionBean.selectedCollection.status) eq 'W')}" />
+									value="#{partsCollectionBean.selectedCollection.itemNumber}" rendered="#{not (partsCollectionBean.selectedCollection.status eq 'W'.charAt(0))}" />
 								<h:inputText
-									value="#{partsCollectionBean.selectedCollection.itemNumber}" rendered="#{Character.toString(partsCollectionBean.selectedCollection.status) eq 'W'}" />
+									value="#{partsCollectionBean.selectedCollection.itemNumber}" rendered="#{partsCollectionBean.selectedCollection.status eq 'W'.charAt(0)}" />
 								<h:outputText value="Quantity" />
 								<h:outputText
 									value="#{partsCollectionBean.selectedCollection.quantity}" />
@@ -154,10 +154,10 @@
 								<br />
 								<h:commandButton
 									actionListener="#{partsCollectionBean.receiveItem()}"
-									rendered="#{(Character.toString(partsCollectionBean.selectedCollection.status) eq 'C') and (loginBean.hasAccess(act.actionPartsReceive))}"
+									rendered="#{(partsCollectionBean.selectedCollection.status eq 'C'.charAt(0)) and (loginBean.hasAccess(act.actionPartsReceive))}"
 									value="Receive" styleClass="q-btn" />
 								<h:commandButton
-									rendered="#{(loginBean.hasAccess(act.actionPartsCollect)) and ((Character.toString(partsCollectionBean.selectedCollection.status) eq 'W') or (Character.toString(partsCollectionBean.selectedCollection.status) eq 'V'))}"
+									rendered="#{(loginBean.hasAccess(act.actionPartsCollect)) and ((partsCollectionBean.selectedCollection.status eq 'W'.charAt(0)) or (partsCollectionBean.selectedCollection.status eq 'V'.charAt(0)))}"
 									actionListener="#{partsCollectionBean.collectItem()}"
 									value="Collect" styleClass="q-btn" />
 							</div>
