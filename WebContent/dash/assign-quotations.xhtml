@@ -72,13 +72,13 @@
 									<f:facet name="header">
 										<h:outputText value="Status" />
 									</f:facet>
-									<h:outputText rendered="#{cart.status == 'A'}"
+									<h:outputText rendered="#{Character.toString(cart.status) eq 'A'}"
 										value="Request Edit" styleClass="w3-teal w3-tag" />
-									<h:outputText rendered="#{cart.status == 'R'}"
+									<h:outputText rendered="#{Character.toString(cart.status) eq 'R'}"
 										value="Ready for submission" styleClass="w3-green w3-tag" />
-									<h:outputText rendered="#{cart.status == 'W'}"
+									<h:outputText rendered="#{Character.toString(cart.status) eq 'W'}"
 										value="Waiting for Vendors" styleClass="w3-indigo w3-tag" />
-									<h:outputText rendered="#{cart.status == 'N'}"
+									<h:outputText rendered="#{Character.toString(cart.status) eq 'N'}"
 										value="New order" styleClass="w3-orange w3-tag w3-text-white" />
 								</h:column>
 								<h:column>
