@@ -217,17 +217,17 @@
 											<h:inputText readonly="true" styleClass="w3-text-grey"
 												value="#{quotation.createdByObject.firstName} #{quotation.createdByObject.lastName}" />
 											<h:outputText value="Created On "
-												rendered="#{quotation.status ne 'N'.charAt(0)}" />
+												rendered="#{quotation.status != 'N'.charAt(0)}" />
 											<h:inputText readonly="true" styleClass="w3-text-grey"
 												value="#{quotation.created}"
-												rendered="#{quotation.status ne 'N'.charAt(0)}">
+												rendered="#{quotation.status != 'N'.charAt(0)}">
 												<f:convertDateTime pattern="dd-MMM-yyyy HH:mm" />
 											</h:inputText>
 											<h:outputText value="Deadline"
-												rendered="#{quotation.status ne 'N'.charAt(0)}" />
+												rendered="#{quotation.status != 'N'.charAt(0)}" />
 											<h:inputText readonly="true" styleClass="w3-text-grey"
 												value="#{quotation.deadline}"
-												rendered="#{quotation.status ne 'N'.charAt(0)}">
+												rendered="#{quotation.status != 'N'.charAt(0)}">
 												<f:convertDateTime pattern="dd-MMM-yyyy HH:mm" />
 											</h:inputText>
 											<h:outputText value="Status " />
