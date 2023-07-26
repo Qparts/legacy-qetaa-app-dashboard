@@ -79,34 +79,34 @@
 							</f:facet>
 							<h:outputText value="closed"
 								styleClass="w3-tag w3-orange w3-text-white"
-								rendered="#{cart.status == 'O'}" />
+								rendered="#{cart.status eq 'O'.charAt(0)}" />
 							<h:outputText value="new" styleClass="w3-tag w3-yellow"
-								rendered="#{cart.status == 'N'}" />
+								rendered="#{cart.status eq 'N'.charAt(0)}" />
 							<h:outputText value="waiting for vendors"
-								styleClass="w3-tag w3-indigo" rendered="#{cart.status == 'W'}" />
+								styleClass="w3-tag w3-indigo" rendered="#{cart.status eq 'W'.charAt(0)}" />
 							<h:outputText value="request edit" styleClass="w3-tag w3-teal"
-								rendered="#{cart.status == 'A'}" />
+								rendered="#{cart.status eq 'A'.charAt(0)}" />
 							<h:outputText value="ready for submission"
 								styleClass="w3-tag w3-light-green"
-								rendered="#{cart.status == 'R'}" />
+								rendered="#{cart.status eq 'R'.charAt(0)}" />
 							<h:outputText value="archived" styleClass="w3-tag w3-red"
-								rendered="#{cart.status == 'X'}" />
+								rendered="#{cart.status eq 'X'.charAt(0)}" />
 							<h:outputText value="follow Up" styleClass="w3-tag w3-brown"
-								rendered="#{cart.status == 'S'}" />
+								rendered="#{cart.status eq 'S'.charAt(0)}" />
 							<h:outputText value="Shipped" styleClass="w3-tag w3-green"
-								rendered="#{cart.status == 'H'}" />
+								rendered="#{cart.status eq 'H'.charAt(0)}" />
 							<h:outputText value="Under Collection"
 								styleClass="w3-tag w3-blue-grey"
-								rendered="#{cart.status == 'P'}" />
+								rendered="#{cart.status eq 'P'.charAt(0)}" />
 							<h:outputText value="Under Collection"
 								styleClass="w3-tag w3-blue-grey"
-								rendered="#{cart.status == 'V'}" />
+								rendered="#{cart.status eq 'V'.charAt(0)}" />
 							<h:outputText value="Wire Transfer"
 								styleClass="w3-tag w3-light-blue"
-								rendered="#{cart.status == 'T'}" />
+								rendered="#{cart.status eq 'T'.charAt(0)}" />
 							<h:outputText value="Ready for Shipment"
 								styleClass="w3-tag w3-pale-green"
-								rendered="#{cart.status == 'V'}" />
+								rendered="#{cart.status eq 'V'.charAt(0)}" />
 						</h:column>
 						<h:column>
 							<f:facet name="header">

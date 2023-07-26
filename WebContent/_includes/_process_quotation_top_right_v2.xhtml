@@ -12,27 +12,27 @@
 					<h:inputText readonly="true" styleClass="w3-text-grey"
 						value="#{quotation.createdByObject.firstName} #{quotation.createdByObject.lastName}" />
 					<h:outputText value="Created On "
-						rendered="#{quotation.status != 'N'}" />
+						rendered="#{quotation.status != 'N'.charAt(0)}" />
 					<h:inputText readonly="true" styleClass="w3-text-grey"
-						value="#{quotation.created}" rendered="#{quotation.status != 'N'}">
+						value="#{quotation.created}" rendered="#{quotation.status != 'N'.charAt(0)}">
 						<f:convertDateTime pattern="dd-MMM-yyyy HH:mm" />
 					</h:inputText>
 					<h:outputText value="Deadline"
-						rendered="#{quotation.status != 'N'}" />
+						rendered="#{quotation.status != 'N'.charAt(0)}" />
 					<h:inputText readonly="true" styleClass="w3-text-grey"
 						value="#{quotation.deadline}"
-						rendered="#{quotation.status != 'N'}">
+						rendered="#{quotation.status != 'N'.charAt(0)}">
 						<f:convertDateTime pattern="dd-MMM-yyyy HH:mm" />
 					</h:inputText>
 					<h:outputText value="Status " />
 					<h:outputText value="Under Review"
 						styleClass="w3-tag w3-orange w3-text-white"
-						rendered="#{quotation.status == 'N'}" />
+						rendered="#{quotation.status eq 'N'.charAt(0)}" />
 					<h:outputText value="Waiting for Price"
 						styleClass="w3-tag w3-indigo"
-						rendered="#{quotation.status == 'W'}" />
+						rendered="#{quotation.status eq 'W'.charAt(0)}" />
 					<h:outputText value="Completed" styleClass="w3-tag w3-green"
-						rendered="#{quotation.status == 'C'}" />
+						rendered="#{quotation.status eq 'C'.charAt(0)}" />
 				</h:panelGrid>
 				<br />
 				<h:form>
@@ -196,7 +196,7 @@
 								rendered="#{item.allVendorItemsNotAvailable()}"
 								styleClass="q-btn" />
 						</h:column>
-						<h:column rendered="#{quotation.status != 'N'}">
+						<h:column rendered="#{quotation.status != 'N'.charAt(0)}">
 							<f:facet name="header">
 								<h:outputText value="Delete" />
 							</f:facet>
