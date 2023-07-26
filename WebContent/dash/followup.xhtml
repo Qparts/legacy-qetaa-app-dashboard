@@ -302,7 +302,7 @@
 									<br />
 									<h:panelGroup id="more-action">
 										<h:panelGroup
-											rendered="#{followUpBean.cartReview.actionValue == 'F'}">
+											rendered="#{followUpBean.cartReview.actionValue eq 'F'.charAt(0)}">
 											<h:panelGrid columns="1" styleClass="w3-center">
 												<h:outputText value="City" />
 												<h:selectOneMenu
@@ -320,21 +320,21 @@
 										</h:panelGroup>
 
 										<h:panelGroup
-											rendered="#{followUpBean.cartReview.actionValue == 'E'}">
+											rendered="#{followUpBean.cartReview.actionValue eq 'E'.charAt(0)}">
 											<h:outputText value="Reminder Date" />
 											<p:calendar value="#{followUpBean.cartReview.reminderDate}"
 												mode="inline" required="true"></p:calendar>
 										</h:panelGroup>
 
 										<h:panelGroup
-											rendered="#{followUpBean.cartReview.actionValue == 'C'}">
+											rendered="#{followUpBean.cartReview.actionValue eq 'C'.charAt(0)}">
 											<h:outputText value="Found Price" />
 											<br />
 											<h:inputText
 												value="#{followUpBean.cartReview.alternativePrice}" />
 										</h:panelGroup>
 										<h:panelGroup
-											rendered="#{followUpBean.cartReview.actionValue == 'G'}">
+											rendered="#{followUpBean.cartReview.actionValue eq 'G'.charAt(0)}">
 											<h:dataTable value="#{followUpBean.quotation.quotationItems}"
 												id="items-table" var="item" styleClass="w3-table w3-border"
 												headerClass="w3-light-grey">
