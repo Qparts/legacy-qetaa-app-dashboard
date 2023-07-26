@@ -62,7 +62,7 @@ public class WireTransferBean implements Serializable {
 			Helper.redirect("wire_transfers");
 		}
 	}
-	
+
 	private void initParts() {
 		Response r2 = reqs.getSecuredRequest(AppConstants.getCustomerPartsApprovedITems(wire.getCartId()));
 		if(r2.getStatus() == 200) {
@@ -70,7 +70,7 @@ public class WireTransferBean implements Serializable {
 			wire.getCart().setApprovedItems(approved);
 		}
 	}
-	
+
 	private void initPromoCode() {
 		if (wire.getCart().getPromotionCode() != null) {
 			Response r = reqs.getSecuredRequest(AppConstants.getPromoCode(wire.getCart().getPromotionCode()));
@@ -79,9 +79,8 @@ public class WireTransferBean implements Serializable {
 			}
 		}
 	}
-	
 
-	
+
 	private void initCity() {
 		for (City city : citiesBean.getCities()) {
 			if (city.getId() == wire.getCart().getCityId()) {
@@ -90,7 +89,7 @@ public class WireTransferBean implements Serializable {
 			}
 		}
 	}
-	
+
 	private void initWire(String s) throws Exception {
 		wire = new WireTransfer();
 		Long cartId = Long.parseLong(s);
@@ -101,19 +100,18 @@ public class WireTransferBean implements Serializable {
 			throw new Exception();
 		}
 	}
-	
+
 	public void deleteWireTransfer() {
 		this.wire.setConfirmedBy(loginBean.getUserHolder().getUser().getId());
 		Response r = reqs.putSecuredRequest(AppConstants.PUT_UNDO_WIRE_TRANSFER, this.wire);
 		if(r.getStatus() == 201) {
 			Helper.addInfoMessage("Wire Transfer cancelled");
 			init();
-		}
-		else {
+		} else {
 			Helper.addErrorMessage("Something went wrong");
 		}
 	}
-	
+
 	public void fundWallet() {
 		Map<String, Object> map = new HashMap<String,Object>();
 		map.put("amount", wire.getAmount());
@@ -126,45 +124,47 @@ public class WireTransferBean implements Serializable {
 		Response r = reqs.postSecuredRequest(AppConstants.POST_FUND_WALLET, map);
 		if(r.getStatus() == 201) {
 			Helper.redirect("wire_transfers");
-		}
-		else {
+		} else {
 			System.out.println(r.getStatus());
 			Helper.addErrorMessage("Something went wrong");
 		}
 	}
-	
+
 	//to be retired
 	public void confirmPartsPayment() {
 		partsPayment = new PartsPayment(wire);
 		prepareBank();
 		Response r = reqs.postSecuredRequest(AppConstants.POST_BANK_PARTS_PAYMENT, partsPayment);
+		System.out.println("This is dashboard: Response from confirm parts payment " + r.getStatus());
 		if (r.getStatus() == 200) {
 			wire.setConfirmedBy(loginBean.getUserHolder().getUser().getId());
 			// update cart and deactivate payment request
+			System.out.println("This is dashboard: calling update wire transfer");
 			Response r2 = reqs.putSecuredRequest(AppConstants.PUT_CONFIRM_WIRE_TRANSFER, this.wire);
+			System.out.println("This is dashboard: Response from update wire transfer: " + r2.getStatus());
 			if (r2.getStatus() == 200) {
 				Helper.redirect("wire_transfers");
 			}
 		}
 	}
-	
+
 	private void prepareCartReview() {
 		cartReview.setStage(4);
 		cartReview.setCartId(this.wire.getCartId());
 		cartReview.setReviewerId(this.loginBean.getUserHolder().getUser().getId());
 		cartReview.setStatus(cartReview.getStatusFromActionValue());
 	}
-	
+
 	public void submitReview() {
 		prepareCartReview();
 		Response r = reqs.postSecuredRequest(AppConstants.POST_FOLLOW_UP_REVIEW, this.cartReview);
 		if (r.getStatus() == 200) {
-				Helper.redirect("wire-transfer?cart=" + wire.getCartId());
+			Helper.redirect("wire-transfer?cart=" + wire.getCartId());
 		} else {
 			Helper.addErrorMessage("An error occured");
 		}
 	}
-	
+
 	private void prepareBank() {
 		for (Bank b : banksBean.getActiveBanks()) {
 			if (b.getBankId() == this.bankId) {
@@ -198,8 +198,6 @@ public class WireTransferBean implements Serializable {
 	public void setCartReview(CartReview cartReview) {
 		this.cartReview = cartReview;
 	}
-	
-	
 
 
 }
