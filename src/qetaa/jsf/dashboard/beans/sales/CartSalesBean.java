@@ -113,12 +113,11 @@ public class CartSalesBean implements Serializable {
 
 	private void initSalesPayment() {
 		SalesPayment sp = new SalesPayment();
-		sp.setAmount(this.getTotalSalesProducts() + this.getTotalVat() - this.getPromotionDiscount()
-				+ this.cart.getDeliveryFees());
+		sp.setAmount(this.getTotalSalesProducts() + this.getTotalVat() - this.getPromotionDiscount() + this.cart.getDeliveryFees());
 		if(partsPayment.getBank() != null) {
 			sp.setBankId(partsPayment.getBank().getBankId());
 		}
- 
+
 		if(partsPayment.getCreditFees() != null) {
 			sp.setCreditFees((Double)partsPayment.getCreditFees()/100);
 		}else {
@@ -290,8 +289,10 @@ public class CartSalesBean implements Serializable {
 		cart = new Cart();
 		Long id = Long.parseLong(param);
 		Response r = reqs.getSecuredRequest(AppConstants.getWaitingPartsOrder(id));
+		System.out.println("dashboard salesbean: Get cart Cart response " + r.getStatus());
 		if (r.getStatus() == 200) {
 			cart = r.readEntity(Cart.class);
+			System.out.println("delivery fees: " +cart.getDeliveryFees());
 		} else {
 			throw new Exception();
 		}
