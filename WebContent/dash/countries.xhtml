@@ -14,13 +14,10 @@
 		type="text/javascript"></script>
 </h:head>
 <h:body>
-	<p:layout fullPage="true">
-		<p:layoutUnit position="north" size="62"
-			styleClass="q-dashboard-background" id="north">
-			<ui:include src="/_includes/top_dashboard" />
-		</p:layoutUnit>
-		<ui:include src="/_includes/side" />
-		<p:layoutUnit position="center">
+<h:outputText value="#{loginBean.checkAccessRedirectHome(act.pageCountries)}" />
+		<ui:include src="/_includes/top_dashboard.xhtml" />
+	<ui:include src="/_includes/side.xhtml" />
+		<div>
 			<div class="w3-container">
 				<div align="center" class="w3-padding-8">
 					<h:outputText value="Countries Master" styleClass="q-large-text" />
@@ -102,18 +99,18 @@
 								Internal Status
 							</f:facet>
 							<h:outputText value="active" styleClass="w3-tag w3-green"
-								rendered="#{var.internalStatus eq 'A'.charAt(0)}" />
+								rendered="#{var.internalStatus eq 'A'.charAt(0}}" />
 							<h:outputText value="inactive" styleClass="w3-tag w3-red"
-								rendered="#{var.internalStatus eq 'I'.charAt(0)}" />
+								rendered="#{var.internalStatus eq 'I'.charAt(0}}" />
 						</h:column>
 						<h:column>
 							<f:facet name="header">
 								Customer Status
 							</f:facet>
 							<h:outputText value="active" styleClass="w3-tag w3-green"
-								rendered="#{var.customerStatus eq 'A'.charAt(0)}" />
+								rendered="#{var.customerStatus eq 'A'.charAt(0}}" />
 							<h:outputText value="inactive" styleClass="w3-tag w3-red"
-								rendered="#{var.customerStatus eq 'I'.charAt(0)}" />
+								rendered="#{var.customerStatus eq 'I'.charAt(0}}" />
 						</h:column>
 						<h:column>
 							<f:facet name="header">
@@ -139,9 +136,8 @@
 						</p:gmap>
 					</p:dialog>
 				</h:form>
-
+</div>
 			</div>
-		</p:layoutUnit>
-	</p:layout>
+	
 </h:body>
 </html>

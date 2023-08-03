@@ -24,7 +24,9 @@ public class SalesReturn implements Serializable{
 	private Double promotionDiscount;
 	private Integer promotionId;
 	private Integer bankId;
+	private Double returnedDeliveryFees; 
 	private List<SalesReturnProduct> salesReturnProducts;
+	private List<SalesPayment> salesPayments;
 	
 	@JsonIgnore
 	public double getTotalPartsSalesNewQuantity() {
@@ -66,6 +68,12 @@ public class SalesReturn implements Serializable{
 	}
 	
 	@JsonIgnore
+	public double getReturnedDeliveryFeesWithVat() {
+		return this.returnedDeliveryFees * (1 + this.getVatPercentage());
+	}
+	
+	
+	@JsonIgnore
 	public double getTotalPromotionDiscountDeductionNewQuantity(Cart cart) {
 		if(cart.getPromotionCode() == null) {
 			return 0;
@@ -73,7 +81,7 @@ public class SalesReturn implements Serializable{
 		if(!cart.getPromoCodeObject().isDiscountPromo()) {
 			return 0;
 		}
-		return getTotalPartsSalesNewQuantity() * cart.getPromoCodeObject().getDiscountPercentage();
+		return (getTotalPartsSalesNewQuantity() + this.getReturnedDeliveryFees())* cart.getPromoCodeObject().getDiscountPercentage();
 	}
 	
 	@JsonIgnore
@@ -105,8 +113,7 @@ public class SalesReturn implements Serializable{
 		if(salesReturnProducts == null) {
 			return 0;
 		}
-		total = total + (getTotalPartsSalesWv() - this.getTotalDeductionFees() - this.getPromotionDiscount());
-		
+		total = total + (getTotalPartsSalesWv() - this.getTotalDeductionFees() - this.getPromotionDiscount() + this.getReturnedDeliveryFeesWvSafe());		
 		return total;
 	}
 	
@@ -212,7 +219,15 @@ public class SalesReturn implements Serializable{
 		}
 	}
 	
+	@JsonIgnore
+	public double getReturnedDeliveryFeesSafe() {
+		return (this.returnedDeliveryFees == null ? 0 : this.returnedDeliveryFees);
+	}
 	
+	@JsonIgnore
+	public double getReturnedDeliveryFeesWvSafe() {
+		return (this.getReturnedDeliveryFees() == null ? 0 : this.getReturnedDeliveryFeesWithVat());
+	}
 	
 	public char getMethod() {
 		return method;
@@ -276,5 +291,25 @@ public class SalesReturn implements Serializable{
 	public void setBankId(Integer bankId) {
 		this.bankId = bankId;
 	}
+
+	public List<SalesPayment> getSalesPayments() {
+		return salesPayments;
+	}
+
+	public void setSalesPayments(List<SalesPayment> salesPayments) {
+		this.salesPayments = salesPayments;
+	}
+
+	public Double getReturnedDeliveryFees() {
+		return returnedDeliveryFees;
+	}
+
+	public void setReturnedDeliveryFees(Double returnedDeliveryFees) {
+		this.returnedDeliveryFees = returnedDeliveryFees;
+	}
+	
+	
+	
+	
 
 }

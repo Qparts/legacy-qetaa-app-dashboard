@@ -11,13 +11,9 @@
 	<ui:include src="/_includes/_dashboard_header" />
 </h:head>
 <h:body>
-	<p:layout fullPage="true">
-		<p:layoutUnit position="north" size="62"
-			styleClass="q-dashboard-background" id="north">
-			<ui:include src="/_includes/top_dashboard" />
-		</p:layoutUnit>
-		<ui:include src="/_includes/side" />
-		<p:layoutUnit position="center">
+<h:outputText value="#{loginBean.checkAccessRedirectHome(act.pagePurchaseSearch)}" />
+<ui:include src="/_includes/top_dashboard.xhtml" />
+	<ui:include src="/_includes/side.xhtml" />
 			<div class="w3-container">
 				<div align="center" class="w3-padding-8">
 					<h:outputText value="Purchase Search" styleClass="q-large-text" />
@@ -56,6 +52,12 @@
 								<h:outputText value="To" />
 								<p:calendar value="#{purchaseSearchBean.to}" pattern="dd-MMM-yyyy"
 									styleClass="q-input-undecorate" process="@this" update="@this" />
+								<h:outputText value="Vendor" />
+								<h:selectOneMenu value="#{purchaseSearchBean.vendorId}">
+									<f:selectItem itemValue="#{0}" itemLabel="All" />
+									<f:selectItems value="#{vendorBean.vendorHolders}" var="holder"
+										itemLabel="#{holder.vendor.name}" itemValue="#{holder.vendor.id}" />
+								</h:selectOneMenu>
 							</h:panelGrid>
 						</div>
 						<div class="w3-third">
@@ -98,7 +100,13 @@
 						</h:column>
 						<h:column>
 							<f:facet name="header">
-								Vehicle
+								Vendor
+							</f:facet>
+							<h:outputText value="#{vendorBean.getVendorFromId(purchase.vendorId).name}" />
+						</h:column>
+						<h:column>
+							<f:facet name="header">
+								Total Cost
 							</f:facet>
 							<h:outputText value="#{purchase.totalCostWv}">
 								<f:convertNumber currencySymbol="SR " type="currency"/>
@@ -115,7 +123,5 @@
 					</h:dataTable>
 				</h:form>
 			</div>
-		</p:layoutUnit>
-	</p:layout>
 </h:body>
 </html>

@@ -1,0 +1,101 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+<h:head>
+	<title>Product Search</title>
+	<ui:include src="/_includes/_dashboard_header" />
+</h:head>
+<h:body>
+<h:outputText value="#{loginBean.checkAccessRedirectHome(act.pageProduct)}" />
+	<ui:include src="/_includes/top_dashboard.xhtml" />
+	<ui:include src="/_includes/side.xhtml" />
+			<div class="w3-container">
+				<div align="center" class="w3-padding-8">
+					<h:outputText value="Search Product" styleClass="q-large-text" />
+				</div>
+				<h:form id="form-g">
+					<p:growl id="error-growl"
+						rendered="#{facesContext.maximumSeverity.ordinal eq 2}" />
+					<p:growl id="success-growl"
+						rendered="#{facesContext.maximumSeverity.ordinal eq 0}" />
+				</h:form>
+				<br />
+				<h:form>
+					<div>
+						<h:outputText value="Search Products" />
+						<h:panelGrid columns="2">
+							<h:outputText value="Product Number"/>
+							<h:inputText value="#{productBean.searchNumber}" />
+							<h:outputText value="Product Name" />
+							<h:inputText value="#{productBean.searchName}" />
+							<h:outputText value="Make" />
+							<h:selectOneMenu value="#{productBean.searchMakeId}">
+								<f:selectItem itemValue="#{0}" itemLabel="All" />
+								<f:selectItems value="#{vehicleBean.makes}" var="make"
+									itemValue="#{make.id}" itemLabel="#{make.name}"></f:selectItems>
+							</h:selectOneMenu>
+						</h:panelGrid>
+						<h:commandButton actionListener="#{productBean.searchProduct()}"
+							value="Search" styleClass="q-btn">
+							<f:ajax execute="@form" render=":form-g :form5"></f:ajax>
+						</h:commandButton>
+					</div>
+				</h:form>
+				<br />
+				<h:form id="form5">
+					<h:dataTable value="#{productBean.products}" var="var"
+						styleClass="w3-table w3-striped w3-border"
+						headerClass="w3-border-bottom w3-light-grey">
+						<h:column>
+							<f:facet name="header">
+								<h:outputText value="ID" />
+							</f:facet>
+							<h:outputText value="#{var.id}" />
+						</h:column>
+						<h:column>
+							<f:facet name="header">
+								<h:outputText value="Make" />
+							</f:facet>
+							<h:outputText
+								value="#{vehicleBean.getMakeFromId(var.makeId).name}" />
+						</h:column>
+						<h:column>
+							<f:facet name="header">
+								<h:outputText value="Name" />
+							</f:facet>
+							<h:outputText value="#{var.productName.name}" />
+						</h:column>
+						<h:column>
+							<f:facet name="header">
+								<h:outputText value="Name Arabic" />
+							</f:facet>
+							<h:outputText value="#{var.productName.nameAr}" />
+						</h:column>
+						<h:column>
+							<f:facet name="header">
+								<h:outputText value="Number" />
+							</f:facet>
+							<h:outputText value="#{var.productNumber}" />
+						</h:column>
+						<h:column>
+							<f:facet name="header">
+								<h:outputText value="Number Undecorated" />
+							</f:facet>
+							<h:outputText value="#{var.productNumberUndecorated}" />
+						</h:column>
+						<h:column>
+							<f:facet name="header">
+								<h:outputText value="View" />
+							</f:facet>
+							<h:outputLink value="product-details?id=#{var.id}"> View </h:outputLink>
+						</h:column>
+					</h:dataTable>
+				</h:form>
+			</div>
+</h:body>
+</html>

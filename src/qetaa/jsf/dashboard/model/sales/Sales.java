@@ -34,6 +34,50 @@ public class Sales implements Serializable {
 	@JsonIgnore
 	private Cart cart;
 
+	
+	@JsonIgnore
+	public List<SalesPayment> getReturnPayments(){
+		List<SalesPayment> pays = new ArrayList<>();
+		if(this.salesReturns != null) {
+			for(SalesReturn sr : this.salesReturns) {
+				if(sr.getSalesPayments() != null) {
+					pays.addAll(sr.getSalesPayments());
+				}
+			}
+		}
+		return pays;
+	}
+	
+	@JsonIgnore
+	public double getOutstanding() {
+		return this.getTotalPartsWvAmount() - this.getPaid() - this.getPromotionDiscount() + this.getReturned();
+	}
+	
+	@JsonIgnore
+	public double getPaid() {
+		double total = 0;
+		if(this.salesPayments != null) {
+			for(SalesPayment sp : this.salesPayments) {
+				total += sp.getAmount();
+			}
+		}
+		return total;
+	}
+	
+	@JsonIgnore
+	public double getReturned() {
+		double total = 0;
+		if(this.salesReturns != null) {
+			for(SalesReturn sr : this.salesReturns) {
+				if(sr.getSalesPayments() != null) {
+					for(SalesPayment sp : sr.getSalesPayments()) {
+						total += sp.getAmount();
+					}
+				}
+			}
+		}
+		return total;
+	}
 	@JsonIgnore
 	public double getTotalPartsWvAmount() {
 		double total = 0;
@@ -115,6 +159,7 @@ public class Sales implements Serializable {
 	@JsonIgnore
 	public double getTotalCreditFees() {
 		double total = 0;
+		
 		if (this.salesPayments != null) {
 			for (SalesPayment sp : salesPayments) {
 				if (sp.getCreditFees() != null)
@@ -144,6 +189,11 @@ public class Sales implements Serializable {
 	public double getTotalSalesWv() {
 		return this.getTotalPartsWvAmount() + this.getTotalDeliveryFees();
 	}
+	
+	@JsonIgnore
+	public double getNetTotalSales() {
+		return this.getTotalPartsWvAmount() + this.getTotalDeliveryFees() - this.promotionDiscount;
+	}
 
 	@JsonIgnore
 	public double getTotalSales() {
@@ -155,7 +205,7 @@ public class Sales implements Serializable {
 		return this.getTotalPartsCostWv() + this.getShipmentFees() + this.getPromotionDiscount()
 				+ this.getTotalCreditFees();
 	}
-
+	
 	@JsonIgnore
 	public double getProfit() {
 		return getTotalSalesWv() - getTotalCostWv();

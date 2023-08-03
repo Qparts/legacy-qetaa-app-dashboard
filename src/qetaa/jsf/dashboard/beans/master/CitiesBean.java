@@ -82,6 +82,15 @@ public class CitiesBean implements Serializable{
 		}
 	}
 	
+	public City getCityFromId(int cityId) {
+		for(City c : cities) {
+			if(c.getId() == cityId) {
+				return c;
+			}
+		}
+		return null;
+	}
+	
 	public void createCity(){
 		Response r= reqs.postSecuredRequest(AppConstants.POST_CREATE_CITY, city);
 		if(r.getStatus() == 200){

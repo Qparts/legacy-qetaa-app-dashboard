@@ -1,0 +1,385 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+
+<h:head>
+	<title>Wallet Sales</title>
+	<ui:include src="/_includes/_dashboard_header" />
+</h:head>
+<h:body>
+<h:outputText value="#{loginBean.checkAccessRedirectHome(act.pageWalletSales)}" />
+	<ui:include src="/_includes/top_dashboard.xhtml" />
+	<ui:include src="/_includes/side.xhtml" />
+			<div class="w3-container">
+				<div align="center" class="w3-padding-8">
+					<h:outputText value="Wallet Sales - Cart# "
+						styleClass="q-large-text" />
+					<h:outputText value="#{salesWalletBean.wallet.cartId}"
+						styleClass="q-large-text" />
+				</div>
+				<h:form id="form-g">
+					<p:growl id="error-growl"
+						rendered="#{facesContext.maximumSeverity.ordinal eq 2}" />
+					<p:growl id="success-growl"
+						rendered="#{facesContext.maximumSeverity.ordinal eq 0}" />
+				</h:form>
+
+				<h:form id="form">
+					<p:panel toggleable="true" header="Cart Info" collapsed="false"
+						toggleSpeed="100">
+
+						<div class="w3-row">
+							<div class="w3-third w3-container">
+								<div class="w3-card-2 w3-padding-8 w3-light-grey" align="center">
+									<h:panelGrid columns="2">
+										<h:outputText value="Cart ID" />
+										<h:inputText value="#{salesWalletBean.wallet.cart.id}"
+											readonly="true" />
+										<h:outputText value="Cart Date" />
+										<h:inputText value="#{salesWalletBean.wallet.cart.created}"
+											readonly="true">
+											<f:convertDateTime type="date" />
+										</h:inputText>
+										<h:outputText value="Vehicle" />
+										<h:inputText
+											value="#{salesWalletBean.wallet.cart.modelYear.fullName}"
+											readonly="true" />
+										<h:outputText value="VIN" />
+										<h:inputText value="#{salesWalletBean.wallet.cart.vin}"
+											readonly="true" />
+									</h:panelGrid>
+								</div>
+							</div>
+							<div class="w3-third w3-container">
+								<div class="w3-card-2 w3-padding-8 w3-light-grey" align="center">
+									<h:panelGrid columns="2">
+										<h:outputText value="Customer ID" />
+										<h:inputText value="#{salesWalletBean.wallet.cart.customerId}"
+											readonly="true" />
+										<h:outputText value="Name" />
+										<h:inputText
+											value="#{salesWalletBean.wallet.cart.customer.fullName}"
+											readonly="true" />
+										<h:outputText value="Mobile" />
+										<h:inputText
+											value="#{salesWalletBean.wallet.cart.customer.mobile}"
+											readonly="true" />
+										<h:outputText value="Email" />
+										<h:inputText
+											value="#{salesWalletBean.wallet.cart.customer.email}"
+											readonly="true" />
+										<h:outputText value="Loyalty Points" />
+										<h:inputText
+											value="#{salesWalletBean.wallet.cart.customer.totalLoyaltyPoints}"
+											readonly="true" />
+									</h:panelGrid>
+								</div>
+							</div>
+							<div class="w3-third">
+								<div class="w3-card-2 w3-padding-8 w3-light-grey" align="center">
+									<h:panelGrid columns="2">
+										<h:outputText value="Address" />
+										<h:inputText
+											value="#{salesWalletBean.wallet.cart.address.line1}"
+											readonly="true" />
+										<h:outputText value="" />
+										<h:inputText
+											value="#{salesWalletBean.wallet.cart.address.line2}"
+											readonly="true" />
+										<h:outputText value="Country" />
+										<h:inputText
+											value="#{salesWalletBean.wallet.cart.address.city.country.name}"
+											readonly="true" />
+										<h:outputText value="City" />
+										<h:inputText
+											value="#{salesWalletBean.wallet.cart.address.city.region.name} - #{salesWalletBean.wallet.cart.address.city.name}"
+											readonly="true" />
+									</h:panelGrid>
+								</div>
+							</div>
+						</div>
+					</p:panel>
+				</h:form>
+				<h:form>
+					<br />
+					<p:panel toggleable="true" header="Reviews" collapsed="false"
+						toggleSpeed="100">
+						<ui:repeat var="review"
+							value="#{salesWalletBean.wallet.cart.reviews}">
+							<h:outputText value="#{review.created}" styleClass="q-bold"
+								style="color:#2dacd1!important;">
+								<f:convertDateTime pattern="dd-MMM-yyyy hh:mm" />
+							</h:outputText>
+							<h:outputText value=" #{review.reviewer.firstName}: "
+								styleClass="q-bold" style="color:#2dacd1!important;" />
+							<h:outputText
+								value=" (#{review.visibleToCustomer ? 'visible' : 'hidden'}) : "
+								style="color:#2dacd1!important;" styleClass="q-bold" />
+							<h:outputText dir="rtl" value=" #{review.reviewText}" />
+							<br />
+							<br />
+						</ui:repeat>
+
+						<p:commandButton value="+ Add Review" styleClass="q-btn"
+							oncomplete="PF('reviewDlgwv').show()" />
+					</p:panel>
+				</h:form>
+
+				<h:form id="new-review-form">
+					<p:dialog styleClass="q-dialog" header="New Review"
+						widgetVar="reviewDlgwv">
+						<div align="center">
+							<h:outputText value="Action" />
+							<br />
+							<h:selectOneMenu value="#{salesWalletBean.review.actionValue}"
+								required="true" requiredMessage="Select action">
+								<f:selectItem itemValue="B" itemLabel="General" />
+							</h:selectOneMenu>
+							<br/>
+							<br/>
+							<h:outputText value="Visible to Customer" />
+							<br/>
+							<h:selectBooleanCheckbox value="#{salesWalletBean.review.visibleToCustomer}" />
+							<br/>
+							<div class="w3-padding-12">
+								<h:outputText value="Comments" />
+								<br />
+								<h:inputTextarea required="true"
+									requiredMessage="Enter comments before submitting"
+									value="#{salesWalletBean.review.reviewText}" cols="70" rows="3" />
+							</div>
+							<div>
+								<p:commandButton value="Submit" styleClass="q-btn"
+									actionListener="#{salesWalletBean.submitReview()}"
+									process="@form" ajax="false">
+								</p:commandButton>
+							</div>
+						</div>
+					</p:dialog>
+				</h:form>
+				<br />
+
+				<div>
+					<h:form id="form2">
+						<h:dataTable value="#{salesWalletBean.wallet.walletItems}"
+							var="item" styleClass="w3-table w3-striped w3-border"
+							headerClass="w3-light-grey w3-border-bottom"
+							footerClass="w3-light-grey w3-border-top">
+							<h:column>
+								<f:facet name="header">
+									<h:outputText value="Product ID" />
+								</f:facet>
+								<h:outputText value="#{item.productId}" />
+							</h:column>
+							<h:column>
+								<f:facet name="header">
+									<h:outputText value="Desc." />
+								</f:facet>
+								<h:outputText value="#{item.itemDesc}" />
+							</h:column>
+							<h:column>
+								<f:facet name="header">
+									<h:outputText value="Item Number" />
+								</f:facet>
+								<h:outputText value="#{item.itemNumber}" />
+							</h:column>
+							<h:column style="width:100px">
+								<f:facet name="header">
+									<h:outputText value="Type" />
+								</f:facet>
+								<h:outputText value="Product" rendered="#{item.itemType eq 'P'.charAt(0)}" />
+								<h:outputText value="Delivery"
+									rendered="#{item.itemType eq 'D'.charAt(0)}" />
+							</h:column>
+							<h:column>
+								<f:facet name="header">
+									<h:outputText value="Status" />
+								</f:facet>
+								<h:outputText rendered="#{item.status eq 'A'.charAt(0)}" value="Awaiting"
+									styleClass="w3-tag w3-orange w3-text-white" />
+								<h:outputText rendered="#{item.status eq 'R'.charAt(0)}" value="Refunded"
+									styleClass="w3-tag w3-red" />
+								<h:outputText rendered="#{item.status eq 'P'.charAt(0)}" value="Purchased"
+									styleClass="w3-tag w3-green" />
+							</h:column>
+							<h:column>
+								<f:facet name="header">
+									<h:outputText value="Unit Quote" />
+								</f:facet>
+								<h:outputText value="#{item.unitQuotedCost}">
+									<f:convertNumber currencySymbol="SR " type="currency" />
+								</h:outputText>
+							</h:column>
+							<h:column>
+								<f:facet name="header">
+									<h:outputText value="Unit Sales" />
+								</f:facet>
+								<h:outputText value="#{item.unitSales}">
+									<f:convertNumber currencySymbol="SR " type="currency" />
+								</h:outputText>
+							</h:column>
+							<h:column>
+								<f:facet name="header">
+									<h:outputText value="Quantity" />
+								</f:facet>
+								<h:outputText value="#{item.quantity}" />
+							</h:column>
+							<h:column>
+								<f:facet name="header">
+									<h:outputText value="Gross Sales" />
+								</f:facet>
+								<h:outputText value="#{item.unitSales * item.quantity}">
+									<f:convertNumber currencySymbol="SR " type="currency" />
+								</h:outputText>
+							</h:column>
+							<h:panelGroup rendered="false">
+								<f:facet name="footer">
+									<div align="center" class="q-bold">
+										<h:outputText value="Total Products: " />
+										<h:outputText value="#{awaitingWalletBean.totalProductsSales}">
+											<f:convertNumber currencySymbol="SR " type="currency" />
+										</h:outputText>
+										<br />
+										<h:outputText value="Delivery: " />
+										<h:outputText value="#{awaitingWalletBean.delivery}">
+											<f:convertNumber currencySymbol="SR " type="currency" />
+										</h:outputText>
+										<br />
+										<h:outputText value="VAT: " />
+										<h:outputText value="#{awaitingWalletBean.totalVat}">
+											<f:convertNumber currencySymbol="SR " type="currency" />
+										</h:outputText>
+										<br />
+										<h:outputText value="Discounts: " />
+										<h:outputText value="#{awaitingWalletBean.totalDiscounts}">
+											<f:convertNumber currencySymbol="SR " type="currency" />
+										</h:outputText>
+										<br />
+										<h:outputText value="Net Total: " />
+										<h:outputText value="#{awaitingWalletBean.totalNet}">
+											<f:convertNumber currencySymbol="SR " type="currency" />
+										</h:outputText>
+									</div>
+								</f:facet>
+							</h:panelGroup>
+						</h:dataTable>
+					</h:form>
+					<br />
+					<h:form>
+						<h:dataTable value="#{salesWalletBean.sales.salesProducts}"
+							var="sp" styleClass="w3-table w3-striped w3-border"
+							headerClass="w3-light-grey w3-border-bottom"
+							footerClass="w3-light-grey w3-border-top">
+							<f:facet name="header">
+								<div align="center">
+									<h:outputText value="Sales Products" />
+								</div>
+							</f:facet>
+							<h:column>
+								<f:facet name="header">
+									<h:outputText value="Product ID" />
+								</f:facet>
+								<h:outputText value="#{sp.productId}" />
+							</h:column>
+							<h:column>
+								<f:facet name="header">
+									<h:outputText value="Product Name" />
+								</f:facet>
+								<h:outputText value="#{sp.product.productName.name}" />
+							</h:column>
+							<h:column>
+								<f:facet name="header">
+									<h:outputText value="Number" />
+								</f:facet>
+								<h:outputText value="#{sp.product.productNumber}" />
+							</h:column>
+							<h:column>
+								<f:facet name="header">
+									<h:outputText value="Quantity" />
+								</f:facet>
+								<h:outputText value="#{sp.quantity}" />
+							</h:column>
+							<h:column>
+								<f:facet name="header">
+									<h:outputText value="Unit" />
+								</f:facet>
+								<h:outputText value="#{sp.unitSales}">
+									<f:convertNumber currencySymbol="SR " type="currency" />
+								</h:outputText>
+							</h:column>
+							<h:column>
+								<f:facet name="header">
+									<h:outputText value="VAT" />
+								</f:facet>
+								<h:outputText value="#{sp.unitSalesWv - sp.unitSales}">
+									<f:convertNumber currencySymbol="SR " type="currency" />
+								</h:outputText>
+							</h:column>
+							<h:column>
+								<f:facet name="header">
+									<h:outputText value="Gross Unit" />
+								</f:facet>
+								<h:outputText value="#{sp.unitSalesWv}">
+									<f:convertNumber currencySymbol="SR " type="currency" />
+								</h:outputText>
+							</h:column>
+							<h:column>
+								<f:facet name="header">
+									<h:outputText value="Gross" />
+								</f:facet>
+								<h:outputText value="#{sp.unitSalesWv * sp.quantity}">
+									<f:convertNumber currencySymbol="SR " type="currency" />
+								</h:outputText>
+							</h:column>
+							<f:facet name="footer">
+								<div align="center" class="q-bold">
+									<h:outputText value="Parts Total: " />
+									<h:outputText value="#{salesWalletBean.salesTotalProducts}">
+										<f:convertNumber currencySymbol="SR " type="currency" />
+									</h:outputText>
+									<br />
+									<h:outputText value="Delivery Fees: " />
+									<h:outputText value="#{salesWalletBean.deliveryFees}">
+										<f:convertNumber currencySymbol="SR " type="currency" />
+									</h:outputText>
+									<br />
+									<h:outputText value="VAT: " />
+									<h:outputText
+										value="#{salesWalletBean.salesTotalProductsVat + salesWalletBean.deliveryFeesVat}">
+										<f:convertNumber currencySymbol="SR " type="currency" />
+									</h:outputText>
+									<br />
+									<h:outputText value="Promotion Discount: " style="color:red" />
+									<h:outputText
+										value="#{salesWalletBean.salesTotalDiscountAmount}"
+										style="color:red">
+										<f:convertNumber currencySymbol="SR " type="currency" />
+									</h:outputText>
+									<br />
+									<h:outputText value="Net Total: " />
+									<h:outputText
+										value="#{salesWalletBean.salesTotalProductsWithVat + salesWalletBean.deliveryFeesWithVat - salesWalletBean.salesTotalDiscountAmount}">
+										<f:convertNumber currencySymbol="SR " type="currency" />
+									</h:outputText>
+								</div>
+							</f:facet>
+						</h:dataTable>
+
+						<br />
+						<div align="center">
+							<p:commandButton value="Create Sales"
+								actionListener="#{salesWalletBean.createSales()}"
+								styleClass="q-btn" widgetVar="submitSales"
+								onclick="PF('submitSales').disable()" />
+						</div>
+					</h:form>
+					<br />
+				</div>
+			</div>
+</h:body>
+</html>

@@ -11,13 +11,9 @@
 	<ui:include src="/_includes/_dashboard_header" />
 </h:head>
 <h:body>
-	<p:layout fullPage="true">
-		<p:layoutUnit position="north" size="62"
-			styleClass="q-dashboard-background" id="north">
-			<ui:include src="/_includes/top_dashboard" />
-		</p:layoutUnit>
-		<ui:include src="/_includes/side" />
-		<p:layoutUnit position="center">
+<h:outputText value="#{loginBean.checkAccessRedirectHome(act.pageSalesReturn)}" />
+	<ui:include src="/_includes/top_dashboard.xhtml" />
+	<ui:include src="/_includes/side.xhtml" />
 			<div class="w3-container">
 				<div align="center" class="w3-padding-8">
 					<h:outputText value="Sales Return " styleClass="q-large-text" />
@@ -107,8 +103,7 @@
 				</div>
 				<br />
 				<h:form id="form-3">
-					<h:dataTable
-						rendered="#{salesReturnBean.itemsAvailableForReturn}"
+					<h:dataTable rendered="#{salesReturnBean.itemsAvailableForReturn}"
 						value="#{salesReturnBean.salesReturn.salesReturnProducts}"
 						var="sp" styleClass="w3-table w3-srtiped w3-border"
 						headerClass="w3-sand w3-border-bottom"
@@ -206,9 +201,16 @@
 									<f:convertNumber currencySymbol="SR " type="currency" />
 								</h:outputText>
 								<br />
+								<h:outputText value="Returned Delivery Fees: " />
+								<h:outputText
+									value="#{salesReturnBean.salesReturn.returnedDeliveryFees}">
+									<f:convertNumber currencySymbol="SR " type="currency" />
+								</h:outputText>
+								<br />
+
 								<h:outputText value="VAT: " />
 								<h:outputText
-									value="#{salesReturnBean.salesReturn.totalPartsSalesWvNewQuantity - salesReturnBean.salesReturn.totalPartsSalesNewQuantity}">
+									value="#{salesReturnBean.salesReturn.totalPartsSalesWvNewQuantity - salesReturnBean.salesReturn.totalPartsSalesNewQuantity + salesReturnBean.salesReturn.returnedDeliveryFeesWithVat - salesReturnBean.salesReturn.returnedDeliveryFees}">
 									<f:convertNumber currencySymbol="SR " type="currency" />
 								</h:outputText>
 								<br />
@@ -221,7 +223,7 @@
 								<br />
 								<h:outputText value="Promotion Discount: " style="color:red;" />
 								<h:outputText
-									value="#{salesReturnBean.salesReturn.totalPartsSalesNewQuantity * salesReturnBean.sales.cart.promoCodeObject.discountPercentage}"
+									value="#{(salesReturnBean.salesReturn.totalPartsSalesNewQuantity + salesReturnBean.salesReturn.returnedDeliveryFees)* salesReturnBean.sales.cart.promoCodeObject.discountPercentage}"
 									style="color:red;">
 									<f:convertNumber currencySymbol="SR " type="currency" />
 								</h:outputText>
@@ -229,8 +231,9 @@
 								<h:outputText value="Net Return:" />
 								<h:outputText
 									value="#{salesReturnBean.salesReturn.totalPartsSalesWvNewQuantity
+														+ salesReturnBean.salesReturn.returnedDeliveryFeesWithVat
 									 					- salesReturnBean.salesReturn.totalDeductionFees
-									 					- salesReturnBean.salesReturn.totalPartsSalesNewQuantity * salesReturnBean.sales.cart.promoCodeObject.discountPercentage}">
+									 					- (salesReturnBean.salesReturn.totalPartsSalesNewQuantity + salesReturnBean.salesReturn.returnedDeliveryFees) * salesReturnBean.sales.cart.promoCodeObject.discountPercentage}">
 									<f:convertNumber currencySymbol="SR " type="currency" />
 								</h:outputText>
 							</div>
@@ -238,32 +241,43 @@
 					</h:dataTable>
 					<br />
 					<div align="center">
-						<h:panelGrid columns="2" rendered="#{salesReturnBean.itemsAvailableForReturn}">
+						<h:panelGrid columns="2"
+							rendered="#{salesReturnBean.itemsAvailableForReturn}">
 							<h:outputText value="Shipment Fees" />
-							<h:inputText value="#{salesReturnBean.salesReturn.shipmentFees}" />
+							<h:inputText value="#{salesReturnBean.shipment.shipmentFees}">
+								<f:ajax execute="@this" render="@this" />
+							</h:inputText>
 							<h:outputText value="Shipment Reference" />
-							<h:inputText
-								value="#{salesReturnBean.salesReturn.shipmentReference}" />
-							<h:outputText value="Courrier" />
-							<h:selectOneMenu
-								value="#{salesReturnBean.salesReturn.courrierName}">
-								<f:selectItem itemLabel="Fetchr" itemValue="Fetchr" />
-								<f:selectItem itemLabel="SMSA" itemValue="SMSA" />
-								<f:selectItem itemLabel="Zajil" itemValue="Zajil" />
-								<f:selectItem itemLabel="Qetaa" itemValue="QETAA" />
-								<f:ajax />
+							<h:inputText value="#{salesReturnBean.shipment.trackReference}"
+								required="true">
+								<f:ajax execute="@this" render="@this" />
+							</h:inputText>
+							<h:outputText value="Return Delivery Fees?" />
+							<h:selectBooleanCheckbox
+								value="#{salesReturnBean.returnDelivery}">
+								<f:ajax listener="#{salesReturnBean.chooseReturnDelivery()}"
+									render=":form-3" execute="@this" />
+							</h:selectBooleanCheckbox>
+							<h:outputText value="Courier" />
+							<h:selectOneMenu value="#{salesReturnBean.shipment.courierId}"
+								required="true">
+								<f:selectItems value="#{courierBean.couriers}" var="c"
+									itemValue="#{c.id}" itemLabel="#{c.name}" />
 							</h:selectOneMenu>
 							<h:outputText value="Bank" />
-							<h:selectOneMenu value="#{salesReturnBean.salesReturn.bankId}">
+							<h:selectOneMenu value="#{salesReturnBean.salesReturn.bankId}"
+								required="true">
 								<f:selectItem noSelectionOption="true"
 									itemLabel="--Select Bank--" />
 								<f:selectItems value="#{banksBean.banks}" var="bank"
 									itemLabel="#{bank.name}" itemValue="#{bank.bankId}" />
 							</h:selectOneMenu>
 						</h:panelGrid>
-						<p:commandButton rendered="#{salesReturnBean.itemsAvailableForReturn}"
+						<p:commandButton
+							rendered="#{salesReturnBean.itemsAvailableForReturn}"
 							actionListener="#{salesReturnBean.createSalesReturn()}"
-							value="Create Sales Return" update=":form-g" styleClass="q-btn" />
+							widgetVar="submitbtn"
+							value="Create Sales Return" update=":form-g" styleClass="q-btn" onclick="PF('submitbtn').disable();" oncomplete="PF('submitbtn').enable()" />
 					</div>
 				</h:form>
 				<br />
@@ -435,9 +449,9 @@
 						</h:column>
 						<h:column>
 							<f:facet name="header">
-								<h:outputText value="Shipment Fees" />
+								<h:outputText value="Delivery Fees" />
 							</f:facet>
-							<h:outputText value="#{sr.shipmentFees}">
+							<h:outputText value="#{sr.returnedDeliveryFees}">
 								<f:convertNumber currencySymbol="SR " type="currency" />
 							</h:outputText>
 						</h:column>
@@ -445,8 +459,17 @@
 							<f:facet name="header">
 								<h:outputText value="Parts Sales" />
 							</f:facet>
-							<h:outputText value="#{sr.totalPartsSalesWv}">
-								<f:convertNumber currencySymbol="SR " type="currency"/>
+							<h:outputText value="#{sr.totalPartsSales}">
+								<f:convertNumber currencySymbol="SR " type="currency" />
+							</h:outputText>
+						</h:column>
+						<h:column>
+							<f:facet name="header">
+								<h:outputText value="VAT" />
+							</f:facet>
+							<h:outputText
+								value="#{(sr.totalPartsSales + sr.returnedDeliveryFees) * sr.vatPercentage}">
+								<f:convertNumber currencySymbol="SR " type="currency" />
 							</h:outputText>
 						</h:column>
 						<h:column>
@@ -454,7 +477,7 @@
 								<h:outputText value="Promo Disc." />
 							</f:facet>
 							<h:outputText value="#{sr.promotionDiscount}">
-								<f:convertNumber currencySymbol="SR " type="currency"/>
+								<f:convertNumber currencySymbol="SR " type="currency" />
 							</h:outputText>
 						</h:column>
 						<h:column>
@@ -462,18 +485,19 @@
 								<h:outputText value="Return Fees" />
 							</f:facet>
 							<h:outputText value="#{sr.totalDeductionFees}">
-								<f:convertNumber currencySymbol="SR " type="currency"/>
+								<f:convertNumber currencySymbol="SR " type="currency" />
 							</h:outputText>
 						</h:column>
 						<h:column>
 							<f:facet name="header">
 								<h:outputText value="Net Return" />
 							</f:facet>
-							<h:outputText value="#{sr.totalPartsSalesWv - sr.totalDeductionFees - sr.promotionDiscount}">
-								<f:convertNumber currencySymbol="SR " type="currency"/>
+							<h:outputText
+								value="#{sr.totalPartsSalesWv - sr.totalDeductionFees - sr.promotionDiscount + sr.returnedDeliveryFeesWithVat}">
+								<f:convertNumber currencySymbol="SR " type="currency" />
 							</h:outputText>
 						</h:column>
-						
+
 					</h:dataTable>
 					<br />
 
@@ -539,7 +563,5 @@
 				</div>
 
 			</div>
-		</p:layoutUnit>
-	</p:layout>
 </h:body>
 </html>

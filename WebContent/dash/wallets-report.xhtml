@@ -10,13 +10,9 @@
 	<ui:include src="/_includes/_dashboard_header" />
 </h:head>
 <h:body>
-	<p:layout fullPage="true">
-		<p:layoutUnit position="north" size="62"
-			styleClass="q-dashboard-background" id="north">
-			<ui:include src="/_includes/top_dashboard" />
-		</p:layoutUnit>
-		<ui:include src="/_includes/side" />
-		<p:layoutUnit position="center">
+<h:outputText value="#{loginBean.checkAccessRedirectHome(act.pageWalletsReport)}" />
+	<ui:include src="/_includes/top_dashboard.xhtml" />
+	<ui:include src="/_includes/side.xhtml" />
 			<div class="w3-container">
 				<div align="center" class="w3-padding-8">
 					<h:outputText value="Wallets Report" styleClass="q-large-text" />
@@ -37,6 +33,10 @@
 								<f:selectItem itemLabel="2018" itemValue="#{2018}" />
 								<f:selectItem itemLabel="2019" itemValue="#{2019}" />
 								<f:selectItem itemLabel="2020" itemValue="#{2020}" />
+								<f:selectItem itemLabel="2021" itemValue="#{2021}" />
+								<f:selectItem itemLabel="2022" itemValue="#{2022}" />
+								<f:selectItem itemLabel="2023" itemValue="#{2023}" />
+								<f:selectItem itemLabel="2024" itemValue="#{2024}" />
 							</h:selectOneMenu>
 							<h:outputText value="Month" />
 							<h:selectOneMenu value="#{walletsReportBean.month}"
@@ -84,16 +84,27 @@
 						</f:facet>
 						<h:column>
 							<f:facet name="header">
-								<h:outputText value="Cart#" />
+								<h:outputText value="ID#" />
 							</f:facet>
 							<h:outputText value="#{wallet.id}" />
 						</h:column>
 						<h:column>
 							<f:facet name="header">
+								<h:outputText value="Cart#" />
+							</f:facet>
+							<h:outputText value="#{wallet.cartId}" />
+						</h:column>
+						<h:column>
+							<f:facet name="header">
+								<h:outputText value="Customer ID" />
+							</f:facet>
+							<h:outputText value="#{wallet.customerId}" />
+						</h:column>
+						<h:column>
+							<f:facet name="header">
 								<h:outputText value="Customer" />
 							</f:facet>
-							<h:outputText
-								value="#{wallet.customerName}" />
+							<h:outputText value="#{wallet.customerName}" />
 						</h:column>
 						<h:column>
 							<f:facet name="header">
@@ -103,11 +114,12 @@
 								<f:convertDateTime pattern="d" />
 							</h:outputText>
 						</h:column>
-						<h:column>`
+						<h:column>
 							<f:facet name="header">
 								<h:outputText value="Transfer" />
 							</f:facet>
-							<h:outputText value="#{wallet.amount}" styleClass="q-bold w3-text-#{wallet.walletType eq 'P'.charAt(0) ? 'green' : 'red'}">
+							<h:outputText value="#{wallet.netAmount}"
+								styleClass="q-bold w3-text-#{wallet.walletType eq 'P'.charAt(0) ? 'green' : 'red'}">
 								<f:convertNumber type="currency" currencySymbol="" />
 							</h:outputText>
 						</h:column>
@@ -125,27 +137,33 @@
 							<f:facet name="header">
 								<h:outputText value="Total Received" />
 							</f:facet>
-							<h:outputText value="#{wallet.amount - wallet.creditFees}" styleClass="q-bold">
+							<h:outputText value="#{wallet.netAmount - wallet.creditFees}"
+								styleClass="q-bold">
 								<f:convertNumber type="currency" currencySymbol="SR " />
 							</h:outputText>
 						</h:column>
 						<h:column>
-						<f:facet name="header">
+							<f:facet name="header">
 								<h:outputText value="Type" />
 							</f:facet>
-							<h:outputText value="#{wallet.walletType}" styleClass="w3-tag w3-#{wallet.walletType eq 'P'.charAt(0) ? 'green' : 'red'}" />
-						
+							<h:outputText value="#{wallet.walletType}"
+								styleClass="w3-tag w3-#{wallet.walletType eq 'P'.charAt(0) ? 'green' : 'red'}" />
+
 						</h:column>
 						<h:column>
 							<f:facet name="header">
 								<h:outputText value="Method" />
 							</f:facet>
+							<h:outputText rendered="#{wallet.paymentType eq 'wiretransfer'}"
+								value="Wire" styleClass="w3-tag w3-indigo" />
+							<h:outputText rendered="#{wallet.paymentType eq 'creditcard'}"
+								value="CC" styleClass="w3-tag w3-blue" />
 							<h:outputText
-								rendered="#{wallet.paymentType eq 'wiretransfer'}"
-								value="W" styleClass="w3-tag w3-indigo"/>
+								rendered="#{wallet.paymentType eq 'cashondelivery'}" value="COD"
+								styleClass="w3-tag w3-red" />
 							<h:outputText
-								rendered="#{wallet.paymentType eq 'creditcard'}"
-								value="C" styleClass="w3-tag w3-blue"/>
+								rendered="#{wallet.paymentType eq 'creditsales'}" value="Credit"
+								styleClass="w3-tag w3-pale-red" />
 						</h:column>
 						<h:column>
 							<f:facet name="header">
@@ -168,8 +186,7 @@
 								</h:outputText>
 								<br />
 								<h:outputText value="Net: " />
-								<h:outputText
-									value="#{walletsReportBean.netTotal}"
+								<h:outputText value="#{walletsReportBean.netTotal}"
 									styleClass="q-med-text">
 									<f:convertNumber type="currency" currencySymbol="SR " />
 								</h:outputText>
@@ -178,7 +195,5 @@
 					</h:dataTable>
 				</div>
 			</div>
-		</p:layoutUnit>
-	</p:layout>
 </h:body>
 </html>

@@ -17,8 +17,8 @@ public class SalesProduct implements Serializable{
 	private int quantity;
 	private double unitSales;
 	private double unitSalesWv;
-	private double unitCost;
-	private double unitCostWv;
+	private Double unitCost;
+	private Double unitCostWv;
 	private PurchaseProduct purchaseProduct;
 
 	public long getId() {
@@ -57,16 +57,16 @@ public class SalesProduct implements Serializable{
 	public void setUnitSalesWv(double unitSalesWv) {
 		this.unitSalesWv = unitSalesWv;
 	}
-	public double getUnitCost() {
+	public Double getUnitCost() {
 		return unitCost;
 	}
-	public void setUnitCost(double unitCost) {
+	public void setUnitCost(Double unitCost) {
 		this.unitCost = unitCost;
 	}
-	public double getUnitCostWv() {
+	public Double getUnitCostWv() {
 		return unitCostWv;
 	}
-	public void setUnitCostWv(double unitCostWv) {
+	public void setUnitCostWv(Double unitCostWv) {
 		this.unitCostWv = unitCostWv;
 	}
 	public PurchaseProduct getPurchaseProduct() {

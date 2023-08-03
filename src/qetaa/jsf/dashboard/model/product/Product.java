@@ -6,6 +6,10 @@ import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import qetaa.jsf.dashboard.model.product.meta.ProductReview;
+import qetaa.jsf.dashboard.model.product.meta.ProductSpecification;
+import qetaa.jsf.dashboard.model.product.meta.ProductTag;
+
 public class Product implements Serializable {
 
 	private static final long serialVersionUID = 1L;
@@ -18,11 +22,18 @@ public class Product implements Serializable {
 	private int makeId;
 	private List<ProductPrice> priceList;
 	private List<ProductStock> stockList;
+	private List<ProductTag> tags;
+	private List<ProductSpecification> specs;
+	private List<ProductReview> reviews;
+	private Integer manufacturerId;
+	private Integer categoryId;
+	
 	@JsonIgnore
 	private ProductPrice selectedPrice;
 	@JsonIgnore
 	private long selectedPriceId;
-	
+	@JsonIgnore
+	private ProductPrice newPrice = new ProductPrice();
 	
 	@JsonIgnore
 	public String getProductNameCheck() {
@@ -88,6 +99,25 @@ public class Product implements Serializable {
 		return q;
 	}
 	
+	@JsonIgnore
+	public Product getClonedProduct() {
+		Product p = new Product();
+		p.setCreated(created);
+		p.setManufacturerId(manufacturerId);
+		p.setCategoryId(categoryId);
+		p.setDesc(desc);
+		p.setId(id);
+		p.setMakeId(makeId);
+		p.setProductName(productName);
+		p.setProductNumber(productNumber);
+		p.setProductNumberUndecorated(productNumberUndecorated);
+		p.setSelectedPriceId(selectedPriceId);
+		p.setStockList(stockList);
+		p.setTags(tags);
+		p.setSpecs(specs);
+		return p;
+	}
+	
 	public long getId() {
 		return id;
 	}
@@ -145,6 +175,10 @@ public class Product implements Serializable {
 	public void setPriceList(List<ProductPrice> priceList) {
 		this.priceList = priceList;
 	}
+	
+	public boolean isPriceAvailable() {
+		return !(this.priceList == null || this.priceList.isEmpty());
+	}
 
 	public ProductPrice getSelectedPrice() {
 		if(selectedPrice == null) {
@@ -165,11 +199,56 @@ public class Product implements Serializable {
 	public void setSelectedPriceId(long selectedPriceId) {
 		this.selectedPriceId = selectedPriceId;
 	}
-	
-	
-	
-	
-	
-	
 
+	public ProductPrice getNewPrice() {
+		return newPrice;
+	}
+
+	public void setNewPrice(ProductPrice newPrice) {
+		this.newPrice = newPrice;
+	}
+
+
+	
+	public Integer getManufacturerId() {
+		return manufacturerId;
+	}
+
+	public void setManufacturerId(Integer manufacturerId) {
+		this.manufacturerId = manufacturerId;
+	}
+
+	public Integer getCategoryId() {
+		return categoryId;
+	}
+
+	public void setCategoryId(Integer categoryId) {
+		this.categoryId = categoryId;
+	}
+
+	public List<ProductTag> getTags() {
+		return tags;
+	}
+
+	public void setTags(List<ProductTag> tags) {
+		this.tags = tags;
+	}
+
+	public List<ProductSpecification> getSpecs() {
+		return specs;
+	}
+
+	public void setSpecs(List<ProductSpecification> specs) {
+		this.specs = specs;
+	}
+
+	public List<ProductReview> getReviews() {
+		return reviews;
+	}
+
+	public void setReviews(List<ProductReview> reviews) {
+		this.reviews = reviews;
+	}
+	
+	
 }

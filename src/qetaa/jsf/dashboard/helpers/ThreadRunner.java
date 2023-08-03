@@ -10,6 +10,8 @@ import qetaa.jsf.dashboard.model.cart.CartReview;
 import qetaa.jsf.dashboard.model.customer.Customer;
 import qetaa.jsf.dashboard.model.customer.CustomerAddress;
 import qetaa.jsf.dashboard.model.location.City;
+import qetaa.jsf.dashboard.model.payment.Wallet;
+import qetaa.jsf.dashboard.model.payment.WalletItem;
 import qetaa.jsf.dashboard.model.product.Product;
 import qetaa.jsf.dashboard.model.purchase.PurchaseProduct;
 import qetaa.jsf.dashboard.model.purchase.PurchaseReturnProduct;
@@ -59,6 +61,25 @@ public class ThreadRunner {
 		return thread;
 	}
 	
+	public static Thread initWalletCart(Wallet wallet, String header) {
+		Thread thread = new Thread(new Runnable() {
+			@Override
+			public void run() {
+				try {
+					Response r = PojoRequester.getSecuredRequest(AppConstants.getCart(wallet.getCartId()),
+							header);
+					if (r.getStatus() == 200) {
+						wallet.setCart(r.readEntity(Cart.class));
+					}
+
+				} catch (Exception ex) {
+
+				}
+			}
+		});
+		return thread;
+	}
+	
 	public static Thread initPromoCode(Cart cart, String header) {
 		Thread thread = new Thread(new Runnable() {
 			@Override
@@ -70,6 +91,7 @@ public class ThreadRunner {
 						if (r.getStatus() == 200) {
 							cart.setPromoCodeObject(r.readEntity(PromotionCode.class));
 						}
+					}else {
 					}
 
 				} catch (Exception ex) {
@@ -117,6 +139,26 @@ public class ThreadRunner {
 							.getSecuredRequest(AppConstants.getProduct(sp.getProductId()), header);
 					if(r.getStatus() == 200) {
 						sp.setProduct(r.readEntity(Product.class));
+					}
+				}
+				catch(Exception ex) {
+				}
+				
+			}
+		});
+		return thread;
+	}
+	
+	
+	public static Thread initProduct(WalletItem wi , Long cartId, String header) {
+		Thread thread = new Thread(new Runnable() {
+			@Override
+			public void run() {
+				try {
+					Response r = PojoRequester
+							.getSecuredRequest(AppConstants.getProductForCart(wi.getProductId(), cartId), header);
+					if(r.getStatus() == 200) {
+						wi.setProduct(r.readEntity(Product.class));
 					}
 				}
 				catch(Exception ex) {

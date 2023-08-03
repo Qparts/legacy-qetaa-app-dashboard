@@ -1,9 +1,12 @@
 package qetaa.jsf.dashboard.helpers;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Base64;
 import java.util.Date;
 import java.util.List;
 import java.util.Random;
@@ -11,7 +14,10 @@ import java.util.Random;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 
+import org.apache.poi.util.IOUtils;
+
 import qetaa.jsf.dashboard.model.cart.Cart;
+import qetaa.jsf.dashboard.model.payment.Wallet;
 import qetaa.jsf.dashboard.model.purchase.Purchase;
 import qetaa.jsf.dashboard.model.sales.Sales;
 
@@ -41,6 +47,14 @@ public class Helper {
 		long[] ids = new long[carts.size()];
 		for(int i = 0; i < carts.size(); i++) {
 			ids[i] = carts.get(i).getCustomerId();
+		}
+		return ids;
+	}
+	
+	public static long[] getCustomerIdsFromWallet(List<Wallet> wallets) {
+		long[] ids = new long[wallets.size()];
+		for(int i = 0; i < wallets.size(); i++) {
+			ids[i] = wallets.get(i).getCustomerId();
 		}
 		return ids;
 	}
@@ -76,10 +90,14 @@ public class Helper {
 		return Double.valueOf(am * 100).intValue();
 	}
 	
-	public static String getParam(String key){
+	public static String getParam(String qkey){
 		FacesContext context = FacesContext.getCurrentInstance();
-        String code = context.getExternalContext().getRequestParameterMap().get(key);
-        return code;
+        return context.getExternalContext().getRequestParameterMap().get(qkey);
+ 	}
+	
+	public static void addWarMessage(String text) {
+		FacesContext context = FacesContext.getCurrentInstance();
+		context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, text, null));
 	}
 	
 	public static void addInfoMessage(String text) {
@@ -107,6 +125,11 @@ public class Helper {
 		return salt.toString();
 	}
 	
+	
+	public static String inputStreamToBase64(InputStream is) throws IOException {
+		byte[] bytes = IOUtils.toByteArray(is);
+		return Base64.getEncoder().encodeToString(bytes);
+	}
 	
 	public static String cypherSha256(String text) {
 		try{

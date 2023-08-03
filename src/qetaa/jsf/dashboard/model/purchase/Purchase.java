@@ -17,7 +17,10 @@ public class Purchase implements Serializable{
 	private char transactionType;
 	private char paymentStatus;
 	private Date purchaseDate;
+	private Date created;
+	private Date completed;
 	private int createdBy;
+	private Integer completedBy;
 	private Date dueDate;
 	private long cartId;
 	private long customerId;
@@ -37,8 +40,66 @@ public class Purchase implements Serializable{
 		}
 		return srps;
 	}
-
 	
+	@JsonIgnore
+	public List<PurchasePayment> getReturnPayments(){
+		List<PurchasePayment> pays = new ArrayList<>();
+		if(this.purchaseReturns != null) {
+			for(PurchaseReturn pr : this.purchaseReturns) {
+				if(pr.getPurchasePayments() != null) {
+					pays.addAll(pr.getPurchasePayments());
+				}
+			}
+		}
+		return pays;
+	}
+	
+	@JsonIgnore
+	public double getOutstanding() {
+		return this.getTotalCostWv() - this.getPaid() + this.getReturned();
+	}
+	
+	@JsonIgnore
+	public double getReturned() {
+		double total = 0;
+		if(this.purchaseReturns != null) {
+			for(PurchaseReturn pr : this.purchaseReturns) {
+				if(pr.getPurchasePayments() != null) {
+					for(PurchasePayment pp : pr.getPurchasePayments()) {
+						total += pp.getAmount();
+					}
+				}
+			}
+		}
+		return total;
+	}
+
+	@JsonIgnore
+	public double getPaid() {
+		double total = 0;
+		if(this.purchasePayments != null) {
+			for(PurchasePayment pp : this.purchasePayments) {
+				total += pp.getAmount();
+			}
+		}
+		return total;
+	}
+	
+	
+	public Date getCreated() {
+		return created;
+	}
+
+
+
+
+	public void setCreated(Date created) {
+		this.created = created;
+	}
+
+
+
+
 	@JsonIgnore
 	public double getTotalCost() {
 		double total = 0;
@@ -46,7 +107,8 @@ public class Purchase implements Serializable{
 			return 0;
 		}
 		for(PurchaseProduct pp : purchaseProducts) {
-			total = total + pp.getUnitCost() * pp.getQuantity();
+			if(pp.getUnitCost() != null)
+				total = total + pp.getUnitCost() * pp.getQuantity();
 		}
 		return total;
 	}
@@ -76,10 +138,29 @@ public class Purchase implements Serializable{
 			return 0;
 		}
 		for(PurchaseProduct pp : purchaseProducts) {
-			total = total + pp.getUnitCostWv() * pp.getQuantity();
+			if(pp.getUnitCostWv() != null)
+				total = total + pp.getUnitCostWv() * pp.getQuantity();
 		}
 		return total;
 	}
+	
+	
+	@JsonIgnore
+	public double getPartTotalCostWv(PurchaseProduct ppcheck, int quantity) {
+		double total = 0;
+		if(purchaseProducts == null) {
+			return 0;
+		}
+		for(PurchaseProduct pp : purchaseProducts) {
+			if(ppcheck.equals(pp)) {
+				if(pp.getUnitCostWv() != null)
+					total = total + pp.getUnitCostWv() * quantity;
+			}
+			
+		}
+		return total;
+	}
+	
 	public long getId() {
 		return id;
 	}
@@ -235,6 +316,35 @@ public class Purchase implements Serializable{
 	public void setPurchaseReturns(List<PurchaseReturn> purchaseReturns) {
 		this.purchaseReturns = purchaseReturns;
 	}
+
+
+
+
+	public Integer getCompletedBy() {
+		return completedBy;
+	}
+
+
+
+
+	public void setCompletedBy(Integer completedBy) {
+		this.completedBy = completedBy;
+	}
+
+
+
+
+	public Date getCompleted() {
+		return completed;
+	}
+
+
+
+
+	public void setCompleted(Date completed) {
+		this.completed = completed;
+	}
+	
 	
 	
 	

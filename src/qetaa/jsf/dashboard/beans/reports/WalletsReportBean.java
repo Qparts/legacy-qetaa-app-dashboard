@@ -47,7 +47,7 @@ public class WalletsReportBean implements Serializable{
 	public double getTotalAmounts() {
 		double total = 0;
 		for(Wallet w : wallets) {
-			total = total + w.getAmount();
+			total = total  + (w.getWalletType() == 'P' ? w.getNetAmount() : -1*w.getNetAmount());
 		}
 		return total;
 	}
@@ -64,7 +64,7 @@ public class WalletsReportBean implements Serializable{
 	public Double getNetTotal() {
 		double total = 0;
 		for(Wallet w : wallets) {
-			total = total + w.getAmount();
+			total = total  + (w.getWalletType() == 'P' ? w.getNetAmount() : -1*w.getNetAmount());
 			if(w.getCreditFees() != null)
 				total = total - w.getCreditFees();
 		}

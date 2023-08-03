@@ -1,0 +1,244 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+	<title>Products</title>
+	<ui:include src="/_includes/_dashboard_header" />
+</h:head>
+<h:body>
+	<h:outputText
+		value="#{loginBean.checkAccessRedirectHome(act.pageProduct)}" />
+	<ui:include src="/_includes/top_dashboard.xhtml" />
+	<ui:include src="/_includes/side.xhtml" />
+	<div class="w3-container">
+		<div align="center" class="w3-padding-8">
+			<h:outputText value="Product Details" styleClass="q-large-text" />
+		</div>
+		<h:form id="form-g">
+			<p:growl id="error-growl"
+				rendered="#{facesContext.maximumSeverity.ordinal eq 2}" />
+			<p:growl id="success-growl"
+				rendered="#{facesContext.maximumSeverity.ordinal eq 0}" />
+		</h:form>
+		<div class="w3-row">
+			<div class="w3-col s12 m12 l6 w3-container">
+				<p:panel toggleable="true" header="Details" collapsed="false"
+					toggleSpeed="100">
+					<h:outputText value="Edit" />
+					
+					<h:panelGrid columns="2">
+						<h:outputText value="Product ID" />
+						<h:inputText value="#{productDetailsBean.product.id}"
+							readonly="true" />
+						<h:outputText value="Product Number" />
+						<h:inputText value="#{productDetailsBean.product.productNumber}"
+							readonly="true" />
+						<h:outputText value="Category" />
+						<h:inputText
+							value="#{productCategoryBean.getCategoryFromId(productDetailsBean.product.categoryId).name}"
+							readonly="true" />
+						<h:outputText value="Manufacturer" />
+						<h:inputText
+							value="#{productManufacturerBean.getManufacturerFromId(productDetailsBean.product.manufacturerId).name}"
+							readonly="true" />
+						<h:outputText value="Make" />
+						<h:inputText
+							value="#{vehicleBean.getMakeFromId(productDetailsBean.product.makeId).name}"
+							readonly="true" />
+						<h:outputText value="Name" />
+						<h:inputText
+							value="#{productDetailsBean.product.productNameCheck}"
+							readonly="true" />
+					</h:panelGrid>
+
+				</p:panel>
+				<br />
+			</div>
+
+			<div class="w3-col s12 m12 l6 w3-container">
+				<p:panel toggleable="true" header="Purchases" collapsed="false"
+					toggleSpeed="100">
+					<h:dataTable value="#{productDetailsBean.purchaseProducts}"
+						var="pp" styleClass="w3-table w3-striped w3-border"
+						headerClass="w3-light-grey w3-border-bottom">
+						<f:facet name="header">
+							<div align="center">
+								<h:outputText value="Purchases" />
+							</div>
+						</f:facet>
+						<h:column>
+							<f:facet name="header">
+								<h:outputText value="ID" />
+							</f:facet>
+							<h:outputText value="#{pp.purchase.id}" />
+						</h:column>
+						<h:column>
+							<f:facet name="header">
+								<h:outputText value="Date" />
+							</f:facet>
+							<h:outputText value="#{pp.purchase.purchaseDate}">
+								<f:convertDateTime type="date" />
+							</h:outputText>
+						</h:column>
+						<h:column>
+							<f:facet name="header">
+								<h:outputText value="Cost WV" />
+							</f:facet>
+							<h:outputText value="#{pp.unitCostWv}">
+								<f:convertNumber currencySymbol="SR " type="currency" />
+							</h:outputText>
+						</h:column>
+						<h:column>
+							<f:facet name="header">
+								<h:outputText value="Sales WV" />
+							</f:facet>
+							<h:outputText value="#{pp.salesProduct.unitSalesWv}">
+								<f:convertNumber currencySymbol="SR " type="currency" />
+							</h:outputText>
+						</h:column>
+						<h:column>
+							<f:facet name="header">
+								<h:outputText value="Vendor" />
+							</f:facet>
+							<h:outputText
+								value="#{vendorBean.getVendorFromId(pp.purchase.vendorId).name}">
+								<f:convertNumber currencySymbol="SR " type="currency" />
+							</h:outputText>
+						</h:column>
+						<h:column>
+							<f:facet name="header">
+								<h:outputText value="View" />
+							</f:facet>
+							<h:outputLink value="purchase-details?id=#{pp.purchase.id}"
+								target="_blank">View</h:outputLink>
+						</h:column>
+					</h:dataTable>
+
+				</p:panel>
+			</div>
+		</div>
+		<br />
+		<div class="w3-row">
+			<div class="w3-col s12 m12 l6 w3-container">
+				<p:panel toggleable="true" header="Tags" collapsed="false"
+					toggleSpeed="100">
+					<ui:repeat var="tag" value="#{productDetailsBean.product.tags}">
+						<span> <h:outputText value="#{tag.tag.name}"
+								styleClass="w3-tag w3-camo-black w3-padding" />
+						</span>
+					</ui:repeat>
+				</p:panel>
+				<br />
+			</div>
+
+			<div class="w3-col s12 m12 l6 w3-container">
+				<p:panel toggleable="true" header="Specifications" collapsed="false"
+					toggleSpeed="100">
+					<h:dataTable value="#{productDetailsBean.product.specs}" var="spec"
+						styleClass="w3-table w3-striped w3-border"
+						headerClass="w3-light-grey w3-border-bottom">
+						<h:column>
+							<f:facet name="header">
+								<h:outputText value="Key" />
+							</f:facet>
+							<h:outputText value="#{spec.specification.name}" />
+						</h:column>
+						<h:column>
+							<f:facet name="header">
+								<h:outputText value="Value" />
+							</f:facet>
+							<h:outputText value="#{spec.value}" />
+						</h:column>
+						<h:column>
+							<f:facet name="header">
+								<h:outputText value="Key Ar" />
+							</f:facet>
+							<h:outputText value="#{spec.specification.nameAr}" />
+						</h:column>
+						<h:column>
+							<f:facet name="header">
+								<h:outputText value="Value Ar" />
+							</f:facet>
+							<h:outputText value="#{spec.valueAr}" />
+						</h:column>
+					</h:dataTable>
+				</p:panel>
+				<br />
+			</div>
+
+		</div>
+		<div class="w3-row">
+			<div class="w3-col s12 m12 l6 w3-container">
+				<p:panel toggleable="true" header="Reviews" collapsed="false"
+					toggleSpeed="100">
+					<table>
+						<tbody>
+							<ui:repeat var="review"
+								value="#{productDetailsBean.product.reviews}">
+								<tr>
+									<td style="width: 100px; vertical-align: top;"><p:rating
+											value="#{review.rating}" readonly="true" /></td>
+									<td><h:panelGroup>
+											<h:outputText value="#{review.created}" styleClass="q-bold"
+												style="color:#{review.status eq 'A'.charAt(0) ? '#2dacd1' : 'red'}!important;">
+												<f:convertDateTime pattern="dd-MMM-yyyy hh:mm" />
+											</h:outputText>
+											<h:outputText
+												value=" #{review.customerId} - #{review.customerName}: "
+												styleClass="q-bold"
+												style="color:#{review.status eq 'A'.charAt(0) ? '#2dacd1' : 'red'};" />
+
+											<h:outputText dir="rtl" value=" #{review.text}" />
+										</h:panelGroup></td>
+								</tr>
+							</ui:repeat>
+						</tbody>
+					</table>
+				</p:panel>
+				<br />
+			</div>
+			<div class="w3-col s12 m12 l6 w3-container">
+				<p:panel toggleable="true" header="Price List" collapsed="false"
+					toggleSpeed="100">
+					<h:dataTable value="#{productDetailsBean.product.priceList}"
+						var="pp" styleClass="w3-table w3-border w3-striped"
+						headerClass="w3-light-grey w3-border-bottom">
+						<h:column>
+							<f:facet name="header">
+								<h:outputText value="Vendor" />
+							</f:facet>
+							<h:outputText
+								value="#{vendorBean.getVendorFromId(pp.vendorId).name}"
+								style="color:#{pp.status eq 'A'.charAt(0) ? '': 'red'};" />
+						</h:column>
+						<h:column>
+							<f:facet name="header">
+								<h:outputText value="Cost WV" />
+							</f:facet>
+							<h:outputText value="#{pp.costPriceWv}"
+								style="color:#{pp.status eq 'A'.charAt(0) ? '': 'red'};">
+								<f:convertNumber type="currency" currencySymbol="SR " />
+							</h:outputText>
+						</h:column>
+						<h:column>
+							<f:facet name="header">
+								<h:outputText value="Created" />
+							</f:facet>
+							<h:outputText value="#{pp.created}"
+								style="color:#{pp.status eq 'A'.charAt(0) ? '': 'red'};">
+								<f:convertDateTime type="date" />
+							</h:outputText>
+						</h:column>
+		s				
+					</h:dataTable>
+				</p:panel>
+			</div>
+
+		</div>
+	</div>
+</h:body>
+</html>

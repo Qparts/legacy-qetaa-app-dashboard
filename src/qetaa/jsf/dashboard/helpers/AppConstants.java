@@ -24,7 +24,8 @@ public class AppConstants {
 	private final static String PROMOTION_SERVICE = SERVICE_HOST + "/service-qetaa-vendor/rest/promotion/";
 	private final static String PRODUCT_SERVICE = SERVICE_HOST + "/service-qetaa-product/rest/";
 	private final static String INVOICE_SERVICE = SERVICE_HOST + "/service-qetaa-invoice/rest/";
-
+	private final static String PUBLIC_LOCATION_SERVICE = LOCATION_SERVICE + "api/v1/";
+	
 	public final static String USER_LOGIN = USER_SERVICE + "login";
 
 	public final static String GET_ALL_ACTIVITIES = USER_SERVICE + "all-activities";
@@ -32,6 +33,8 @@ public class AppConstants {
 	public final static String GET_ACTIVE_ROLES = USER_SERVICE + "active-roles";
 	public final static String POST_CREATE_ROLE = USER_SERVICE + "role";
 	public final static String PUT_UPDATE_ROLE = USER_SERVICE + "role";
+	
+	public final static String GET_ORDERS_MAP_REPORT = PUBLIC_LOCATION_SERVICE + "carts-count";
 
 	public final static String POST_CREATE_USER = USER_SERVICE + "user";
 	public final static String PUT_UPDATE_USER = USER_SERVICE + "user";
@@ -40,11 +43,17 @@ public class AppConstants {
 	public final static String GET_ALL_BANKS = PAYMENT_SERVICE_BANKS + "all-banks/user";
 	public final static String GET_ACTIVE_BANKS = PAYMENT_SERVICE_BANKS + "active-banks/user";
 	public final static String POST_CREATE_BANK = PAYMENT_SERVICE_BANKS + "bank";
+	
+	public final static String GET_ALL_COURIERS = VENDOR_SERVICE + "couriers";
+	public final static String GET_ACTIVE_COURIERS = VENDOR_SERVICE + "active-couriers/user";
+	public final static String POST_CREATE_COURIER = VENDOR_SERVICE + "courier";
 
 	public final static String GET_ALL_COUNTRIES = LOCATION_SERVICE + "all-countries";
 	public final static String POST_CREATE_COUNTRY = LOCATION_SERVICE + "country";
 	public final static String GET_ALL_CITIES = LOCATION_SERVICE + "all-cities";
 	public final static String GET_ALL_REGIONS = LOCATION_SERVICE + "all-regions";
+	public final static String GET_VENDORS_REGIONS = VENDOR_SERVICE + "regions-vendors";
+	public final static String POST_VENDOR_REGION = VENDOR_SERVICE + "vendor-region";
 	public final static String POST_CREATE_CITY = LOCATION_SERVICE + "city";
 	public final static String POST_CREATE_REGION = LOCATION_SERVICE + "region";
 	public final static String GET_ACTIVE_CITIES_INTERNAL = LOCATION_SERVICE + "active-cities-internal";
@@ -63,16 +72,16 @@ public class AppConstants {
 	public final static String GET_UNASSIGNED_NOTIFICATIONS = CART_SERVICE + "unasssigned-notification";
 
 	public final static String GET_ALL_QUOTATIONS_NOTIFICATION = CART_SERVICE + "quotation-notification";
-
+	public final static String GET_PROCESS_WALLET_NOTIFICATION = PAYMENT_SERVICE + "wallets-notification/process";
 	public final static String POST_QUOTATION = CART_SERVICE + "quotation";
 	public final static String POST_QUOTATION_FOR_FINDERS = CART_SERVICE + "quotation/finders";
 	public final static String PUT_UPDATE_ADDITIONAL_QUOTATION = CART_SERVICE + "additional-quotation";
 	public final static String POST_ADDITIONAL_QUOTATION = CART_SERVICE + "additional-quotation";
 	public final static String POST_MANUAL_QUOTATION_VENDOR = CART_SERVICE + "manual-quotation-vendor";
-	public final static String APPROVE_QUOTATION = CART_SERVICE + "approve-quotation";
 	public final static String GET_QUOTATIONS_WAITING = CART_SERVICE + "waiting-quotation-carts";
 	public final static String PUT_ARCHIVE_CART = CART_SERVICE + "archive-cart";
 	public final static String PUT_EDIT_CART = CART_SERVICE + "cart";
+	public final static String PUT_EDIT_CART_VIN_ADDED = CART_SERVICE + "cart/vin-added";
 	public final static String POST_QUOTATION_ITEM_RESPONSE = CART_SERVICE + "quotation-item-response";
 	
 	public final static String POST_BULK_PROMOTION_CODES = PROMOTION_SERVICE + "generate-code/bulk";
@@ -86,14 +95,8 @@ public class AppConstants {
 	public final static String POST_PROMOTION_PROVIDER = PROMOTION_SERVICE + "provider";
 	public final static String GET_ALL_PROMOTION_PROVIDERS = PROMOTION_SERVICE + "all-providers";
 
-	public final static String GET_PARTS_NOTIFICATION = CART_SERVICE + "parts-notification";
-	public final static String GET_PARTS_COLLECTION_ITEMS = CART_SERVICE + "collection-items";
-
-	public final static String PUT_UPDATE_COLLECT_ITEM = CART_SERVICE + "collect-item";
-	public final static String GET_COLLECTION_NOTIFICATION = CART_SERVICE + "collection-items-notification";
 	public final static String GET_WIRE_NOTIFICATION = CART_SERVICE + "wire-notification";
 	public final static String GET_FOLLOWUPS_NOTOFICATION = CART_SERVICE + "followups-notification";
-	public final static String GET_PARTS_RECEIVAL_ITEMS = CART_SERVICE + "receival-items";
 	public final static String GET_RECEIVAL_NOTIFICATION = CART_SERVICE + "receival-items-notification";
 	public final static String PUT_UPDATE_RECEIVE_ITEM = CART_SERVICE + "receive-item";
 	public final static String GET_WAITING_PART_CARTS = CART_SERVICE + "waiting-part-carts";
@@ -107,15 +110,24 @@ public class AppConstants {
 	public final static String POST_FOLLOW_UP_REVIEW = CART_SERVICE + "submit-review";
 	public final static String GET_ACTIVE_WIRE_TRANSFERS = CART_SERVICE + "active-wire-transfers";
 	public final static String POST_BANK_PARTS_PAYMENT = PAYMENT_SERVICE + "save-successful-payment/user";
-	public final static String POST_FUND_WALLET = PAYMENT_SERVICE + "fund-wallet/wire-transfer";
-	public final static String GET_AWAITING_WALLETS = PAYMENT_SERVICE + "wallets/awaiting";
+	
+	public final static String POST_NEW_WALLET = PAYMENT_SERVICE + "new-wallet";
+	public final static String PUT_FUND_WALLET = PAYMENT_SERVICE + "fund-wallet/wire-transfer";
+	public final static String POST_NEW_WALLET_REFUND = PAYMENT_SERVICE + "new-wallet/refund";
+	public final static String POST_NEW_WALLET_QUOTATION = PAYMENT_SERVICE + "new-wallet-quotation";
+	public final static String PUT_QUOTATION_WALLET = PAYMENT_SERVICE + "quotation-wallet";
+	public final static String PUT_REFUND_WALLET = PAYMENT_SERVICE + "refund-wallet/wire-transfer";
+	public final static String POST_WALLET_ITEM_VENDOR = PAYMENT_SERVICE + "wallet-item-vendors";
+	public final static String PUT_REPLACE_PURCHASE_PRODUCT = INVOICE_SERVICE + "replace-purchase-product";
+	public final static String PUT_WALLET_ITEM = PAYMENT_SERVICE + "wallet-item";
+	
+	public final static String GET_PROCESS_WALLETS = PAYMENT_SERVICE + "wallets/process";
 	public final static String PUT_CONFIRM_WIRE_TRANSFER = CART_SERVICE + "confirm-wire-transfer";
 	public final static String PUT_UNDO_WIRE_TRANSFER = CART_SERVICE + "undo-wire-transfer";
 
-	public final static String GET_UNASSIGNED_CARTS = CART_SERVICE + "unassigned-carts";
-	public final static String GET_ADVISOR_QUOTATION_CARTS = CART_SERVICE + "advisor-quotation-carts";
-	public final static String PUT_UNASSIGN_CART = CART_SERVICE + "unassign-cart";
-	public final static String POST_ASSIGN_CART = CART_SERVICE + "assign-cart";
+	public final static String PUT_UNASSIGN_CART = CART_SERVICE + "unassign";
+	public final static String POST_ASSIGN_CART = CART_SERVICE + "assign";
+	public final static String POST_ASSIGN_CART_TO_USER = CART_SERVICE + "assign-to-user";
 
 	public final static String GET_TOTAL_REGISTERED_CUSTOMERS = CUSTOMER_SERVICE + "all-customers-number";
 	public final static String GET_CURRENT_MONTH_REGISTERED_CUSTOMERS = CUSTOMER_SERVICE
@@ -138,6 +150,7 @@ public class AppConstants {
 	public final static String GET_ACTIVE_SESSIONS = CUSTOMER_SERVICE + "hit-count/active";
 
 	public final static String POST_REGISTER_SMS = CUSTOMER_SERVICE + "register-sms";
+	public final static String POST_MANUAL_SMS = CUSTOMER_SERVICE + "manual-sms";
 	public final static String POST_REGISTER_EMAIL = CUSTOMER_SERVICE + "register-email";
 	public final static String POST_MOBILE_REGISTER = CUSTOMER_SERVICE + "mobile-register";
 
@@ -145,28 +158,48 @@ public class AppConstants {
 	public final static String GET_MAKE_ORER_MONTHS = CART_REPORT_SERVICE + "order-makes/last-year";
 
 	public final static String POST_WIRE_TRASNFER = CART_SERVICE + "wire-transfer";
+	public final static String POST_CREDIT_SALES = CART_SERVICE +"parts-order/credit-sales";
+	public final static String POST_CASH_ON_DELIVERY = CART_SERVICE + "parts-order/cash-on-delivery";
 	public final static String GET_POSTPONED_CARTS = CART_SERVICE + "postponed-sales";
 	public final static String GET_NO_VIN_CARTS = CART_SERVICE +"no-vin-carts";
 
-	public final static String GET_AWAITING_PURCHASE_ORDERS = PAYMENT_SERVICE + "awaiting-purchase-orders";
 	public final static String PUT_UPDATE_APPROVED_ITEMS = CART_SERVICE + "parts-approved-items";
 	public final static String PUT_UPDATE_APPROVED_ITEM = CART_SERVICE + "parts-approved-item";
-	public final static String PUT_CONFIRM_PURCHASE_ORDER = PAYMENT_SERVICE + "confirm-puchase-order";
 	public final static String PUT_MANUAL_QUOTATION_VENDOR_ITEM = CART_SERVICE + "quotation-vendor-item/user";
-	public final static String POST_QUOTATION_ITEM = CART_SERVICE + "quotation-item";
+	//public final static String POST_QUOTATION_ITEM = CART_SERVICE + "quotation-item";
+	public final static String POST_NEW_QUOTATION_ITEM = CART_SERVICE + "quotation-item";
+	public final static String PUT_QUOTATION_ITEM = CART_SERVICE + "quotation-item";
 	public final static String POST_RETURN_ITEM = CART_SERVICE + "return-item";
-
+	
+	public final static String GET_INCOMPLETE_PURCHASES = INVOICE_SERVICE + "incomplete-purchases";
+	public final static String PUT_COMPLETE_PURCHASE = INVOICE_SERVICE + "complete-purchase-costs";
+	public final static String GET_PURCHASE_PAYABLES = INVOICE_SERVICE + "payables";
+	public final static String GET_SALES_RECEIVABLES = INVOICE_SERVICE + "receivables";
+	public final static String POST_PURCHASE_PAYMENTS = INVOICE_SERVICE + "purchase-payments";
+	public final static String POST_PURCHASE_PAYMENT = INVOICE_SERVICE + "purchase-payment";
+	public final static String POST_SALES_PAYMENT = INVOICE_SERVICE + "sales-payment";
+	
 	public final static String PUT_EDIT_CUSTOMER = CUSTOMER_SERVICE + "edit-customer";
 	public final static String PUT_UPDATE_ADDRESS = CUSTOMER_SERVICE + "address";
 	
 	public final static String POST_PRODUCT_NAME = PRODUCT_SERVICE + "product-name";
 	public final static String POST_PRODUCT = PRODUCT_SERVICE + "product";
+	public final static String FIND_PRODUCT_CREATE_IF_NOT_AVAILABLE = PRODUCT_SERVICE +  "find-product/create";
 	
+	public final static String POST_PRODUCT_CATEGORY = PRODUCT_SERVICE + "category";
+	public final static String POST_PRODUCT_MANUFACTURER = PRODUCT_SERVICE + "manufacturer";
+	public final static String GET_PRODUCT_CATEGORIES = PRODUCT_SERVICE + "categories";
+	public final static String GET_PRODUCT_MANUFACTURERS = PRODUCT_SERVICE + "manufacturers";
+	
+	public final static String PUT_PRODUCT_PRICE = PRODUCT_SERVICE + "product-price";
 	public final static String POST_NEW_PURCHASE = INVOICE_SERVICE + "new-purchase";
 	public final static String PUT_NEW_PURCHASE = INVOICE_SERVICE + "purchase";
 	
 	public final static String POST_NEW_SALES = INVOICE_SERVICE + "new-sales";
 	public final static String PUT_NEW_SALES = INVOICE_SERVICE + "sales";
+	
+	public final static String POST_NEW_SHIPMENT = PAYMENT_SERVICE + "shipment/new-shipment";
+	public final static String PUT_NEW_SHIPMENT = PAYMENT_SERVICE + "shipment/shipment";
 	
 	public final static String POST_NEW_SALES_RETURN = INVOICE_SERVICE + "new-sales-return";
 	public final static String PUT_NEW_SALES_RETURN = INVOICE_SERVICE + "sales-return";
@@ -180,6 +213,11 @@ public class AppConstants {
 	public final static String POST_PURCHASE_SEARCH = INVOICE_SERVICE + "search-purchases";
 	
 	public final static String GET_VENDOR_JOIN_REQUESTS = VENDOR_SERVICE + "active-vendor-join-requests";
+	
+	public final static String POST_ADDRESSES_FROM_CART_IDS = CART_SERVICE + "addresses/cart-ids";
+	
+	public final static String POST_SALES_REPORT_3 = INVOICE_SERVICE + "sales-report";
+	public final static String POST_SALES_RETURN_REPORT_3 = INVOICE_SERVICE + "sales-return-report";
 
 	public final static String deleteVendorJoinRequest(int vendorJoinId) {
 		return VENDOR_SERVICE + "vendor-join/" + vendorJoinId;
@@ -245,13 +283,12 @@ public class AppConstants {
 		return VEHICLE_SERVICE + "model-year/" + modelYearId;
 	}
 
-	public final static String getFinalizedItems(long cartId) {
-		return CART_SERVICE + "quotation-finalized-items/cart/" + cartId;
+	
+	public final static String getCurrentFinderScore(int userId) {
+		return USER_SERVICE + "current-score/finder/" + userId;
 	}
+	
 
-	public final static String getFinalizedItemsFull(long cartId) {
-		return CART_SERVICE + "quotation-finalized-items-full/cart/" + cartId;
-	}
 
 	public final static String getCustomer(long customerId) {
 		return CUSTOMER_SERVICE + "customer/" + customerId;
@@ -311,9 +348,6 @@ public class AppConstants {
 		return CART_SERVICE + "address/cart/" + cartId;
 	}
 
-	public final static String getCartCollectionItems(long cartId) {
-		return CART_SERVICE + "collection-items/cart/" + cartId;
-	}
 	
 	public final static String putMergeCarts(long mainId, long slaveId, int userId) {
 		return CART_SERVICE + "merge-cart/main/"+mainId+"/slave/"+slaveId+"/user/" + userId;
@@ -353,6 +387,11 @@ public class AppConstants {
 	
 	public final static String getWalletsReport(int year, int month, String paymentType) {
 		return PAYMENT_SERVICE + "wallets/year/" + year + "/month/" + month + "/payment-type/" + paymentType;
+	}
+	
+
+	public final static String getShipmentsReport(int year, int month, int courierId, long cartId) {
+		return PAYMENT_SERVICE + "shipment/shipments/year/" + year + "/month/" + month + "/courier/" + courierId + "/cart/" + cartId;
 	}
 	
 	public final static String getSalesReport(int year, int month, char method) {
@@ -467,12 +506,36 @@ public class AppConstants {
 		return CART_SERVICE + "waiting-part-cart/cart/" + cartId;
 	}
 	
+	public final static String getAwaitingWallet(long walletId) {
+		return PAYMENT_SERVICE + "wallet/" + walletId + "/awaiting";
+	}
+	
+	public final static String getPurchasedWallet(long walletId) {
+		return PAYMENT_SERVICE + "wallet/" + walletId + "/purchased";
+	}
+	
 	public final static String putUpdateProductAdvanced() {
 		return PRODUCT_SERVICE + "product/set-name-id/advance";
 	}
 	
 	public final static String getProduct(long productId) {
 		return PRODUCT_SERVICE + "product/" + productId;
+	}
+	
+	public final static String getProductFull(long productId) {
+		return PRODUCT_SERVICE + "product-full/" + productId;
+	}
+	
+	public final static String getProductPurchases(long productId) {
+		return INVOICE_SERVICE + "purchase-products/product/" + productId;
+	}
+	
+	public final static String getProductWithPriceList(long productId) {
+		return PRODUCT_SERVICE + "product/" + productId + "/with-price-list";
+	}
+	
+	public final static String getProductPrice(long productPriceId) {
+		return PRODUCT_SERVICE + "product-price/" + productPriceId;
 	}
 	
 	public final static String getProductForCart(long productId, long cartId) {
@@ -514,5 +577,44 @@ public class AppConstants {
 	public final static String getWaitingQuotation(int userId) {
 		return CART_SERVICE + "waiting-quotations/user/" + userId;
 	}
+	
+	public final static String getAssignedCarts(int userId) {
+		return CART_SERVICE + "assigned-carts/user/" + userId;
+	}
+	
+	public final static String getAssignedCart(int userId, long cartId) {
+		return CART_SERVICE + "assigned-cart/user/"+userId+"/cart/" + cartId;
+	}
+	
+	
+	public final static String getSoldWalletItems(long cid) {
+		return PAYMENT_SERVICE + "wallet-items/sold/customer/" + cid;
+	}
+	
+	public final static String getIncompletePurchase(long pid) {
+		return INVOICE_SERVICE + "incomplete-purchase/" + pid;
+	}
+	
+	public final static String getVendorPayables(int id) {
+		return INVOICE_SERVICE + "payables/vendor/" + id;
+	}
+	
+	public final static String getLocationCartsCount(long from, long to, int makeId, boolean archived, boolean ordered) {
+		return PUBLIC_LOCATION_SERVICE + "carts-count"
+		+ "/from/" + from
+		+ "/to/" + to
+		+ "/make/" + makeId
+		+ "/archived/" + archived
+		+ "/ordered/" + ordered;
+	}
+	
+	public final static String getCountryRegions(int countryId) {
+		return LOCATION_SERVICE + "regions/country/" + countryId;
+	}
+	
+	public final static String getRegionVendors(int regionId) {
+		return VENDOR_SERVICE + "vendors/region/" + regionId;
+	}
+	
 	
 }

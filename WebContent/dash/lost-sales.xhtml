@@ -10,13 +10,9 @@
 	<ui:include src="/_includes/_dashboard_header" />
 </h:head>
 <h:body>
-	<p:layout fullPage="true">
-		<p:layoutUnit position="north" size="62"
-			styleClass="q-dashboard-background" id="north">
-			<ui:include src="/_includes/top_dashboard" />
-		</p:layoutUnit>
-		<ui:include src="/_includes/side" />
-		<p:layoutUnit position="center">
+<h:outputText value="#{loginBean.checkAccessRedirectHome(act.pageLostSalesReport)}" />
+	<ui:include src="/_includes/top_dashboard.xhtml" />
+	<ui:include src="/_includes/side.xhtml" />
 			<div class="w3-container">
 				<div align="center" class="w3-padding-8">
 					<h:outputText value="Lost Sales Report" styleClass="q-large-text" />
@@ -39,6 +35,8 @@
 								<f:selectItem itemLabel="2021" itemValue="#{2021}" />
 								<f:selectItem itemLabel="2022" itemValue="#{2022}" />
 								<f:selectItem itemLabel="2023" itemValue="#{2023}" />
+								<f:selectItem itemLabel="2024" itemValue="#{2024}" />
+
 							</h:selectOneMenu>
 							<h:outputText value="Month" />
 							<h:selectOneMenu value="#{lostSalesBean.month}" required="true">
@@ -99,9 +97,9 @@
 							</f:facet>
 							<h:outputText value="closed"
 								styleClass="w3-tag w3-orange w3-text-white"
-								rendered="#{cart.status eq 'S'.charAt(0)}" />
+								rendered="#{cart.status == 'S'.charAt(0}}" />
 							<h:outputText value="archived" styleClass="w3-tag w3-red"
-								rendered="#{cart.status eq 'X'.charAt(0)}" />
+								rendered="#{cart.status == 'X'.charAt(0}}" />
 						</h:column>
 						<h:column>
 							<f:facet name="header">
@@ -251,7 +249,5 @@
 					</p:dialog>
 				</div>
 			</div>
-		</p:layoutUnit>
-	</p:layout>
 </h:body>
 </html>

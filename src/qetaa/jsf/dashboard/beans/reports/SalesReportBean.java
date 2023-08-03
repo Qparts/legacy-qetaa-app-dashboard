@@ -46,7 +46,7 @@ public class SalesReportBean implements Serializable {
 			sales = r.readEntity(new GenericType<List<Sales>>() {
 			});
 		} else {
-			Helper.addErrorMessage("An error Occured");
+			Helper.addErrorMessage("An error Occured in generating sales");
 		}
 	}
 	
@@ -56,7 +56,7 @@ public class SalesReportBean implements Serializable {
 			salesReturns = r.readEntity(new GenericType<List<SalesReturn>>() {
 			});
 		} else {
-			Helper.addErrorMessage("An error Occured");
+			Helper.addErrorMessage("An error Occured in generating returns");
 		}
 	}
 	

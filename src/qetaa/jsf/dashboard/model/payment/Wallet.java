@@ -1,7 +1,13 @@
 package qetaa.jsf.dashboard.model.payment;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import qetaa.jsf.dashboard.model.cart.Cart;
 
 public class Wallet implements Serializable{
 
@@ -11,17 +17,95 @@ public class Wallet implements Serializable{
 	private long customerId;
 	private String customerName;
 	private long cartId;
+	@JsonIgnore
+	private Cart cart;
 	private char status;//A = Awaiting sales, S = Sales Made 	
 	private Date created;
 	private String gateway;//Moyassar
 	private String transactionId;//
 	private String currency;
 	private String paymentType;// creditcard, sadad, wire transfer
-	private double amount;// in halalas
 	private String ccCompany;// visa, mastercard
 	private Bank bank;
 	private Integer bankConfirmedBy;//user
 	private Double creditFees;//credit fees
+	private Double discountPercentage;
+	private List<WalletItem> walletItems;
+	private List<WalletQuotation> walletQuotations;
+	
+	
+	@JsonIgnore
+	public double getNetAmount() {
+		double amount = 0;
+		if(walletItems != null) {
+			for(WalletItem wi : walletItems) {
+				if(wi.getItemType() == 'F') {
+					amount = amount - wi.getUnitSalesNetWv(); 
+				}
+				else {
+					amount = amount + wi.getUnitSalesNetWv() * (wi.getItemType() == 'P' ? wi.getQuantity() : 1);
+				}
+			}
+		}
+		return amount;
+	}
+	
+	@JsonIgnore
+	public boolean isCreditSales() {
+		switch(paymentType) {
+			case ("wiretransfer"):
+			case ("creditcard"):
+			case ("sadad"):
+			case ("mada"):
+				return false;
+			case ("cashondelivery"):
+			case ("creditsales"):
+				return true;
+		}
+		return false;
+	}
+	
+	@JsonIgnore
+	public char getPaymentTypeChar() {
+		switch(paymentType) {
+		case ("wiretransfer"):
+			return 'R';
+		case ("creditcard"):
+			return 'C';
+		case("sadad"):
+			return 'S';
+		case("mada"):
+			return 'M';
+		case("cashondelivery"):
+			return 'D';
+		case("creditsales"):
+			return 'T'; 
+		default:
+			return 'R';
+		}
+	}
+	
+	@JsonIgnore
+	public List<WalletItem> getProductWalletItem(){
+		List<WalletItem> productItems = new ArrayList<>();
+		if(this.walletItems != null) {
+			for(WalletItem walletItem : walletItems) {
+				if(walletItem.getItemType() == 'P') {
+					productItems.add(walletItem);
+				}
+			}
+		}
+		
+		return productItems;
+	}
+
+	public List<WalletItem> getWalletItems() {
+		return walletItems;
+	}
+
+	public void setWalletItems(List<WalletItem> walletItems) {
+		this.walletItems = walletItems;
+	}
 
 	public long getId() {
 		return id;
@@ -111,12 +195,12 @@ public class Wallet implements Serializable{
 		this.paymentType = paymentType;
 	}
 
-	public double getAmount() {
-		return amount;
+	public Double getDiscountPercentage() {
+		return discountPercentage;
 	}
 
-	public void setAmount(double amount) {
-		this.amount = amount;
+	public void setDiscountPercentage(Double discountPercentage) {
+		this.discountPercentage = discountPercentage;
 	}
 
 	public String getCcCompany() {
@@ -150,5 +234,25 @@ public class Wallet implements Serializable{
 	public void setCreditFees(Double creditFees) {
 		this.creditFees = creditFees;
 	}
+
+	public Cart getCart() {
+		return cart;
+	}
+
+	public void setCart(Cart cart) {
+		this.cart = cart;
+	}
+
+	public List<WalletQuotation> getWalletQuotations() {
+		return walletQuotations;
+	}
+
+	public void setWalletQuotations(List<WalletQuotation> walletQuotations) {
+		this.walletQuotations = walletQuotations;
+	}
+	
+	
+	
+	
 	
 }

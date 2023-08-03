@@ -2,6 +2,9 @@ package qetaa.jsf.dashboard.beans.sales;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.annotation.PostConstruct;
 import javax.faces.view.ViewScoped;
@@ -11,15 +14,21 @@ import javax.ws.rs.core.Response;
 
 import qetaa.jsf.dashboard.beans.LoginBean;
 import qetaa.jsf.dashboard.beans.Requester;
+import qetaa.jsf.dashboard.beans.shipments.CourierBean;
 import qetaa.jsf.dashboard.helpers.AppConstants;
 import qetaa.jsf.dashboard.helpers.Helper;
 import qetaa.jsf.dashboard.helpers.ThreadRunner;
 import qetaa.jsf.dashboard.model.cart.Cart;
 import qetaa.jsf.dashboard.model.product.Product;
 import qetaa.jsf.dashboard.model.sales.Sales;
+import qetaa.jsf.dashboard.model.sales.SalesPayment;
 import qetaa.jsf.dashboard.model.sales.SalesProduct;
 import qetaa.jsf.dashboard.model.sales.SalesReturn;
 import qetaa.jsf.dashboard.model.sales.SalesReturnProduct;
+import qetaa.jsf.dashboard.model.sales.SalesReturnWallet;
+import qetaa.jsf.dashboard.model.shipment.Courier;
+import qetaa.jsf.dashboard.model.shipment.Shipment;
+import qetaa.jsf.dashboard.model.shipment.ShipmentItem;
 
 @Named
 @ViewScoped
@@ -31,9 +40,15 @@ public class SalesReturnBean implements Serializable {
 	private SalesProduct selectedSalesProduct;
 	private SalesReturn salesReturn;
 	private SalesReturnProduct salesReturnProduct;
+	private Shipment shipment;
+	private boolean returnDelivery;
+	private int courierId;
 
 	@Inject
 	private Requester reqs;
+
+	@Inject
+	private CourierBean courierBean;
 
 	@Inject
 	private LoginBean loginBean;
@@ -41,18 +56,68 @@ public class SalesReturnBean implements Serializable {
 	@PostConstruct
 	private void init() {
 		try {
+			shipment = new Shipment();
+			returnDelivery = false;
 			String s = Helper.getParam("id");
 			initSales(s);
 			initCart(sales.getCartId());
 			initCartVariables();
 			initProducts();
 			salesReturn = new SalesReturn();
+			salesReturn.setReturnedDeliveryFees(0D);
+			salesReturn.setVatPercentage(sales.getCart().getVatPercentage());
 			salesReturn.setSalesReturnProducts(new ArrayList<>());
 			selectedSalesProduct = new SalesProduct();
 			salesReturnProduct = new SalesReturnProduct();
 		} catch (Exception ex) {
 			ex.printStackTrace();
 			Helper.redirect("sales-return-search");
+		}
+	}
+
+	private void initShipment() {
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("customerId", this.shipment.getCustomerId());
+		map.put("addressId", this.shipment.getAddressId());
+		Response r = reqs.postSecuredRequest(AppConstants.POST_NEW_SHIPMENT, map);
+		if (r.getStatus() == 200) {
+			Long shId = r.readEntity(Long.class);
+			shipment.setId(shId);
+			shipment.setAddressId(this.getSales().getCart().getAddress().getAddressId());
+			shipment.setCreated(new Date());
+			shipment.setCreatedBy(loginBean.getUserHolder().getUser().getId());
+			shipment.setCustomerId(this.sales.getCustomerId());
+			shipment.setStatus('S');
+			shipment.setBound('I');// Inbound
+			initCourierTrackable();
+			initShipmentItems();
+			Response r2 = reqs.putSecuredRequest(AppConstants.PUT_NEW_SHIPMENT, shipment);
+			if(r2.getStatus() == 201) {
+				Helper.addInfoMessage("Shipped");
+			}
+			else {
+				Helper.addErrorMessage("An error occured");
+			}
+		}
+	}
+
+	private void initCourierTrackable() {
+		for (Courier c : this.courierBean.getCouriers()) {
+			if (c.getId() == this.shipment.getCourierId()) {
+				shipment.setTrackable(c.isTrackable());
+			}
+		}
+	}
+
+	private void initShipmentItems() {
+		shipment.setShipmentItems(new ArrayList<>());
+		for (SalesReturnProduct wi : this.salesReturn.getSalesReturnProducts()) {
+			ShipmentItem si = new ShipmentItem();
+			si.setQuantity(wi.getQuantity());
+			si.setShipmentId(shipment.getId());
+			si.setShippedBy(loginBean.getUserHolder().getUser().getId());
+			si.setWalletItemId(wi.getPurchaseProduct().getWalletItemId());
+			shipment.getShipmentItems().add(si);
 		}
 	}
 
@@ -68,21 +133,50 @@ public class SalesReturnBean implements Serializable {
 			salesReturn.setReturnBy(loginBean.getUserHolder().getUser().getId());
 			salesReturn.setPromotionId(sales.getPromotionId());
 			salesReturn.setSales(sales);
-			salesReturn.setVatPercentage(sales.getCart().getVatPercentage());
 
 			for (SalesReturnProduct srp : salesReturn.getSalesReturnProducts()) {
 				srp.setQuantity(srp.getNewQuantity());
 				srp.setSalesReturn(null);
 			}
-			Response r2 = reqs.putSecuredRequest(AppConstants.PUT_NEW_SALES_RETURN, salesReturn);
+			initSalesPayment();
+			
+			SalesReturnWallet srw = new SalesReturnWallet();
+			srw.setBankId(this.getSalesReturn().getBankId());
+			srw.setCustomerId(this.getSales().getCart().getCustomerId());
+			srw.setCustomerName(this.getSales().getCart().getCustomer().getFullName());
+			srw.setDiscountPercentage(this.getDiscountPercentage());
+			srw.setSalesReturn(this.salesReturn);
+			Response r2 = reqs.putSecuredRequest(AppConstants.PUT_NEW_SALES_RETURN, srw);
 			if (r2.getStatus() == 201) {
+				initShipment();
 				Helper.redirect("sales-return?id=" + this.sales.getId());
-				
+
 			} else {
 				Helper.addErrorMessage("could not update sales");
 			}
-
 		}
+	}
+
+	private double getDiscountPercentage() {
+		if (this.getSales().getCart().getPromoCodeObject() != null) {
+			if (this.getSales().getCart().getPromoCodeObject().isDiscountPromo()) {
+				return this.getSales().getCart().getPromoCodeObject().getDiscountPercentage();
+			}
+		}
+		return 0;
+	}
+
+	private void initSalesPayment() {
+		SalesPayment sp = new SalesPayment();
+		sp.setAmount(salesReturn.getNetSalesReturn() * -1);// negative, amount goes back to customers
+		sp.setBankId(salesReturn.getBankId());
+		sp.setMethod('R');
+		sp.setPaymentDate(new Date());
+		sp.setPaymentRef(salesReturn.getShipmentReference());
+		sp.setSales(null);
+		salesReturn.setSalesPayments(new ArrayList<>());
+		salesReturn.getSalesPayments().add(sp);
+
 	}
 
 	public void chooseSalesProduct(SalesProduct sp) {
@@ -99,11 +193,11 @@ public class SalesReturnBean implements Serializable {
 		this.salesReturnProduct.setProduct(sp.getProduct());
 		this.selectedSalesProduct = sp;
 	}
-	
+
 	public boolean isItemsAvailableForReturn() {
 		boolean found = false;
-		for(SalesProduct sp : this.sales.getSalesProducts()) {
-			if(getTotalQuantityReturnedInPreviousOrders(sp) < sp.getQuantity() ) {
+		for (SalesProduct sp : this.sales.getSalesProducts()) {
+			if (getTotalQuantityReturnedInPreviousOrders(sp) < sp.getQuantity()) {
 				found = true;
 				break;
 			}
@@ -122,7 +216,7 @@ public class SalesReturnBean implements Serializable {
 		}
 		return total;
 	}
-	
+
 	public int getTotalQuantityReturnedInPreviousOrders(SalesReturnProduct salesReturnProduct) {
 		int total = 0;
 		for (SalesReturn sr : this.sales.getSalesReturns()) {
@@ -233,6 +327,14 @@ public class SalesReturnBean implements Serializable {
 
 	}
 
+	public void chooseReturnDelivery() {
+		if (this.returnDelivery) {
+			this.salesReturn.setReturnedDeliveryFees(this.getSales().getDeliveryFees());
+		} else {
+			this.salesReturn.setReturnedDeliveryFees(0D);
+		}
+	}
+
 	public Sales getSales() {
 		return sales;
 	}
@@ -263,6 +365,30 @@ public class SalesReturnBean implements Serializable {
 
 	public void setSalesReturnProduct(SalesReturnProduct salesReturnProduct) {
 		this.salesReturnProduct = salesReturnProduct;
+	}
+
+	public boolean isReturnDelivery() {
+		return returnDelivery;
+	}
+
+	public void setReturnDelivery(boolean returnDelivery) {
+		this.returnDelivery = returnDelivery;
+	}
+
+	public int getCourierId() {
+		return courierId;
+	}
+
+	public void setCourierId(int courierId) {
+		this.courierId = courierId;
+	}
+
+	public Shipment getShipment() {
+		return shipment;
+	}
+
+	public void setShipment(Shipment shipment) {
+		this.shipment = shipment;
 	}
 
 }

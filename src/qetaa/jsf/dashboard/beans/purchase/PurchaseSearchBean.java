@@ -34,6 +34,7 @@ public class PurchaseSearchBean implements Serializable{
 	private String customerVar;
 	private String productVar;
 	private Integer makeId;
+	private Integer vendorId;
 
 	@Inject
 	private Requester reqs;
@@ -88,6 +89,7 @@ public class PurchaseSearchBean implements Serializable{
 		map.put("cartId", this.cartId);
 		map.put("makeId", this.makeId);
 		map.put("customerIds", customers);
+		map.put("vendorId", this.vendorId);
 		if (from == null) {
 			map.put("from", 0);
 		} else {
@@ -233,4 +235,14 @@ public class PurchaseSearchBean implements Serializable{
 	public void setMakeId(Integer makeId) {
 		this.makeId = makeId;
 	}
+
+	public Integer getVendorId() {
+		return vendorId;
+	}
+
+	public void setVendorId(Integer vendorId) {
+		this.vendorId = vendorId;
+	}
+	
+	
 }

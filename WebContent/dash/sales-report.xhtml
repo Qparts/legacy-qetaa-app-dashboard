@@ -10,13 +10,9 @@
 	<ui:include src="/_includes/_dashboard_header" />
 </h:head>
 <h:body>
-	<p:layout fullPage="true">
-		<p:layoutUnit position="north" size="62"
-			styleClass="q-dashboard-background" id="north">
-			<ui:include src="/_includes/top_dashboard" />
-		</p:layoutUnit>
-		<ui:include src="/_includes/side" />
-		<p:layoutUnit position="center">
+<h:outputText value="#{loginBean.checkAccessRedirectHome(act.pageWalletsReport)}" />
+	<ui:include src="/_includes/top_dashboard.xhtml" />
+	<ui:include src="/_includes/side.xhtml" />
 			<div class="w3-container">
 				<div align="center" class="w3-padding-8">
 					<h:outputText value="Sales Report" styleClass="q-large-text" />
@@ -40,6 +36,7 @@
 								<f:selectItem itemLabel="2021" itemValue="#{2021}" />
 								<f:selectItem itemLabel="2022" itemValue="#{2022}" />
 								<f:selectItem itemLabel="2023" itemValue="#{2023}" />
+								<f:selectItem itemLabel="2024" itemValue="#{2024}" />
 							</h:selectOneMenu>
 							<h:outputText value="Month" />
 							<h:selectOneMenu value="#{paymentReportBean.month}"
@@ -224,7 +221,5 @@
 					</h:dataTable>
 				</div>
 			</div>
-		</p:layoutUnit>
-	</p:layout>
 </h:body>
 </html>

@@ -36,8 +36,6 @@ public class PartsPayment implements Serializable{
 	public PartsPayment(WireTransfer wtf) {
 		this.customerId = wtf.getCustomerId();
 		this.cartId = wtf.getCartId();
-		this.walletType = 'P';
-		this.walletStatus = 'F';
 		this.status = 'P';
 		this.index = 1;
 		this.created = new Date();

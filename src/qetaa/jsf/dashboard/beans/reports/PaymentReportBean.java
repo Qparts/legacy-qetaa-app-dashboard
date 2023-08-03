@@ -43,7 +43,6 @@ public class PaymentReportBean implements Serializable {
 	private void initAllDiscountPromoCodes() {
 		discountPromos = new ArrayList<>();
 		Response r = reqs.getSecuredRequest(AppConstants.GET_ALL_DISCOUNT_PROMOTION_CODES);
-		System.out.println(r.getStatus());
 		if(r.getStatus() == 200) {
 			this.discountPromos = r.readEntity(new GenericType<List<PromotionCode>>() {});
 		}

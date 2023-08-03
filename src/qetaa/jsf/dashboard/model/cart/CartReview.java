@@ -23,7 +23,18 @@ public class CartReview implements Serializable {
 	private Integer boughtCity;
 	private Date reminderDate;
 	private User reviewer;
-	private Integer stage;//1 = no vin, 2 = quotation, 3 = follow up, 4 = wire transfer, 5 = open archived or closed
+	private Integer stage;//1 = no vin, 2 = quotation, 3 = follow up, 4 = wire transfer, 5 = open archived or closed, 6 = wallet awaiting, 7 = wallet sales
+	private boolean visibleToCustomer;
+	
+	
+	
+	public boolean isVisibleToCustomer() {
+		return visibleToCustomer;
+	}
+
+	public void setVisibleToCustomer(boolean visibleToCustomer) {
+		this.visibleToCustomer = visibleToCustomer;
+	}
 
 	@JsonIgnore
 	public char getStatusFromActionValue() {

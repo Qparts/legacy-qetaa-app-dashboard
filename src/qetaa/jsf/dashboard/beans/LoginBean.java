@@ -11,6 +11,7 @@ import javax.inject.Inject;
 import javax.inject.Named;
 import javax.ws.rs.core.Response;
 
+import net.sf.jasperreports.engine.JRException;
 import qetaa.jsf.dashboard.helpers.AppConstants;
 import qetaa.jsf.dashboard.helpers.Helper;
 import qetaa.jsf.dashboard.model.user.User;
@@ -29,11 +30,22 @@ public class LoginBean implements Serializable{
 	private Requester reqs;
 	
 	@PostConstruct
-	private void init(){
+	private void init() throws JRException{
 		userHolder = new UserHolder();
 		userHolder.setUser(new User());
 	}
 	
+	public void checkAccessRedirectHomeL(List<String> ids) {
+		if(!hasAccessL(ids)) {
+			Helper.redirect("home");
+		}
+	}
+	
+	public void checkAccessRedirectHome(int id) {
+		if(!hasAccess(id)) {
+			Helper.redirect("home");
+		}
+	}
 	
 	public boolean hasAccess(int id) {
 		return userHolder.hasAccess(id);
@@ -54,6 +66,10 @@ public class LoginBean implements Serializable{
 		return userHolder.hasAccess(Integer.parseInt(id));
 	}
 	
+	
+	public int getLoggedUserId() {
+		return this.getUserHolder().getUser().getId();
+	}
 	
 	public void login(){
 		HashMap<String,Object> map = new HashMap<>();

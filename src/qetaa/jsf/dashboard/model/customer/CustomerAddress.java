@@ -18,9 +18,39 @@ public class CustomerAddress implements Serializable{
 	private String zipCode;
 	private Date created;
 	private Integer createdBy;
+	private Character status;//A = active, I = archived
+	private Double latitude;
+	private Double longitude;
+	private String title;
 	@JsonIgnore
 	private City city;
 	
+	
+	
+	public Character getStatus() {
+		return status;
+	}
+	public void setStatus(Character status) {
+		this.status = status;
+	}
+	public Double getLatitude() {
+		return latitude;
+	}
+	public void setLatitude(Double latitude) {
+		this.latitude = latitude;
+	}
+	public Double getLongitude() {
+		return longitude;
+	}
+	public void setLongitude(Double longitude) {
+		this.longitude = longitude;
+	}
+	public String getTitle() {
+		return title;
+	}
+	public void setTitle(String title) {
+		this.title = title;
+	}
 	public City getCity() {
 		return city;
 	}
