@@ -3,7 +3,7 @@ package qetaa.jsf.dashboard.helpers;
 public class WebsocketLinks {
 
 	//private static final String BASE = "ws://localhost:8081/";
-	private static final String BASE = "wss://www.qetaa.com/";
+	private static final String BASE = "ws://157.175.161.41/";
 	private static final String CART_SERVICE_WS = BASE + "service-qetaa-cart/ws/";
 	
 	
