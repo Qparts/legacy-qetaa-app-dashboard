@@ -64,35 +64,35 @@
 											readonly="true" />
 										<h:outputText value="Status" />
 										<h:outputText value="new order" styleClass="w3-tag w3-yellow"
-											rendered="#{cartDetailsBean.cart.status eq 'N'.charAt(0}}" />
+											rendered="#{cartDetailsBean.cart.status eq 'N'.charAt(0)}" />
 										<h:outputText value="new order" styleClass="w3-tag w3-indigo"
-											rendered="#{cartDetailsBean.cart.status eq 'W'.charAt(0}}" />
+											rendered="#{cartDetailsBean.cart.status eq 'W'.charAt(0)}" />
 										<h:outputText value="ready for submission"
 											styleClass="w3-tag w3-light-green"
-											rendered="#{cartDetailsBean.cart.status eq 'R'.charAt(0}}" />
+											rendered="#{cartDetailsBean.cart.status eq 'R'.charAt(0)}" />
 										<h:outputText value="closed"
 											styleClass="w3-tag w3-orange w3-text-white"
-											rendered="#{cartDetailsBean.cart.status eq 'O'.charAt(0}}" />
+											rendered="#{cartDetailsBean.cart.status eq 'O'.charAt(0)}" />
 										<h:outputText value="closed" styleClass="w3-tag w3-teal"
-											rendered="#{cartDetailsBean.cart.status eq 'A'.charAt(0}}" />
+											rendered="#{cartDetailsBean.cart.status eq 'A'.charAt(0)}" />
 										<h:outputText value="follow Up" styleClass="w3-tag w3-brown"
-											rendered="#{cartDetailsBean.cart.status == 'S'.charAt(0}}" />
+											rendered="#{cartDetailsBean.cart.status == 'S'.charAt(0)}" />
 										<h:outputText value="Wire Transfer"
 											styleClass="w3-tag w3-light-blue"
-											rendered="#{cartDetailsBean.cart.status == 'T'.charAt(0}}" />
+											rendered="#{cartDetailsBean.cart.status == 'T'.charAt(0)}" />
 										<h:outputText value="Under Collection"
 											styleClass="w3-tag w3-blue-grey"
-											rendered="#{cartDetailsBean.cart.status == 'P'.charAt(0}}" />
+											rendered="#{cartDetailsBean.cart.status == 'P'.charAt(0)}" />
 										<h:outputText value="Under Collection"
 											styleClass="w3-tag w3-blue-grey"
-											rendered="#{cartDetailsBean.cart.status eq 'E'.charAt(0}}" />
+											rendered="#{cartDetailsBean.cart.status eq 'E'.charAt(0)}" />
 										<h:outputText value="Ready for Shipment"
 											styleClass="w3-tag w3-pale-green"
-											rendered="#{cart.status == 'V'.charAt(0}}" />
+											rendered="#{cart.status == 'V'.charAt(0)}" />
 										<h:outputText value="shipped" styleClass="w3-tag w3-green"
-											rendered="#{cartDetailsBean.cart.status eq 'H'.charAt(0}}" />
+											rendered="#{cartDetailsBean.cart.status eq 'H'.charAt(0)}" />
 										<h:outputText value="archived" styleClass="w3-tag w3-red"
-											rendered="#{cartDetailsBean.cart.status == 'X'.charAt(0}}" />
+											rendered="#{cartDetailsBean.cart.status == 'X'.charAt(0)}" />
 									</h:panelGrid>
 									<h:panelGrid columns="2">
 										<h:outputText value="Name" />
@@ -221,28 +221,28 @@
 											<h:inputText readonly="true" styleClass="w3-text-grey"
 												rendered="#{quotation.createdBy eq 0}" value="Customer" />
 											<h:outputText value="Created On "
-												rendered="#{quotation.status != 'N'.charAt(0}}" />
+												rendered="#{quotation.status != 'N'.charAt(0)}" />
 											<h:inputText readonly="true" styleClass="w3-text-grey"
 												value="#{quotation.created}"
-												rendered="#{quotation.status != 'N'.charAt(0}}">
+												rendered="#{quotation.status != 'N'.charAt(0)}">
 												<f:convertDateTime pattern="dd-MMM-yyyy HH:mm" />
 											</h:inputText>
 											<h:outputText value="Deadline"
-												rendered="#{quotation.status != 'N'.charAt(0}}" />
+												rendered="#{quotation.status != 'N'.charAt(0)}" />
 											<h:inputText readonly="true" styleClass="w3-text-grey"
 												value="#{quotation.deadline}"
-												rendered="#{quotation.status != 'N'.charAt(0}}">
+												rendered="#{quotation.status != 'N'.charAt(0)}">
 												<f:convertDateTime pattern="dd-MMM-yyyy HH:mm" />
 											</h:inputText>
 											<h:outputText value="Status " />
 											<h:outputText value="Under Review"
 												styleClass="w3-tag w3-orange w3-text-white"
-												rendered="#{quotation.status == 'N'.charAt(0}}" />
+												rendered="#{quotation.status == 'N'.charAt(0)}" />
 											<h:outputText value="Waiting for Vendors"
 												styleClass="w3-tag w3-indigo"
-												rendered="#{quotation.status == 'W'.charAt(0}}" />
+												rendered="#{quotation.status == 'W'.charAt(0)}" />
 											<h:outputText value="Completed" styleClass="w3-tag w3-green"
-												rendered="#{quotation.status == 'C'.charAt(0}}" />
+												rendered="#{quotation.status == 'C'.charAt(0)}" />
 										</h:panelGrid>
 										<br />
 										<h:dataTable id="table" rendered="true"
@@ -279,7 +279,7 @@
 													<h:outputText value="#{res.product.productNumber}" />
 													<h:outputText value="N/A"
 														styleClass="w3-tag w3-orange w3-text-white"
-														rendered="#{res.status eq 'N'.charAt(0}}" />
+														rendered="#{res.status eq 'N'.charAt(0)}" />
 												</ui:repeat>
 												<h:outputText
 													rendered="#{item.quotationItemResponses.size() eq 0}"
@@ -295,15 +295,15 @@
 													rendered="#{item.quotationItemResponses.size() gt 0}">
 													<h:outputText value="#{res.productPrice.costPriceWv}"
 														styleClass="w3-tag w3-green"
-														rendered="#{item.status eq 'C'.charAt(0}}">
+														rendered="#{item.status eq 'C'.charAt(0)}">
 														<f:convertNumber currencySymbol="SR " type="currency" />
 													</h:outputText>
 													<h:outputText value="Incomplete"
 														styleClass="w3-tag w3-orange w3-text-white"
-														rendered="#{res.status eq 'I'.charAt(0}}" />
+														rendered="#{res.status eq 'I'.charAt(0)}" />
 													<h:outputText value="N/A"
 														styleClass="w3-tag w3-orange w3-text-white"
-														rendered="#{res.status eq 'N'.charAt(0}}" />
+														rendered="#{res.status eq 'N'.charAt(0)}" />
 												</ui:repeat>
 												<h:outputText
 													rendered="#{item.quotationItemResponses.size() eq 0}"
@@ -320,7 +320,7 @@
 
 							<p:panel toggleable="true" header="Approved Quotation"
 								collapsed="false" toggleSpeed="100"
-								rendered="#{cartDetailsBean.cart.status eq 'S'.charAt(0} or cartDetailsBean.cart.status eq 'R'.charAt(0} or cartDetailsBean.cart.status eq 'O'.charAt(0} or cartDetailsBean.cart.status eq 'P'.charAt(0} or cartDetailsBean.cart.status eq 'T'.charAt(0} or cartDetailsBean.cart.status eq 'V'.charAt(0} or cartDetailsBean.cart.status eq 'E'.charAt(0} or cartDetailsBean.cart.status eq 'H'.charAt(0} or cartDetailsBean.cart.status eq 'F'.charAt(0}}">
+								rendered="#{cartDetailsBean.cart.status eq 'S'.charAt(0) or cartDetailsBean.cart.status eq 'R'.charAt(0) or cartDetailsBean.cart.status eq 'O'.charAt(0) or cartDetailsBean.cart.status eq 'P'.charAt(0) or cartDetailsBean.cart.status eq 'T'.charAt(0) or cartDetailsBean.cart.status eq 'V'.charAt(0) or cartDetailsBean.cart.status eq 'E'.charAt(0) or cartDetailsBean.cart.status eq 'H'.charAt(0) or cartDetailsBean.cart.status eq 'F'.charAt(0)}">
 								<h:dataTable styleClass="w3-table w3-striped w3-border"
 									headerClass="w3-border-bottom w3-light-grey"
 									footerClass="w3-border-bottom w3-light-grey"
@@ -389,7 +389,7 @@
 							<br />
 							<p:panel toggleable="true" header="Parts Order" collapsed="false"
 								toggleSpeed="100"
-								rendered="#{cartDetailsBean.cart.status eq 'P'.charAt(0} or cartDetailsBean.cart.status eq 'V'.charAt(0} or cartDetailsBean.cart.status eq 'E'.charAt(0} or cartDetailsBean.cart.status eq 'H'.charAt(0} or cartDetailsBean.cart.status eq 'F'.charAt(0}}">
+								rendered="#{cartDetailsBean.cart.status eq 'P'.charAt(0) or cartDetailsBean.cart.status eq 'V'.charAt(0) or cartDetailsBean.cart.status eq 'E'.charAt(0) or cartDetailsBean.cart.status eq 'H'.charAt(0) or cartDetailsBean.cart.status eq 'F'.charAt(0)}">
 								<h:panelGrid columns="2">
 									<h:outputText value="Order Date" />
 									<h:inputText value="#{cartDetailsBean.cart.partsOrder.created}"
@@ -508,7 +508,7 @@
 							</p:panel>
 							<br />
 							<p:panel toggleable="true" header="Payment Information"
-								rendered="#{cartDetailsBean.cart.status eq 'P'.charAt(0} or cartDetailsBean.cart.status eq 'V'.charAt(0} or cartDetailsBean.cart.status eq 'E'.charAt(0} or cartDetailsBean.cart.status eq 'H'.charAt(0} or cartDetailsBean.cart.status eq 'F'.charAt(0}}"
+								rendered="#{cartDetailsBean.cart.status eq 'P'.charAt(0) or cartDetailsBean.cart.status eq 'V'.charAt(0) or cartDetailsBean.cart.status eq 'E'.charAt(0) or cartDetailsBean.cart.status eq 'H'.charAt(0) or cartDetailsBean.cart.status eq 'F'.charAt(0)}"
 								collapsed="false" toggleSpeed="100">
 								<h:panelGrid columns="2"
 									styleClass="w3-table w3-striped w3-border">
@@ -618,13 +618,13 @@
 						</h:outputText>
 						<h:outputText value="Status" />
 						<h:outputText
-							rendered="#{cartDetailsBean.selectedVendorItem.status eq 'W'.charAt(0}}"
+							rendered="#{cartDetailsBean.selectedVendorItem.status eq 'W'.charAt(0)}"
 							value="waiting" styleClass="w3-tag w3-indigo" />
 						<h:outputText
-							rendered="#{cartDetailsBean.selectedVendorItem.status eq 'C'.charAt(0}}"
+							rendered="#{cartDetailsBean.selectedVendorItem.status eq 'C'.charAt(0)}"
 							value="completed" styleClass="w3-tag w3-green" />
 						<h:outputText
-							rendered="#{cartDetailsBean.selectedVendorItem.status eq 'N'.charAt(0}}"
+							rendered="#{cartDetailsBean.selectedVendorItem.status eq 'N'.charAt(0)}"
 							value="N/A" styleClass="w3-tag w3-red" />
 						<h:outputText value="Vendor" />
 						<h:outputText

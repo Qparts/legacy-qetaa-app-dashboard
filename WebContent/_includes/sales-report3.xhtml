@@ -352,9 +352,9 @@
 								<h:outputText value="Type" />
 							</f:facet>
 							<h:outputText
-								rendered="#{sales.salesPayments.get(0).method eq 'R'.charAt(0}}" value="W" />
+								rendered="#{sales.salesPayments.get(0).method eq 'R'.charAt(0)}" value="W" />
 							<h:outputText
-								rendered="#{sales.salesPayments.get(0).method eq 'C'.charAt(0}}" value="C" />
+								rendered="#{sales.salesPayments.get(0).method eq 'C'.charAt(0)}" value="C" />
 						</h:column>
 						<h:column>
 							<f:facet name="header">
@@ -362,7 +362,7 @@
 							</f:facet>
 							<h:outputText
 								value="#{banksBean.getBankFromId(holder.sales.salesPayments.get(0).bankId).name}"
-								rendered="#{(holder.sales.salesPayments.size() gt 0) and (holder.sales.salesPayments.get(0).method eq 'R'.charAt(0})}" />
+								rendered="#{(holder.sales.salesPayments.size() gt 0) and (holder.sales.salesPayments.get(0).method eq 'R'.charAt(0))}" />
 						</h:column>
 					</h:dataTable>
 
@@ -487,9 +487,9 @@
 							<f:facet name="header">
 								<h:outputText value="Type" />
 							</f:facet>
-							<h:outputText rendered="#{sreturn.salesReturn.method eq 'R'.charAt(0}}"
+							<h:outputText rendered="#{sreturn.salesReturn.method eq 'R'.charAt(0)}"
 								value="W" />
-							<h:outputText rendered="#{sreturn.salesReturn.method eq 'C'.charAt(0}}"
+							<h:outputText rendered="#{sreturn.salesReturn.method eq 'C'.charAt(0)}"
 								value="C" />
 						</h:column>
 						<h:column>
@@ -497,7 +497,7 @@
 								<h:outputText value="Bank" />
 							</f:facet>
 							<h:outputText value="#{banksBean.getBankFromId(sr.bankId).name}"
-								rendered="#{sr.method eq 'R'.charAt(0}}" />
+								rendered="#{sr.method eq 'R'.charAt(0)}" />
 						</h:column>
 					</h:dataTable>
 				</div>
